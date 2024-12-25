@@ -87,6 +87,51 @@
         background-color: #444;
         color: white;
       }
+
+
+
+      .featured-section {
+        padding: 50px 20px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .featured-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        display: inline-block;
+      }
+
+      .featured-section h2::before,
+      .featured-section h2::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 2px;
+        background-color: #333;
+      }
+
+      .featured-section h2::before {
+        left: -60px;
+      }
+
+      .featured-section h2::after {
+        right: -60px;
+      }
+
+      .featured-section p {
+        font-size: 1rem;
+        color: #555;
+        font-style: italic;
+        margin-top: -10px;
+      }
+
+
     </style>
   </head>
   <body>
@@ -128,11 +173,17 @@
       />
     </div>
 
-    <div class="scroller">
+
+
+    <section class="featured-section">
+      <h2>upcoming Offline Events</h2>
+      <p>Discover the talents behind the masterpieces</p>
+    
+      <div class="scroller">
       <!-- Add 12 cards -->
       <div class="card">
         <img
-          src="https://via.placeholder.com/300x200.png?text=Sculpture+Exhibition"
+          src="https://i.pinimg.com/736x/fe/1b/6d/fe1b6dbecf9616490acd6eb465c25e48.jpg"
           alt="Sculpture Exhibition"
         />
         <div class="card-details">
@@ -144,7 +195,7 @@
       </div>
       <div class="card">
         <img
-          src="https://via.placeholder.com/300x200.png?text=Painting+Workshop"
+          src="https://i.pinimg.com/736x/a1/3e/25/a13e25eb158e80e1144caee6cbeaefaf.jpg"
           alt="Painting Workshop"
         />
         <div class="card-details">
@@ -156,7 +207,7 @@
       </div>
       <div class="card">
         <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          src="https://i.pinimg.com/736x/4c/20/de/4c20def9197e065fd274795454ffac5c.jpg"
           alt="Photography Meetup"
         />
         <div class="card-details">
@@ -168,7 +219,7 @@
       </div>
       <div class="card">
         <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          src="https://i.pinimg.com/736x/b2/17/47/b217472c84ae54592acfb8b117780fa2.jpg"
           alt="Photography Meetup"
         />
         <div class="card-details">
@@ -180,67 +231,7 @@
       </div>
       <div class="card">
         <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
-          alt="Photography Meetup"
-        />
-        <div class="card-details">
-          <h3>Photography Meetup</h3>
-          <p>Date: March 12, 2024</p>
-          <p>Venue: Urban Gallery</p>
-          <p>Category: Photography</p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
-          alt="Photography Meetup"
-        />
-        <div class="card-details">
-          <h3>Photography Meetup</h3>
-          <p>Date: March 12, 2024</p>
-          <p>Venue: Urban Gallery</p>
-          <p>Category: Photography</p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
-          alt="Photography Meetup"
-        />
-        <div class="card-details">
-          <h3>Photography Meetup</h3>
-          <p>Date: March 12, 2024</p>
-          <p>Venue: Urban Gallery</p>
-          <p>Category: Photography</p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
-          alt="Photography Meetup"
-        />
-        <div class="card-details">
-          <h3>Photography Meetup</h3>
-          <p>Date: March 12, 2024</p>
-          <p>Venue: Urban Gallery</p>
-          <p>Category: Photography</p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
-          alt="Photography Meetup"
-        />
-        <div class="card-details">
-          <h3>Photography Meetup</h3>
-          <p>Date: March 12, 2024</p>
-          <p>Venue: Urban Gallery</p>
-          <p>Category: Photography</p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          src="https://i.pinimg.com/736x/4a/88/d1/4a88d1392deb156c54a9de0c1a04ec14.jpg"
           alt="Photography Meetup"
         />
         <div class="card-details">
@@ -252,6 +243,121 @@
       </div>
       <!-- Repeat for additional 9 cards -->
     </div>
+  </section>
+
+
+
+  <section class="featured-section">
+    <h2>upcoming Online Events</h2>
+    <p>Discover the talents behind the masterpieces</p>
+  
+    <div class="scroller">
+    <!-- Add 12 cards -->
+    <div class="card">
+      <img
+        src="https://thumbs2.follow.art/thumbs/event_list_xxxl/pieces-thubnail-666-x-400-px-673b9b0fca083920734255.jpg"
+        alt="Sculpture Exhibition"
+      />
+      <div class="card-details">
+        <h3>Sculpture Exhibition</h3>
+        <p>Date: January 15, 2024</p>
+        <p>Venue: Downtown Art Center</p>
+        <p>Category: Sculpture</p>
+      </div>
+    </div>
+    <div class="card">
+      <img
+        src="https://thumbs2.follow.art/thumbs/event_list_xxl/8b92d5a7-344c-4e8f-acad-27b33d884301-6768ac781d2b8547885942.jpg"
+        alt="Painting Workshop"
+      />
+      <div class="card-details">
+        <h3>Painting Workshop</h3>
+        <p>Date: February 5, 2024</p>
+        <p>Venue: Creative Arts Studio</p>
+        <p>Category: Painting</p>
+      </div>
+    </div>
+    <div class="card">
+      <img
+        src="https://thumbs2.follow.art/thumbs/event_list_xxxl/locandina-sara-thumbnail-674ecf2b97b4e516579006.jpg"
+        alt="Photography Meetup"
+      />
+      <div class="card-details">
+        <h3>Photography Meetup</h3>
+        <p>Date: March 12, 2024</p>
+        <p>Venue: Urban Gallery</p>
+        <p>Category: Photography</p>
+      </div>
+    </div>
+    <div class="card">
+      <img
+        src="https://thumbs2.follow.art/thumbs/event_list_xxxl/thumbnail-666-x-400-px-673744768c385236941491.jpg"
+        alt="Photography Meetup"
+      />
+      <div class="card-details">
+        <h3>Photography Meetup</h3>
+        <p>Date: March 12, 2024</p>
+        <p>Venue: Urban Gallery</p>
+        <p>Category: Photography</p>
+      </div>
+    </div>
+    <!-- Repeat for additional 9 cards -->
+  </div>
+</section>
+
+
+<section class="featured-section">
+  <h2>Past Events</h2>
+  <p>Discover the talents behind the masterpieces</p>
+
+  <div class="scroller">
+  <!-- Add 12 cards -->
+  
+  <div class="card">
+    <img
+      src="https://i.pinimg.com/736x/9d/c7/2f/9dc72fc53cd7f5dd2a9a3370d3fc2b4a.jpg"
+      alt="Photography Meetup"
+    />
+    <div class="card-details">
+      <h3>Photography Meetup</h3>
+      <p>Date: March 12, 2024</p>
+      <p>Venue: Urban Gallery</p>
+      <p>Category: Photography</p>
+    </div>
+  </div>
+  <div class="card">
+    <img
+      src="https://i.pinimg.com/736x/71/8a/7c/718a7c64fd9dabf15744a4bb75a4f6c1.jpg"
+      alt="Photography Meetup"
+    />
+    <div class="card-details">
+      <h3>Photography Meetup</h3>
+      <p>Date: March 12, 2024</p>
+      <p>Venue: Urban Gallery</p>
+      <p>Category: Photography</p>
+    </div>
+  </div>
+  <div class="card">
+    <img
+      src="https://i.pinimg.com/736x/03/b5/ab/03b5ab446c1606ac6b337cac71d7a4e4.jpg"
+      alt="Photography Meetup"
+    />
+    <div class="card-details">
+      <h3>Photography Meetup</h3>
+      <p>Date: March 12, 2024</p>
+      <p>Venue: Urban Gallery</p>
+      <p>Category: Photography</p>
+    </div>
+  </div>
+  <!-- Repeat for additional 9 cards -->
+</div>
+</section>
+
+
+
+<section class="featured-section">
+  <h2>Event Calender</h2>
+  <p>Discover the talents behind the masterpieces</p>
 
     <table class="event-table">
       <thead>
@@ -261,6 +367,7 @@
           <th>Time</th>
           <th>Venue</th>
           <th>Category</th>
+          <th>Mode</th>
         </tr>
       </thead>
       <tbody>
@@ -271,6 +378,7 @@
           <td>10:00 AM</td>
           <td>Downtown Art Center</td>
           <td>Sculpture</td>
+          <td>Online</td>
         </tr>
         <tr>
           <td>Painting Workshop</td>
@@ -278,6 +386,7 @@
           <td>2:00 PM</td>
           <td>Creative Arts Studio</td>
           <td>Painting</td>
+          <td>Offline</td>
         </tr>
         <tr>
           <td>Photography Meetup</td>
@@ -285,12 +394,50 @@
           <td>4:00 PM</td>
           <td>Urban Gallery</td>
           <td>Photography</td>
+          <td>Online</td>
         </tr>
+        <tr>
+          <td>Photography Meetup</td>
+          <td>March 12, 2024</td>
+          <td>4:00 PM</td>
+          <td>Urban Gallery</td>
+          <td>Photography</td>
+          <td>Online</td>
+        </tr>
+        <tr>
+          <td>Photography Meetup</td>
+          <td>March 12, 2024</td>
+          <td>4:00 PM</td>
+          <td>Urban Gallery</td>
+          <td>Photography</td>
+          <td>Online</td>
+        </tr>
+        <tr>
+          <td>Photography Meetup</td>
+          <td>March 12, 2024</td>
+          <td>4:00 PM</td>
+          <td>Urban Gallery</td>
+          <td>Photography</td>
+          <td>Online</td>
+        </tr>
+        <tr>
+          <td>Photography Meetup</td>
+          <td>March 12, 2024</td>
+          <td>4:00 PM</td>
+          <td>Urban Gallery</td>
+          <td>Photography</td>
+          <td>Online</td>
+        </tr>
+        
         <!-- Repeat for additional 9 rows -->
       </tbody>
     </table>
+</section>
 
-    <footer class="footer-section">
+
+
+
+<footer class="footer-section">
       <div class="footer-content">
         <div class="footer-logo">
             <a href="/">
