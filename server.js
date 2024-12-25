@@ -60,7 +60,6 @@ const server = http.createServer((req, res) => {
             contentType = "image/gif";
             break;
           case ".html":
-            // If you ever serve an HTML file from /public
             contentType = "text/html";
             break;
           // add other content types as needed
@@ -189,103 +188,51 @@ const server = http.createServer((req, res) => {
     // --- POST Requests ---
   } else if (req.method === "POST") {
     switch (pathname) {
-      /**
-       * LOGIN
-       */
-      case "/login": {
+      // Artwork Upload
+      case "/upload-artwork": {
         let body = "";
         req.on("data", (chunk) => (body += chunk));
         req.on("end", () => {
-          const { username, password } = querystring.parse(body);
-          const usersPath = path.join(__dirname, "data", "users.json");
+          const parsedData = querystring.parse(body);
+          const { title, description, dimensions, author, location, price, image } = parsedData;
+          const newArtwork = {
+            title,
+            description,
+            dimensions,
+            author,
+            location,
+            price: parseFloat(price),
+            image,
+          };
 
-          fs.readFile(usersPath, "utf8", (err, data) => {
-            if (err) {
-              res.writeHead(500, { "Content-Type": "text/plain" });
-              return res.end("Server error reading users.json");
-            }
+          const artworkPath = path.join(__dirname, "data", "artwork.json");
 
-            let users = [];
-            try {
-              users = JSON.parse(data);
-            } catch (parseErr) {
-              res.writeHead(500, { "Content-Type": "text/plain" });
-              return res.end("Error parsing users.json");
-            }
-
-            // Validate user
-            const user = users.find((u) => u.username === username);
-            if (!user) {
-              // If user not found, redirect to register
-              res.writeHead(302, { Location: "/register" });
-              return res.end();
-            }
-
-            // If password is incorrect
-            if (password !== user.password) {
-              res.writeHead(401, { "Content-Type": "text/plain" });
-              return res.end("Invalid credentials (wrong password)");
-            }
-
-            // If successful, redirect to dashboard
-            res.writeHead(302, { Location: "/dashboard" });
-            res.end();
-          });
-        });
-        break;
-      }
-
-      /**
-       * REGISTER
-       */
-      case "/register": {
-        let body = "";
-        req.on("data", (chunk) => (body += chunk));
-        req.on("end", () => {
-          const { username, password } = querystring.parse(body);
-          const usersPath = path.join(__dirname, "data", "users.json");
-
-          fs.readFile(usersPath, "utf8", (err, data) => {
-            // On read error, we still allow writing new data (like original logic)
-            let users = [];
-            if (!err) {
+          fs.readFile(artworkPath, "utf8", (err, data) => {
+            let artworks = [];
+            if (!err && data) {
               try {
-                users = JSON.parse(data);
-              } catch (parseErr) {
-                // If file is empty or invalid JSON, assume empty array
-                users = [];
+                artworks = JSON.parse(data);
+              } catch {
+                console.error("Error parsing artwork.json. Defaulting to an empty array.");
               }
             }
 
-            // Check if user already exists
-            const existing = users.find((u) => u.username === username);
-            if (existing) {
-              res.writeHead(400, { "Content-Type": "text/plain" });
-              return res.end("Username already taken");
-            }
+            artworks.push(newArtwork);
 
-            // Add new user
-            users.push({ username, password });
-            fs.writeFile(
-              usersPath,
-              JSON.stringify(users, null, 2),
-              (errWrite) => {
-                if (errWrite) {
-                  res.writeHead(500, { "Content-Type": "text/plain" });
-                  return res.end("Error writing to users.json");
-                }
-                // Success: redirect to /login
-                res.writeHead(302, { Location: "/login" });
-                res.end();
+            fs.writeFile(artworkPath, JSON.stringify(artworks, null, 2), (errWrite) => {
+              if (errWrite) {
+                res.writeHead(500, { "Content-Type": "text/plain" });
+                return res.end("Error saving artwork.");
               }
-            );
+              res.writeHead(302, { Location: "/sell" });
+              res.end();
+            });
           });
         });
         break;
       }
 
       default:
-        // If no POST route matched
         res.writeHead(404, { "Content-Type": "text/plain" });
         res.end("404 - Not Found");
         break;

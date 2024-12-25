@@ -1,114 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell Your Art</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sell Art</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .sell-form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-        .sell-form-container h2 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea, 
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .form-group textarea {
-            resize: none;
-            height: 80px;
-        }
-        .form-group button {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-        }
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fafafa;
+        color: #333;
+      }
+
+      .sell-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        display: flex;
+        gap: 2rem;
+      }
+
+      .image-preview-section {
+        flex: 1;
+        background-color: #fff;
+        border: 1px solid #eee;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .image-preview-section h2 {
+        margin-bottom: 1rem;
+      }
+
+      .image-preview-section img {
+        max-width: 100%;
+        height: auto;
+        display: none;
+        margin-top: 1rem;
+      }
+
+      .form-section {
+        flex: 2;
+        background-color: #fff;
+        border: 1px solid #eee;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      .form-section h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .form-section form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form-section input,
+      .form-section textarea {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .form-section button {
+        background-color: green;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
     </style>
-</head>
-<body>
-
-<div class="sell-form-container">
-    <h2>Sell Your Art</h2>
-    <form action="/submit-art" method="POST" enctype="multipart/form-data">
-        <!-- Upload Artwork -->
-        <div class="form-group">
-            <label for="artwork">Upload Artwork</label>
-            <input type="file" id="artwork" name="artwork" accept="image/*" required>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <a href="/#about">About Us</a>
         </div>
-
-        <!-- Title -->
-        <div class="form-group">
-            <label for="title">Art Title</label>
-            <input type="text" id="title" name="title" placeholder="Enter the title of your art" required>
+        <div class="header-center">
+          <a href="/gallery">Gallery</a>
+          <a href="/artists">Artists</a>
+          <a href="/news">News</a>
+          <a href="/">
+            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+          </a>
+          <a href="/buy">Buy</a>
+          <a href="/sell">Sell</a> 
+          <a href="/events">Events</a>
         </div>
-
-        <!-- Description -->
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" placeholder="Describe your art"></textarea>
+        <div class="header-right">
+          <a href="/login"><i class="fas fa-user"></i></a>
+          <a href="/favorites"><i class="fas fa-heart"></i></a>
+          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
         </div>
+      </div>
+    </header>
 
-        <!-- Category -->
-        <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" name="category" required>
-                <option value="" disabled selected>Select Category</option>
-                <option value="painting">Painting</option>
-                <option value="sculpture">Sculpture</option>
-                <option value="digital-art">Digital Art</option>
-                <option value="other">Other</option>
-            </select>
+    <!-- Sell Section -->
+    <div class="sell-container">
+      <div class="image-preview-section">
+        <h2>Artwork Preview</h2>
+        <button id="preview-button">Preview Image</button>
+        <img id="art-preview" alt="Artwork Preview" />
+      </div>
+
+      <div class="form-section">
+        <h2>Artwork Details</h2>
+        <form id="sell-art-form" method="POST" action="/upload-artwork">
+          <input type="text" name="title" id="art-title" placeholder="Title" required />
+          <textarea name="description" id="art-description" placeholder="Description" rows="4" required></textarea>
+          <input type="text" name="dimensions" id="art-dimensions" placeholder="Dimensions (W x H x D cm)" required />
+          <input type="text" name="author" id="art-author" placeholder="Author" required />
+          <input type="text" name="location" id="art-location" placeholder="Location" required />
+          <input type="number" name="price" id="art-price" placeholder="Price ($)" required />
+          <input type="url" name="image" id="art-image-url" placeholder="Image URL" required />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
+          <p>contact@kala-kriti.com</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
         </div>
-
-        <!-- Price -->
-        <div class="form-group">
-            <label for="price">Price (USD)</label>
-            <input type="number" id="price" name="price" placeholder="Enter the price" min="1" required>
+        <div class="footer-links">
+          <h3>Mediums</h3>
+          <ul>
+            <li><a href="#">Painting</a></li>
+            <li><a href="#">Limited Edition</a></li>
+            <li><a href="#">Drawing</a></li>
+            <li><a href="#">Sculpture</a></li>
+            <li><a href="#">Photography</a></li>
+          </ul>
         </div>
-
-        <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit">Submit Your Art</button>
+        <div class="footer-links">
+          <h3>Informations</h3>
+          <ul>
+            <li><a href="#">Who are we?</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy / Cookies</a></li>
+            <li><a href="#">Legal notice</a></li>
+          </ul>
         </div>
-    </form>
-</div>
+        <div class="footer-links">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Log in</a></li>
+            <li><a href="#">Create account</a></li>
+            <li><a href="#">Help / FAQ</a></li>
+            <li><a href="#">How it works?</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Instagram</h3>
+          <p>There are not any images in this Instagram.</p>
+        </div>
+      </div>
+    </footer>
 
-</body>
+    <script>
+      document.getElementById('preview-button').addEventListener('click', function () {
+        const imageUrl = document.getElementById('art-image-url').value;
+        const previewImage = document.getElementById('art-preview');
+
+        if (imageUrl) {
+          previewImage.src = imageUrl;
+          previewImage.style.display = 'block';
+        } else {
+          alert('Please enter a valid image URL.');
+        }
+      });
+    </script>
+  </body>
 </html>
