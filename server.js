@@ -97,6 +97,15 @@ const server = http.createServer((req, res) => {
         );
         break;
 
+      case "/contact":
+        // Serve the contact page
+        serveFile(
+          path.join(__dirname, "views", "contact.html"),
+          "text/html",
+          res
+        );
+        break;
+
       case "/login":
         // Serve the login page
         serveFile(

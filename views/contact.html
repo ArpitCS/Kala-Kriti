@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Kala-Kriti</title>
+    <link rel="stylesheet" href="/public/css/footer.css" />
+    <link rel="stylesheet" href="/public/css/header.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .contact-us-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+      }
+
+      .contact-us-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .contact-us-header h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .contact-us-header p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 30px;
+      }
+
+      .contact-form-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .contact-form {
+        flex: 1 1 45%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-form label {
+        display: block;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .contact-form button {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .contact-form button:hover {
+        background-color: #f90;
+      }
+
+      .contact-details {
+        flex: 1 1 45%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-details h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .contact-details p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .contact-details .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .contact-details .social-icons a {
+        color: #333;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+      }
+
+      .contact-details .social-icons a:hover {
+        color: #f90;
+      }
+
+      .map {
+        width: 100%;
+        height: 300px;
+        border: none;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <a href="/#about">About Us</a>
+        </div>
+        <div class="header-center">
+          <a href="/gallery">Gallery</a>
+          <a href="/artists">Artists</a>
+          <a href="/news">News</a>
+          <a href="/">
+            <img
+              src="/public/logo-color.png"
+              alt="Kala-Kriti Logo"
+              class="logo"
+            />
+          </a>
+          <a href="/buy">Buy</a>
+          <a href="/sell">Sell</a>
+          <a href="/events">Events</a>
+        </div>
+        <div class="header-right">
+          <a href="/login"><i class="fas fa-user"></i></a>
+          <a href="/favorites"><i class="fas fa-heart"></i></a>
+          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="contact-us-section">
+        <div class="contact-us-header">
+          <h2>Contact Us</h2>
+          <p>
+            We'd love to hear from you! Reach out for inquiries, support, or
+            just to say hello.
+          </p>
+        </div>
+        <div class="contact-form-container">
+          <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form>
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required />
+
+              <label for="email">Your Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="john.doe@example.com"
+                required
+              />
+
+              <label for="message">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Write your message here..."
+                required
+              ></textarea>
+
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+          <div class="contact-details">
+            <h3>Our Contact Details</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Art Street, Delhi, India</p>
+            <p><i class="fas fa-phone"></i> +91 9876543210</p>
+            <p><i class="fas fa-envelope"></i> contact@kala-kriti.com</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <iframe
+              class="map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.209576012912!2d144.9560543153176!3d-37.8172097797516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0x5045675218ce1e0!2s123%20Art%20Street%2C%20Melbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sin!4v1643214280592!5m2!1sen!2sin"
+              allowfullscreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
+            <p>contact@kala-kriti.com</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3>Mediums</h3>
+            <ul>
+              <li><a href="#">Painting</a></li>
+              <li><a href="#">Limited Edition</a></li>
+              <li><a href="#">Drawing</a></li>
+              <li><a href="#">Sculpture</a></li>
+              <li><a href="#">Photography</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h3>Informations</h3>
+            <ul>
+              <li><a href="#">Who are we?</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Privacy / Cookies</a></li>
+              <li><a href="#">Legal notice</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h3>Account</h3>
+            <ul>
+              <li><a href="#">Log in</a></li>
+              <li><a href="#">Create account</a></li>
+              <li><a href="#">Help / FAQ</a></li>
+              <li><a href="#">How it works?</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h3>Instagram</h3>
+            <p>There are not any images in this Instagram.</p>
+          </div>
+        </div>
+      </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
