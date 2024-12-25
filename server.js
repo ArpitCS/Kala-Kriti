@@ -161,6 +161,24 @@ const server = http.createServer((req, res) => {
         );
         break;
 
+      case "/buy":
+        // Serve the buy page
+        serveFile(
+          path.join(__dirname, "views", "buy.html"),
+          "text/html",
+          res
+        );
+        break;
+
+      case "/sell":
+        // Serve the sell page
+        serveFile(
+          path.join(__dirname, "views", "sell.html"),
+          "text/html",
+          res
+        );
+        break;
+
       default:
         // If no GET route matched
         res.writeHead(404, { "Content-Type": "text/plain" });
