@@ -12,8 +12,8 @@
       referrerpolicy="no-referrer"
     />
 
-    <link rel="stylesheet" href="../public/css/header.css">
-    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/header.css" />
+    <link rel="stylesheet" href="../public/css/footer.css" />
 
     <style>
       * {
@@ -44,6 +44,36 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         text-align: center;
+      }
+
+      .image-preview-section #preview-button {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #000;
+        cursor: pointer;
+        border: 3px solid;
+        padding: 0.25em 0.5em;
+        box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
+          4px 4px 0px 0px, 5px 5px 0px 0px;
+        position: relative;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .image-preview-section #preview-button {
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
+      }
+
+      @media (min-width: 768px) {
+        .button-54 {
+          padding: 0.25em 0.75em;
+        }
       }
 
       .image-preview-section h2 {
@@ -86,15 +116,44 @@
       }
 
       .form-section button {
-        background-color: green;
-        color: white;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 5px;
+        background-color: #c2fbd7;
+        border-radius: 100px;
+        box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+          rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+          rgba(44, 187, 99, 0.15) 0 16px 32px;
+        color: green;
         cursor: pointer;
-        font-size: 1rem;
+        display: inline-block;
+        font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto,
+          sans-serif;
+        padding: 7px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .form-section button:hover {
+        box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+          rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+          rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+          rgba(44, 187, 99, 0.25) 0 16px 32px;
+        transform: scale(1.05) rotate(-1deg);
       }
     </style>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <!-- Header -->
@@ -108,10 +167,14 @@
           <a href="/artists">Artists</a>
           <a href="/news">News</a>
           <a href="/">
-            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+            <img
+              src="/public/logo-color.png"
+              alt="Kala-Kriti Logo"
+              class="logo"
+            />
           </a>
           <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a> 
+          <a href="/sell">Sell</a>
           <a href="/events">Events</a>
         </div>
         <div class="header-right">
@@ -126,20 +189,65 @@
     <div class="sell-container">
       <div class="image-preview-section">
         <h2>Artwork Preview</h2>
-        <button id="preview-button">Preview Image</button>
+        <button id="preview-button">
+          <span>Preview Upload</span>
+          <i class="fa fa-rotate-right"></i>
+        </button>
         <img id="art-preview" alt="Artwork Preview" />
       </div>
 
       <div class="form-section">
         <h2>Artwork Details</h2>
         <form id="sell-art-form" method="POST" action="/upload-artwork">
-          <input type="text" name="title" id="art-title" placeholder="Title" required />
-          <textarea name="description" id="art-description" placeholder="Description" rows="4" required></textarea>
-          <input type="text" name="dimensions" id="art-dimensions" placeholder="Dimensions (W x H x D cm)" required />
-          <input type="text" name="author" id="art-author" placeholder="Author" required />
-          <input type="text" name="location" id="art-location" placeholder="Location" required />
-          <input type="number" name="price" id="art-price" placeholder="Price ($)" required />
-          <input type="url" name="image" id="art-image-url" placeholder="Image URL" required />
+          <input
+            type="text"
+            name="title"
+            id="art-title"
+            placeholder="Title"
+            required
+          />
+          <textarea
+            name="description"
+            id="art-description"
+            placeholder="Description"
+            rows="4"
+            required
+          ></textarea>
+          <input
+            type="text"
+            name="dimensions"
+            id="art-dimensions"
+            placeholder="Dimensions (W x H x D cm)"
+            required
+          />
+          <input
+            type="text"
+            name="author"
+            id="art-author"
+            placeholder="Author"
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            id="art-location"
+            placeholder="Location"
+            required
+          />
+          <input
+            type="number"
+            name="price"
+            id="art-price"
+            placeholder="Price ($)"
+            required
+          />
+          <input
+            type="url"
+            name="image"
+            id="art-image-url"
+            placeholder="Image URL"
+            required
+          />
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -195,17 +303,19 @@
     </footer>
 
     <script>
-      document.getElementById('preview-button').addEventListener('click', function () {
-        const imageUrl = document.getElementById('art-image-url').value;
-        const previewImage = document.getElementById('art-preview');
+      document
+        .getElementById("preview-button")
+        .addEventListener("click", function () {
+          const imageUrl = document.getElementById("art-image-url").value;
+          const previewImage = document.getElementById("art-preview");
 
-        if (imageUrl) {
-          previewImage.src = imageUrl;
-          previewImage.style.display = 'block';
-        } else {
-          alert('Please enter a valid image URL.');
-        }
-      });
+          if (imageUrl) {
+            previewImage.src = imageUrl;
+            previewImage.style.display = "block";
+          } else {
+            alert("Please enter a valid image URL.");
+          }
+        });
     </script>
   </body>
 </html>
