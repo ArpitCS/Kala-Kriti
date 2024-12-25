@@ -232,6 +232,101 @@ const server = http.createServer((req, res) => {
         break;
       }
 
+      /**
+       * LOGIN
+       */
+      case "/login": {
+        let body = "";
+        req.on("data", (chunk) => (body += chunk));
+        req.on("end", () => {
+          const { username, password } = querystring.parse(body);
+          const usersPath = path.join(__dirname, "data", "users.json");
+
+          fs.readFile(usersPath, "utf8", (err, data) => {
+            if (err) {
+              res.writeHead(500, { "Content-Type": "text/plain" });
+              return res.end("Server error reading users.json");
+            }
+
+            let users = [];
+            try {
+              users = JSON.parse(data);
+            } catch (parseErr) {
+              res.writeHead(500, { "Content-Type": "text/plain" });
+              return res.end("Error parsing users.json");
+            }
+
+            // Validate user
+            const user = users.find((u) => u.username === username);
+            if (!user) {
+              // If user not found, redirect to register
+              res.writeHead(302, { Location: "/register" });
+              return res.end();
+            }
+
+            // If password is incorrect
+            if (password !== user.password) {
+              res.writeHead(401, { "Content-Type": "text/plain" });
+              return res.end("Invalid credentials (wrong password)");
+            }
+
+            // If successful, redirect to dashboard
+            res.writeHead(302, { Location: "/dashboard" });
+            res.end();
+          });
+        });
+        break;
+      }
+
+      /**
+       * REGISTER
+       */
+      case "/register": {
+        let body = "";
+        req.on("data", (chunk) => (body += chunk));
+        req.on("end", () => {
+          const { username, password } = querystring.parse(body);
+          const usersPath = path.join(__dirname, "data", "users.json");
+
+          fs.readFile(usersPath, "utf8", (err, data) => {
+            // On read error, we still allow writing new data (like original logic)
+            let users = [];
+            if (!err) {
+              try {
+                users = JSON.parse(data);
+              } catch (parseErr) {
+                // If file is empty or invalid JSON, assume empty array
+                users = [];
+              }
+            }
+
+            // Check if user already exists
+            const existing = users.find((u) => u.username === username);
+            if (existing) {
+              res.writeHead(400, { "Content-Type": "text/plain" });
+              return res.end("Username already taken");
+            }
+
+            // Add new user
+            users.push({ username, password });
+            fs.writeFile(
+              usersPath,
+              JSON.stringify(users, null, 2),
+              (errWrite) => {
+                if (errWrite) {
+                  res.writeHead(500, { "Content-Type": "text/plain" });
+                  return res.end("Error writing to users.json");
+                }
+                // Success: redirect to /login
+                res.writeHead(302, { Location: "/login" });
+                res.end();
+              }
+            );
+          });
+        });
+        break;
+      }
+
       default:
         res.writeHead(404, { "Content-Type": "text/plain" });
         res.end("404 - Not Found");
