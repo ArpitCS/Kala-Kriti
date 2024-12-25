@@ -7,5 +7,14 @@
     "location": "Paris, France",
     "price": 870000000,
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/405px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+  },
+  {
+    "title": "aa",
+    "description": "aa",
+    "dimensions": "aa",
+    "author": "aa",
+    "location": "aa",
+    "price": 123,
+    "image": "https://wallpapercave.com/uwp/uwp3809319.jpeg"
   }
 ]
