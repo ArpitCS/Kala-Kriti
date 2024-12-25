@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kala-Kriti</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 10px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-left a,
+      .header-center a,
+      .header-right a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        margin: 0 10px;
+        transition: color 0.3s;
+      }
+
+      .header-left a:hover,
+      .header-center a:hover,
+      .header-right a:hover {
+        color: #f90;
+      }
+
+      .header-center {
+        display: flex;
+        align-items: center;
+      }
+
+      .header-center .logo {
+        height: 50px;
+        margin: 0 20px;
+      }
+
+      .header-right a {
+        font-size: 18px;
+        color: #333;
+        margin-left: 15px;
+      }
+
+      .header-right a:hover {
+        color: #f90;
+      }
+
+      .header-container a {
+        font-size: 16px;
+      }
+
+      .intro-section {
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+      }
+
+      .intro-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .intro-section p {
+        font-size: 1rem;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .featured-section {
+        padding: 50px 20px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .featured-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        display: inline-block;
+      }
+
+      .featured-section h2::before,
+      .featured-section h2::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 2px;
+        background-color: #333;
+      }
+
+      .featured-section h2::before {
+        left: -60px;
+      }
+
+      .featured-section h2::after {
+        right: -60px;
+      }
+
+      .featured-section p {
+        font-size: 1rem;
+        color: #555;
+        font-style: italic;
+        margin-top: -10px;
+      }
+
+      .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+      }
+
+      .card img {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .artist-card img {
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+        object-fit: cover;
+        margin: 0 auto;
+      }
+
+      .artist-card h5 {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .artist-card p {
+        color: #777;
+      }
+
+      .testimony-section {
+        padding: 50px 20px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+      }
+
+      .testimony-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        display: inline-block;
+      }
+
+      .testimony-section h2::before,
+      .testimony-section h2::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 2px;
+        background-color: #fff;
+      }
+
+      .testimony-section h2::before {
+        left: -60px;
+      }
+
+      .testimony-section h2::after {
+        right: -60px;
+      }
+
+      .carousel-item {
+        text-align: center;
+      }
+
+      .testimony {
+        max-width: 700px;
+        margin: 0 auto;
+        font-style: italic;
+      }
+
+      .testimony img {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        margin-bottom: 20px;
+      }
+
+      .testimony h5 {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .testimony p {
+        color: #bbb;
+      }
+
+      .about-section {
+        padding: 70px 20px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .about-logo img {
+        height: 70px;
+        margin-bottom: 20px;
+      }
+
+      .about-section h2 {
+        font-size: 2.2rem;
+        color: #333;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .about-section p {
+        max-width: 700px;
+        margin: 0 auto 20px;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+
+      .services-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .service-card {
+        width: 280px;
+        margin: 15px;
+        text-align: center;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .service-card i {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .service-card h3 {
+        font-size: 1.25rem;
+        color: #000;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .service-card p {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .cta-button a {
+        margin-top: 20px;
+        display: inline-block;
+        background-color: #f90;
+        color: #fff;
+        padding: 10px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .cta-button a:hover {
+        background-color: #e68a00;
+      }
+
+      .sell-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+
+      .sell-section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #333;
+        text-transform: uppercase;
+      }
+
+      .sell-steps-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .sell-step {
+        text-align: center;
+        margin: 20px;
+        width: 150px;
+      }
+
+      .sell-step img {
+        height: 100px;
+        margin-bottom: 15px;
+      }
+
+      .step-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .step-text {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.4;
+      }
+
+      .sell-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .sell-button {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .sell-button:hover {
+        background-color: #444;
+      }
+
+      .blogs-news-section {
+        padding: 50px 20px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .blogs-news-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        display: inline-block;
+      }
+
+      .blogs-news-section h2::before,
+      .blogs-news-section h2::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 2px;
+        background-color: #333;
+      }
+
+      .blogs-news-section h2::before {
+        left: -60px;
+      }
+
+      .blogs-news-section h2::after {
+        right: -60px;
+      }
+
+      .blogs-news-section p {
+        font-size: 1rem;
+        color: #555;
+        font-style: italic;
+        margin-bottom: 30px;
+      }
+
+      .blogs-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .arrow-button {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #333;
+        cursor: pointer;
+        margin: 0 10px;
+        padding: 10px;
+        transition: color 0.3s;
+      }
+
+      .arrow-button:hover {
+        color: #f90;
+      }
+
+      .blogs {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+      }
+
+      .blog-card {
+        text-align: left;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 300px;
+        flex: 0 0 auto;
+      }
+
+      .blog-card img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        object-fit: cover;
+      }
+
+      .blog-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .blog-card p {
+        font-size: 0.9rem;
+        color: #777;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+
+      .blog-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .newsletter-section {
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+
+      .newsletter-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333;
+        font-weight: bold;
+      }
+
+      .newsletter-section p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .newsletter-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .newsletter-form input {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        flex: 0 0 50%;
+      }
+
+      .newsletter-form button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .newsletter-form button:hover {
+        background-color: #f90;
+      }
+
+      .features-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .feature {
+        text-align: center;
+        max-width: 200px;
+        color: #555;
+      }
+
+      .feature i {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .feature p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .footer-section {
+        padding: 50px 20px;
+        background-color: #fff;
+        color: #333;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .footer-logo {
+        text-align: center;
+        flex: 1;
+      }
+
+      .footer-logo img {
+        max-width: 150px;
+        margin-bottom: 10px;
+      }
+
+      .footer-logo p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      .social-icons a {
+        font-size: 1.2rem;
+        margin: 0 5px;
+        color: #333;
+        transition: color 0.3s;
+      }
+
+      .social-icons a:hover {
+        color: #f90;
+      }
+
+      .footer-links {
+        flex: 1;
+      }
+
+      .footer-links h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links ul li {
+        margin-bottom: 5px;
+      }
+
+      .footer-links ul li a {
+        color: #555;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links ul li a:hover {
+        color: #f90;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <a href="#about">About Us</a>
+        </div>
+        <div class="header-center">
+          <a href="/gallery">Gallery</a>
+          <a href="/artists">Artists</a>
+          <a href="/news">News</a>
+          <img src="/public/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+          <a href="/buy">Buy</a>
+          <a href="/sell">Sell</a> 
+          <a href="/events">Events</a>
+        </div>
+        <div class="header-right">
+          <a href="/login"><i class="fas fa-user"></i></a>
+          <a href="/favorites"><i class="fas fa-heart"></i></a>
+          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="https://via.placeholder.com/1920x600"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://via.placeholder.com/1920x600"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://via.placeholder.com/1920x600"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <section class="intro-section">
+        <h2>Welcome to Kala-Kriti</h2>
+        <p>
+          Kala-Kriti is a premier platform dedicated to showcasing and
+          celebrating the beauty of art. Explore our vast gallery, discover
+          talented artists, and stay updated on the latest events and news in
+          the art world.
+        </p>
+      </section>
+
+      <section class="featured-section">
+        <h2>Featured Artworks</h2>
+        <p>Artalistic Selection</p>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card">
+                <img
+                  src="https://via.placeholder.com/300x200"
+                  class="card-img-top"
+                  alt="Artwork 1"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Artwork 1</h5>
+                  <p class="card-text">Artist Name</p>
+                  <p class="card-text">Price</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <img
+                  src="https://via.placeholder.com/300x200"
+                  class="card-img-top"
+                  alt="Artwork 2"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Artwork 2</h5>
+                  <p class="card-text">Artist Name</p>
+                  <p class="card-text">Price</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <img
+                  src="https://via.placeholder.com/300x200"
+                  class="card-img-top"
+                  alt="Artwork 3"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Artwork 3</h5>
+                  <p class="card-text">Artist Name</p>
+                  <p class="card-text">Price</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <img
+                  src="https://via.placeholder.com/300x200"
+                  class="card-img-top"
+                  alt="Artwork 4"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Artwork 4</h5>
+                  <p class="card-text">Artist Name</p>
+                  <p class="card-text">Price</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-section">
+        <h2>Featured Artists</h2>
+        <p>Discover the talents behind the masterpieces</p>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card artist-card text-center">
+                <img src="https://via.placeholder.com/150" alt="Artist 1" />
+                <div class="card-body">
+                  <h5 class="card-title">Artist 1</h5>
+                  <p class="card-text">Specialization: Painting</p>
+                  <p class="card-text">Country: India</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card artist-card text-center">
+                <img src="https://via.placeholder.com/150" alt="Artist 2" />
+                <div class="card-body">
+                  <h5 class="card-title">Artist 2</h5>
+                  <p class="card-text">Specialization: Sculpture</p>
+                  <p class="card-text">Country: France</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card artist-card text-center">
+                <img src="https://via.placeholder.com/150" alt="Artist 3" />
+                <div class="card-body">
+                  <h5 class="card-title">Artist 3</h5>
+                  <p class="card-text">Specialization: Photography</p>
+                  <p class="card-text">Country: USA</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card artist-card text-center">
+                <img src="https://via.placeholder.com/150" alt="Artist 4" />
+                <div class="card-body">
+                  <h5 class="card-title">Artist 4</h5>
+                  <p class="card-text">Specialization: Drawing</p>
+                  <p class="card-text">Country: Japan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimony-section">
+        <h2>They Sell on Kala-Kriti</h2>
+        <p>Sellers experiences on our platform</p>
+        <div
+          id="testimonyCarousel"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="testimony">
+                <img
+                  src="https://via.placeholder.com/100"
+                  alt="Testimonial 1"
+                />
+                <p>
+                  "Kala-Kriti provides an amazing platform for artists to
+                  connect with art lovers worldwide. The interface is seamless
+                  and the customer support is top-notch."
+                </p>
+                <h5>Studio Tangerine</h5>
+                <p>(Pro Seller)</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testimony">
+                <img
+                  src="https://via.placeholder.com/100"
+                  alt="Testimonial 2"
+                />
+                <p>
+                  "Selling on Kala-Kriti has been a game changer for me. The
+                  exposure and tools provided are unparalleled."
+                </p>
+                <h5>Didier Fournier</h5>
+                <p>(Artist)</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testimony">
+                <img
+                  src="https://via.placeholder.com/100"
+                  alt="Testimonial 3"
+                />
+                <p>
+                  "I love how Kala-Kriti helps me showcase my art to a global
+                  audience. The process is smooth and transparent."
+                </p>
+                <h5>Art Collective</h5>
+                <p>(Gallery)</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testimony">
+                <img
+                  src="https://via.placeholder.com/100"
+                  alt="Testimonial 4"
+                />
+                <p>
+                  "Kala-Kriti has truly revolutionized the way I sell art.
+                  Highly recommended for all artists and collectors."
+                </p>
+                <h5>Maria Gonzales</h5>
+                <p>(Painter)</p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#testimonyCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#testimonyCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="about" class="about-section">
+        <div class="about-logo">
+          <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
+        </div>
+        <h2>Our Concept</h2>
+        <p>
+          Kala-Kriti is an innovative platform dedicated to connecting art
+          enthusiasts with the vibrant world of Modern and Contemporary Art.
+          Whether you are a seasoned collector, an aspiring artist, or someone
+          curious about the art realm, Kala-Kriti offers an inclusive space for
+          exploration, discovery, and transactions.
+        </p>
+        <p>
+          Our services are designed to provide seamless experiences in browsing,
+          buying, and selling art pieces. We also keep you informed about the
+          latest art news, upcoming events, and exhibitions, fostering a rich
+          community centered around artistic passion and excellence.
+        </p>
+
+        <div class="services-container">
+          <div class="service-card">
+            <i class="fas fa-palette"></i>
+            <h3>Experience</h3>
+            <p>
+              Our experts have extensive experience working in the art world
+              (galleries, auction houses, appraisal companies) and check each
+              sales request before it is posted on our website.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-users"></i>
+            <h3>Transparency</h3>
+            <p>
+              There are no intermediary agents; sellers and buyers are in direct
+              contact. The price is displayed as well as the shipping costs.
+              Buyers leave comments and reviews about the sellers.
+            </p>
+          </div>
+          <div class="service-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Reliability</h3>
+            <p>
+              We carefully follow each step of the sales and purchasing process
+              to provide you with the utmost assistance while offering you a
+              secure online payment method.
+            </p>
+          </div>
+        </div>
+
+        <div class="cta-button">
+          <a href="#create-account">Create an Account</a>
+        </div>
+      </section>
+
+      <section class="sell-section">
+        <h2>Selling on Kala-Kriti</h2>
+        <div class="sell-steps-container">
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 1" />
+            <p class="step-number">1</p>
+            <p class="step-text">You have pieces for sale</p>
+          </div>
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 2" />
+            <p class="step-number">2</p>
+            <p class="step-text">
+              We check the artwork advertisements and publish them
+            </p>
+          </div>
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 3" />
+            <p class="step-number">3</p>
+            <p class="step-text">
+              Price negotiation is possible, agreement and sale
+            </p>
+          </div>
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 4" />
+            <p class="step-number">4</p>
+            <p class="step-text">You ship the pieces that have sold</p>
+          </div>
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 5" />
+            <p class="step-number">5</p>
+            <p class="step-text">
+              The buyer confirms receipt and leaves a review
+            </p>
+          </div>
+          <div class="sell-step">
+            <img src="https://via.placeholder.com/100" alt="Step 6" />
+            <p class="step-number">6</p>
+            <p class="step-text">You are paid</p>
+          </div>
+        </div>
+        <div class="sell-buttons">
+          <button class="sell-button">Sell as Individual</button>
+          <button class="sell-button">Sell as Artist</button>
+          <button class="sell-button">Sell as Professional</button>
+        </div>
+      </section>
+
+      <section class="blogs-news-section">
+        <h2>Blog / News</h2>
+        <p>
+          Find our latest posts on the cultural and artistic news of the World
+          of Art.
+        </p>
+        <div class="blogs-container">
+          <button class="arrow-button">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="blogs">
+            <div class="blog-card">
+              <img src="https://via.placeholder.com/300x200" alt="Blog 1" />
+              <h3>Artalistic: Featured in Forbes Magazine!</h3>
+              <p>Apr 12, 2021</p>
+              <p>
+                Cynthia Soddu created Artalistic in 2019 and in just two short
+                years this online art gallery has...
+              </p>
+            </div>
+            <div class="blog-card">
+              <img src="https://via.placeholder.com/300x200" alt="Blog 2" />
+              <h3>Roy Lichtenstein: Pop Art at its Finest</h3>
+              <p>Mar 23, 2021</p>
+              <p>
+                Like Andy Warhol, James Rosenquist, or Jasper Johns, Roy
+                Lichtenstein is a key figure from the pop...
+              </p>
+            </div>
+            <div class="blog-card">
+              <img src="https://via.placeholder.com/300x200" alt="Blog 3" />
+              <h3>Fashion & Art: Designers Taking Inspiration</h3>
+              <p>Mar 8, 2021</p>
+              <p>
+                In celebration of Paris Fashion Week, Artalistic has taken an
+                in-depth look at how fashion...
+              </p>
+            </div>
+          </div>
+          <button class="arrow-button">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <section class="newsletter-section">
+        <h2>NEWSLETTER SIGN UP</h2>
+        <p>
+          Sign up and receive exclusive the latest news from the world of art
+          and the Kala-Kriti marketplace.
+        </p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address" />
+          <button>Subscribe</button>
+        </div>
+        <div class="features-row">
+          <div class="feature">
+            <i class="fas fa-id-card"></i>
+            <p>
+              Community-based website<br />Buyers leave reviews about the
+              Sellers
+            </p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-comments"></i>
+            <p>
+              Price negotiations are possible and buyers and sellers are in
+              direct contact.
+            </p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-credit-card"></i>
+            <p>Secure online payment or bank wire transfer.</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-sync-alt"></i>
+            <p>
+              Free returns within 14 days without having to justify the return.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-section">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
+          <p>contact@kala-kriti.com</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h3>Mediums</h3>
+          <ul>
+            <li><a href="#">Painting</a></li>
+            <li><a href="#">Limited Edition</a></li>
+            <li><a href="#">Drawing</a></li>
+            <li><a href="#">Sculpture</a></li>
+            <li><a href="#">Photography</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Informations</h3>
+          <ul>
+            <li><a href="#">Who are we?</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy / Cookies</a></li>
+            <li><a href="#">Legal notice</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Log in</a></li>
+            <li><a href="#">Create account</a></li>
+            <li><a href="#">Help / FAQ</a></li>
+            <li><a href="#">How it works?</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Instagram</h3>
+          <p>There are not any images in this Instagram.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

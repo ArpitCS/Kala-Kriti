@@ -1,0 +1,98 @@
+[
+  {
+    "title": "With Every Kiss / Impression",
+    "image": "https://placehold.co/154x95",
+    "dimensions": "154 W x 95 H x 2 D cm",
+    "author": "Tetiana and Victoria H.",
+    "location": "Ukraine",
+    "price": 135522
+  },
+  {
+    "title": "Pink and Blue Close Up",
+    "image": "https://placehold.co/110x145",
+    "dimensions": "110 W x 145 H x 1 D cm",
+    "author": "Thomas Saliot",
+    "location": "Spain",
+    "price": 453918
+  },
+  {
+    "title": "Tangled Up In Blue",
+    "image": "https://placehold.co/101x76",
+    "dimensions": "101.6 W x 76.2 H x 3.8 D cm",
+    "author": "Gordon Sellen",
+    "location": "Canada",
+    "price": 158382
+  },
+  {
+    "title": "Proliferation",
+    "image": "https://placehold.co/50x50",
+    "dimensions": "50 W x 50 H x 3.6 D cm",
+    "author": "Cécile Duchêne Malissin",
+    "location": "France",
+    "price": 81640
+  },
+  {
+    "title": "Floral Window",
+    "image": "https://placehold.co/60x40",
+    "dimensions": "60 W x 40 H x 2 D cm",
+    "author": "Alexandria Bronte",
+    "location": "United Kingdom",
+    "price": 65220
+  },
+  {
+    "title": "Moonlit Waters",
+    "image": "https://placehold.co/80x60",
+    "dimensions": "80 W x 60 H x 2 D cm",
+    "author": "Ethan Marshall",
+    "location": "United States",
+    "price": 120000
+  },
+  {
+    "title": "Desert Sunrise",
+    "image": "https://placehold.co/120x80",
+    "dimensions": "120 W x 80 H x 4 D cm",
+    "author": "Maria Gonzalez",
+    "location": "Mexico",
+    "price": 97500
+  },
+  {
+    "title": "Urban Twilight",
+    "image": "https://placehold.co/70x100",
+    "dimensions": "70 W x 100 H x 3 D cm",
+    "author": "Hiroko Tanaka",
+    "location": "Japan",
+    "price": 112300
+  },
+  {
+    "title": "Ethereal Blossoms",
+    "image": "https://placehold.co/45x45",
+    "dimensions": "45 W x 45 H x 2 D cm",
+    "author": "Ana-Marie Lombardi",
+    "location": "Italy",
+    "price": 48900
+  },
+  {
+    "title": "Morning Haze",
+    "image": "https://placehold.co/90x60",
+    "dimensions": "90 W x 60 H x 2.5 D cm",
+    "author": "Liang Wei",
+    "location": "China",
+    "price": 68400
+  },
+  {
+    "title": "Drifting Clouds",
+    "image": "https://placehold.co/100x100",
+    "dimensions": "100 W x 100 H x 2 D cm",
+    "author": "Sasha Vikram",
+    "location": "India",
+    "price": 79999
+  },
+  {
+    "title": "Colorful Whispers",
+    "image": "https://placehold.co/80x90",
+    "dimensions": "80 W x 90 H x 3 D cm",
+    "author": "Oliver Hansen",
+    "location": "Denmark",
+    "price": 92300
+  }
+]
