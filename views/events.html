@@ -1,304 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Art Event Management</title>
-    <link rel="stylesheet" href="../public/css/header.css">
-    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/header.css" />
+    <link rel="stylesheet" href="../public/css/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
-        }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        color: #333;
+      }
 
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-        }
+      .carousel {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+      }
 
-        .carousel img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: none;
-        }
+      .carousel img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: none;
+      }
 
-        .carousel img.active {
-            display: block;
-        }
+      .carousel img.active {
+        display: block;
+      }
 
-        .scroller {
-            white-space: nowrap;
-            overflow-x: auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+      .scroller {
+        white-space: nowrap;
+        overflow-x: auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        .scroller .card {
-            display: inline-block;
-            width: 300px;
-            margin-right: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: white;
-        }
+      .scroller .card {
+        display: inline-block;
+        width: 300px;
+        margin-right: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+      }
 
-        .scroller .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px 5px 0 0;
-        }
+      .scroller .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px 5px 0 0;
+      }
 
-        .card-details {
-            padding: 10px;
-        }
+      .card-details {
+        padding: 10px;
+      }
 
-        .event-table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+      .event-table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        .event-table th, .event-table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
+      .event-table th,
+      .event-table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
 
-        .event-table th {
-            background-color: #444;
-            color: white;
-        }
+      .event-table th {
+        background-color: #444;
+        color: white;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="header-container">
-          <div class="header-left">
-            <a href="#about">About Us</a>
-          </div>
-          <div class="header-center">
-            <a href="/gallery">Gallery</a>
-            <a href="/artists">Artists</a>
-            <a href="/news">News</a>
-            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
-            <a href="/buy">Buy</a>
-            <a href="/sell">Sell</a> 
-            <a href="/events">Events</a>
-          </div>
-          <div class="header-right">
-            <a href="/login"><i class="fas fa-user"></i></a>
-            <a href="/favorites"><i class="fas fa-heart"></i></a>
-            <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-          </div>
+      <div class="header-container">
+        <div class="header-left">
+          <a href="#about">About Us</a>
         </div>
-      </header>
+        <div class="header-center">
+          <a href="/gallery">Gallery</a>
+          <a href="/artists">Artists</a>
+          <a href="/news">News</a>
+          <img
+            src="/public/logo-color.png"
+            alt="Kala-Kriti Logo"
+            class="logo"
+          />
+          <a href="/buy">Buy</a>
+          <a href="/sell">Sell</a>
+          <a href="/events">Events</a>
+        </div>
+        <div class="header-right">
+          <a href="/login"><i class="fas fa-user"></i></a>
+          <a href="/favorites"><i class="fas fa-heart"></i></a>
+          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </header>
 
     <div class="carousel">
-        <img src="https://via.placeholder.com/1200x300.png?text=Art+Banner+1" alt="Art Banner 1" class="active">
-        <img src="https://via.placeholder.com/1200x300.png?text=Art+Banner+2" alt="Art Banner 2">
-        <img src="https://via.placeholder.com/1200x300.png?text=Art+Banner+3" alt="Art Banner 3">
+      <img
+        src="https://via.placeholder.com/1200x300.png?text=Art+Banner+1"
+        alt="Art Banner 1"
+        class="active"
+      />
+      <img
+        src="https://via.placeholder.com/1200x300.png?text=Art+Banner+2"
+        alt="Art Banner 2"
+      />
+      <img
+        src="https://via.placeholder.com/1200x300.png?text=Art+Banner+3"
+        alt="Art Banner 3"
+      />
     </div>
 
     <div class="scroller">
-        <!-- Add 12 cards -->
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Sculpture+Exhibition" alt="Sculpture Exhibition">
-            <div class="card-details">
-                <h3>Sculpture Exhibition</h3>
-                <p>Date: January 15, 2024</p>
-                <p>Venue: Downtown Art Center</p>
-                <p>Category: Sculpture</p>
-            </div>
+      <!-- Add 12 cards -->
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Sculpture+Exhibition"
+          alt="Sculpture Exhibition"
+        />
+        <div class="card-details">
+          <h3>Sculpture Exhibition</h3>
+          <p>Date: January 15, 2024</p>
+          <p>Venue: Downtown Art Center</p>
+          <p>Category: Sculpture</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Painting+Workshop" alt="Painting Workshop">
-            <div class="card-details">
-                <h3>Painting Workshop</h3>
-                <p>Date: February 5, 2024</p>
-                <p>Venue: Creative Arts Studio</p>
-                <p>Category: Painting</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Painting+Workshop"
+          alt="Painting Workshop"
+        />
+        <div class="card-details">
+          <h3>Painting Workshop</h3>
+          <p>Date: February 5, 2024</p>
+          <p>Venue: Creative Arts Studio</p>
+          <p>Category: Painting</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
-        </div><div class="card">
-            <img src="https://via.placeholder.com/300x200.png?text=Photography+Meetup" alt="Photography Meetup">
-            <div class="card-details">
-                <h3>Photography Meetup</h3>
-                <p>Date: March 12, 2024</p>
-                <p>Venue: Urban Gallery</p>
-                <p>Category: Photography</p>
-            </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
         </div>
-        <!-- Repeat for additional 9 cards -->
+      </div>
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/300x200.png?text=Photography+Meetup"
+          alt="Photography Meetup"
+        />
+        <div class="card-details">
+          <h3>Photography Meetup</h3>
+          <p>Date: March 12, 2024</p>
+          <p>Venue: Urban Gallery</p>
+          <p>Category: Photography</p>
+        </div>
+      </div>
+      <!-- Repeat for additional 9 cards -->
     </div>
 
     <table class="event-table">
-        <thead>
-            <tr>
-                <th>Event Name</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Venue</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Add 12 rows -->
-            <tr>
-                <td>Sculpture Exhibition</td>
-                <td>January 15, 2024</td>
-                <td>10:00 AM</td>
-                <td>Downtown Art Center</td>
-                <td>Sculpture</td>
-            </tr>
-            <tr>
-                <td>Painting Workshop</td>
-                <td>February 5, 2024</td>
-                <td>2:00 PM</td>
-                <td>Creative Arts Studio</td>
-                <td>Painting</td>
-            </tr>
-            <tr>
-                <td>Photography Meetup</td>
-                <td>March 12, 2024</td>
-                <td>4:00 PM</td>
-                <td>Urban Gallery</td>
-                <td>Photography</td>
-            </tr>
-            <!-- Repeat for additional 9 rows -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Venue</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Add 12 rows -->
+        <tr>
+          <td>Sculpture Exhibition</td>
+          <td>January 15, 2024</td>
+          <td>10:00 AM</td>
+          <td>Downtown Art Center</td>
+          <td>Sculpture</td>
+        </tr>
+        <tr>
+          <td>Painting Workshop</td>
+          <td>February 5, 2024</td>
+          <td>2:00 PM</td>
+          <td>Creative Arts Studio</td>
+          <td>Painting</td>
+        </tr>
+        <tr>
+          <td>Photography Meetup</td>
+          <td>March 12, 2024</td>
+          <td>4:00 PM</td>
+          <td>Urban Gallery</td>
+          <td>Photography</td>
+        </tr>
+        <!-- Repeat for additional 9 rows -->
+      </tbody>
     </table>
 
     <footer class="footer-section">
-        <div class="footer-content">
-          <div class="footer-logo">
-            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
-            <p>contact@kala-kriti.com</p>
-            <div class="social-icons">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-pinterest"></i></a>
-            </div>
-          </div>
-          <div class="footer-links">
-            <h3>Mediums</h3>
-            <ul>
-              <li><a href="#">Painting</a></li>
-              <li><a href="#">Limited Edition</a></li>
-              <li><a href="#">Drawing</a></li>
-              <li><a href="#">Sculpture</a></li>
-              <li><a href="#">Photography</a></li>
-            </ul>
-          </div>
-          <div class="footer-links">
-            <h3>Informations</h3>
-            <ul>
-              <li><a href="#">Who are we?</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Privacy / Cookies</a></li>
-              <li><a href="#">Legal notice</a></li>
-            </ul>
-          </div>
-          <div class="footer-links">
-            <h3>Account</h3>
-            <ul>
-              <li><a href="#">Log in</a></li>
-              <li><a href="#">Create account</a></li>
-              <li><a href="#">Help / FAQ</a></li>
-              <li><a href="#">How it works?</a></li>
-              <li><a href="#">Contact us</a></li>
-            </ul>
-          </div>
-          <div class="footer-links">
-            <h3>Instagram</h3>
-            <p>There are not any images in this Instagram.</p>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/public/logo-color.png" alt="Kala-Kriti Logo" />
+          <p>contact@kala-kriti.com</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
-      </footer>
+        <div class="footer-links">
+          <h3>Mediums</h3>
+          <ul>
+            <li><a href="#">Painting</a></li>
+            <li><a href="#">Limited Edition</a></li>
+            <li><a href="#">Drawing</a></li>
+            <li><a href="#">Sculpture</a></li>
+            <li><a href="#">Photography</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Informations</h3>
+          <ul>
+            <li><a href="#">Who are we?</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy / Cookies</a></li>
+            <li><a href="#">Legal notice</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Account</h3>
+          <ul>
+            <li><a href="#">Log in</a></li>
+            <li><a href="#">Create account</a></li>
+            <li><a href="#">Help / FAQ</a></li>
+            <li><a href="#">How it works?</a></li>
+            <li><a href="#">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Instagram</h3>
+          <p>There are not any images in this Instagram.</p>
+        </div>
+      </div>
+    </footer>
 
     <script>
-        const carouselImages = document.querySelectorAll('.carousel img');
-        let currentIndex = 0;
+      const carouselImages = document.querySelectorAll(".carousel img");
+      let currentIndex = 0;
 
-        setInterval(() => {
-            carouselImages[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % carouselImages.length;
-            carouselImages[currentIndex].classList.add('active');
-        }, 3000);
+      setInterval(() => {
+        carouselImages[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        carouselImages[currentIndex].classList.add("active");
+      }, 3000);
     </script>
-</body>
+  </body>
 </html>
-
