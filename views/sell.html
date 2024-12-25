@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Your Art</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .sell-form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .sell-form-container h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea, 
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            resize: none;
+            height: 80px;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sell-form-container">
+    <h2>Sell Your Art</h2>
+    <form action="/submit-art" method="POST" enctype="multipart/form-data">
+        <!-- Upload Artwork -->
+        <div class="form-group">
+            <label for="artwork">Upload Artwork</label>
+            <input type="file" id="artwork" name="artwork" accept="image/*" required>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label for="title">Art Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter the title of your art" required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Describe your art"></textarea>
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="painting">Painting</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="digital-art">Digital Art</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="price">Price (USD)</label>
+            <input type="number" id="price" name="price" placeholder="Enter the price" min="1" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit">Submit Your Art</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

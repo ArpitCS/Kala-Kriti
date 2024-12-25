@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Masonry Art Gallery</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+
+    <style>
+      /* ------- BASIC RESET & FONTS -------- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fafafa;
+        color: #333;
+      }
+
+      /* ------- MASONRY CONTAINER -------- */
+      .gallery-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+      }
+      .gallery-container h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .masonry {
+        column-count: 3;
+        column-gap: 1.5rem;
+      }
+
+      .gallery-item {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        width: 100%;
+      }
+
+      /* ------- CARD STYLE -------- */
+      .card {
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .image-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .image-container img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: brightness(100%);
+        transition: filter 0.3s ease;
+      }
+
+      .image-container:hover img {
+        filter: brightness(80%);
+      }
+
+      .card-content {
+        padding: 1rem;
+      }
+
+      .card-content h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-content p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0.2rem 0;
+      }
+
+      .card-content .price {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .action-buttons {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .action-buttons button {
+        flex: 1;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .buy-btn {
+        background-color: #28a745;
+      }
+      .buy-btn:hover {
+        background-color: #218838;
+      }
+
+      .contact-btn {
+        background-color: #007bff;
+      }
+      .contact-btn:hover {
+        background-color: #0056b3;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.6);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-container:hover .overlay {
+        opacity: 1;
+      }
+
+      .overlay .action-icons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .action-icons i {
+        font-size: 1.5rem;
+        color: black;
+        cursor: pointer;
+        background-color: white;
+        padding: 0.5rem;
+        border-radius: 50%;
+      }
+
+      @media screen and (max-width: 992px) {
+        .masonry {
+          column-count: 2;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        .masonry {
+          column-count: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <a href="/#about">About Us</a>
+        </div>
+        <div class="header-center">
+          <a href="/gallery">Gallery</a>
+          <a href="/artists">Artists</a>
+          <a href="/news">News</a>
+          <a href="/">
+            <img src="/public/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+          </a>
+          <a href="/buy">Buy</a>
+          <a href="/sell">Sell</a>
+          <a href="/events">Events</a>
+        </div>
+        <div class="header-right">
+          <a href="/login"><i class="fas fa-user"></i></a>
+          <a href="/favorites"><i class="fas fa-heart"></i></a>
+          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="gallery-container">
+      <div id="art-gallery" class="masonry"></div>
+    </div>
+
+    <footer class="footer-section">
+      <!-- Footer content unchanged -->
+    </footer>
+
+    <script>
+      fetch("/data/artwork.json")
+        .then((response) => response.json())
+        .then((artworks) => {
+          const gallery = document.getElementById("art-gallery");
+          artworks.forEach((art) => {
+            const item = document.createElement("div");
+            item.classList.add("gallery-item");
+
+            item.innerHTML = `
+              <div class="card">
+                <div class="image-container">
+                  <img src="${art.image}" alt="${art.title}" />
+                  <div class="overlay">
+                    <div class="action-icons">
+                      <i class="fas fa-plus"></i>
+                      <i class="fas fa-heart"></i>
+                      <i class="fas fa-shopping-bag"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h2>${art.title}</h2>
+                  <p>${art.dimensions}</p>
+                  <p>${art.author}</p>
+                  <p class="price">₹${art.price.toLocaleString()}</p>
+                  <p>${art.location}</p>
+                  <div class="action-buttons">
+                    <button class="buy-btn">Buy</button>
+                    <button class="contact-btn">Contact</button>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            gallery.appendChild(item);
+          });
+        })
+        .catch((error) => {
+          console.error("Error loading artwork data:", error);
+        });
+    </script>
+  </body>
+</html>
