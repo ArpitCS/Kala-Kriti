@@ -151,6 +151,33 @@
     .home-btn:hover {
       background-color: #2c3e50;
     }
+    .artwork-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .artwork-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .artwork-card h3 {
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+    .artwork-card p {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+    .artworks-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
   </style>
 </head>
 <body>
@@ -173,6 +200,7 @@
         <li><a onclick="showSection('overview')"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
         <li><a onclick="showSection('orders')"><i class="fas fa-box"></i> Orders</a></li>
         <li><a onclick="showSection('reviews')"><i class="fas fa-star"></i> Reviews</a></li>
+        <li><a onclick="showSection('artworks')"><i class="fas fa-palette"></i> Artworks</a></li>
         <li><a onclick="showSection('settings')"><i class="fas fa-cog"></i> Settings</a></li>
       </ul>
     </div>
@@ -266,6 +294,26 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div id="artworks" class="section hidden">
+        <h2>Artworks</h2>
+        <div class="artworks-container">
+          <div class="artwork-card">
+            <img src="https://via.placeholder.com/250x150" alt="Artwork 1">
+            <h3>Sunset Bliss</h3>
+            <p>Acrylic on canvas</p>
+          </div>
+          <div class="artwork-card">
+            <img src="https://via.placeholder.com/250x150" alt="Artwork 2">
+            <h3>Urban Vibes</h3>
+            <p>Digital Art</p>
+          </div>
+          <div class="artwork-card">
+            <img src="https://via.placeholder.com/250x150" alt="Artwork 3">
+            <h3>Nature's Embrace</h3>
+            <p>Oil on canvas</p>
+          </div>
         </div>
       </div>
       <div id="settings" class="section hidden">
