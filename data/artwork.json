@@ -1,7 +1,7 @@
 [
   {
     "title": "With Every Kiss / Impression",
-    "image": "https://placehold.co/154x95",
+    "image": "public/art/with-every-kiss.png",
     "dimensions": "154 W x 95 H x 2 D cm",
     "author": "Tetiana and Victoria H.",
     "location": "Ukraine",
@@ -9,7 +9,7 @@
   },
   {
     "title": "Pink and Blue Close Up",
-    "image": "https://placehold.co/110x145",
+    "image": "public/art/pink-and-blue-close-up.png",
     "dimensions": "110 W x 145 H x 1 D cm",
     "author": "Thomas Saliot",
     "location": "Spain",

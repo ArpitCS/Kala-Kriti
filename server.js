@@ -151,6 +151,15 @@ const server = http.createServer((req, res) => {
           res
         );
         break;
+      
+      case "/artists":
+        // Serve the artists page
+        serveFile(
+          path.join(__dirname, "views", "artists.html"),
+          "text/html",
+          res
+        );
+        break;
 
       default:
         // If no GET route matched
