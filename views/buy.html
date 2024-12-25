@@ -67,10 +67,6 @@
         transition: filter 0.3s ease;
       }
 
-      .image-container:hover img {
-        filter: brightness(80%);
-      }
-
       .card-content {
         padding: 1rem;
       }
@@ -91,6 +87,40 @@
         font-size: 1rem;
         font-weight: bold;
         color: #333;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.6);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-container:hover .overlay {
+        opacity: 1;
+      }
+
+      .overlay .action-icons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .action-icons i {
+        font-size: 1.5rem;
+        color: black;
+        cursor: pointer;
+        background-color: white;
+        padding: 0.5rem;
+        border-radius: 50%;
       }
 
       .search-bar {
@@ -297,7 +327,7 @@
                 <p>${art.description || 'Author information not available'}</p>
                 <p>${art.location || 'Location not available'}</p>
                 <p class="price">$${art.price}</p>
-                <button class="buy-button">Buy</button>
+                <button class="buy-button" onclick="addToCart('${art.id}')">Add to Cart</button>
               </div>
             </div>
           `;
@@ -325,6 +355,46 @@
       function clearSearch() {
         document.getElementById('search-input').value = '';
         displayGallery(artworks);
+      }
+
+      function addToCart(artId) {
+        const art = artworks.find(a => a.id === artId);
+        if (!art) {
+          alert('Artwork not found');
+          return;
+        }
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const exists = cart.find(item => item.id === artId);
+
+        if (exists) {
+          alert('This artwork is already in your cart');
+        } else {
+          cart.push(art);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert(`${art.title} has been added to your cart`);
+        }
+      }
+
+      function toggleWishlist(artId) {
+        const art = artworks.find(a => a.id === artId);
+        if (!art) {
+          alert('Artwork not found');
+          return;
+        }
+
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const index = wishlist.findIndex(item => item.id === artId);
+
+        if (index >= 0) {
+          wishlist.splice(index, 1);
+          alert(`${art.title} has been removed from your wishlist`);
+        } else {
+          wishlist.push(art);
+          alert(`${art.title} has been added to your wishlist`);
+        }
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
       }
     </script>
   </body>

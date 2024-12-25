@@ -316,9 +316,7 @@
                 <img src="${imageUrl}" alt="${art.title}" />
                 <div class="overlay">
                   <div class="action-icons">
-                    <i class="fas fa-plus"></i>
-                    <i class="fas fa-heart"></i>
-                    <i class="fas fa-shopping-bag"></i>
+                    <i class="fas fa-heart" onclick="toggleWishlist('${art.id}', '${art.title}', '${imageUrl}')"></i>
                   </div>
                 </div>
               </div>
@@ -364,6 +362,21 @@
           .catch(error => {
             console.error('Error clearing search:', error);
           });
+      }
+
+      function toggleWishlist(artId, artTitle, imageUrl) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const index = wishlist.findIndex(item => item.id === artId);
+
+        if (index >= 0) {
+          wishlist.splice(index, 1);
+          alert(`${artTitle} has been removed from your favorites`);
+        } else {
+          wishlist.push({ id: artId, title: artTitle, image: imageUrl });
+          alert(`${artTitle} has been added to your favorites`);
+        }
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
       }
     </script>
   </body>

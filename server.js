@@ -187,6 +187,24 @@ const server = http.createServer((req, res) => {
         );
         break;
 
+      case "/cart":
+        // Serve the cart page
+        serveFile(
+          path.join(__dirname, "views", "cart.html"),
+          "text/html",
+          res
+        );
+        break;
+
+      case "/favorites":
+        // Serve the favorites page
+        serveFile(
+          path.join(__dirname, "views", "favorites.html"),
+          "text/html",
+          res
+        );
+        break;
+
       default:
         // If no GET route matched
         res.writeHead(404, { "Content-Type": "text/plain" });
