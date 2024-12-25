@@ -133,6 +133,24 @@ const server = http.createServer((req, res) => {
           res
         );
         break;
+      
+      case "/events":
+        // Serve the events page
+        serveFile(
+          path.join(__dirname, "views", "events.html"),
+          "text/html",
+          res
+        );
+        break;
+      
+      case "/news":
+        // Serve the news page
+        serveFile(
+          path.join(__dirname, "views", "news.html"),
+          "text/html",
+          res
+        );
+        break;
 
       default:
         // If no GET route matched
