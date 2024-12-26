@@ -307,6 +307,7 @@ const server = http.createServer((req, res) => {
             }
 
             // If successful, redirect to dashboard
+            localStorage.setItem("username", username);
             res.writeHead(302, { Location: "/dashboard" });
             res.end();
           });
