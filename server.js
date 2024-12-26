@@ -4,7 +4,7 @@ const path = require("path");
 const url = require("url");
 const querystring = require("querystring");
 
-const PORT = process.env.PORT;
+const PORT = 3000;
 
 const serveFile = (filePath, contentType, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
