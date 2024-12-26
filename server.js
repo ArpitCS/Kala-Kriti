@@ -204,6 +204,15 @@ const server = http.createServer((req, res) => {
           res
         );
         break;
+      
+      case "/portfolio":
+        // Serve the portfolio page
+        serveFile(
+          path.join(__dirname, "views", "portfolio.html"),
+          "text/html",
+          res
+        );
+        break;
 
       default:
         // If no GET route matched
