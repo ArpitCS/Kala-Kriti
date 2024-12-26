@@ -298,7 +298,8 @@
       let artworks = [];
 
       // Fetch artwork data from the Art Institute of Chicago API
-      fetch('https://api.artic.edu/api/v1/artworks?fields=id,title,image_id,artist_display,date_display,dimensions')
+      // fetch('https://api.artic.edu/api/v1/artworks?fields=id,title,image_id,artist_display,date_display,dimensions')
+      fetch('https://api.artic.edu/api/v1/artworks/search?q=paintings&fields=id,title,image_id,artist_display,date_display,dimensions')
         .then(response => response.json())
         .then(data => {
           artworks = data.data;
@@ -360,7 +361,7 @@
 
       function clearSearch() {
         document.getElementById('search-input').value = '';
-        fetch('https://api.artic.edu/api/v1/artworks?fields=id,title,image_id,artist_display,date_display,dimensions')
+        fetch('https://api.artic.edu/api/v1/artworks/search?q=paintings&fields=id,title,image_id,artist_display,date_display,dimensions')
           .then(response => response.json())
           .then(data => {
             artworks = data.data;
