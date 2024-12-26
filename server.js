@@ -4,12 +4,8 @@ const path = require("path");
 const url = require("url");
 const querystring = require("querystring");
 
-// Use your desired PORT; preserving process.env for flexibility
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
-/**
- * Helper function to serve an HTML file (or any file) to the client.
- */
 const serveFile = (filePath, contentType, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
