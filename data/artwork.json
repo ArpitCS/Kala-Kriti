@@ -97,5 +97,14 @@
     "location": "Italy",
     "price": 2500,
     "image": "https://stylemywall.com.au/cdn/shop/files/street-of-the-legion-of-honor-2-by-pablo-picasso-164755.jpg?v=1719144164&width=1000"
+  },
+  {
+    "title": "Nature Painting ",
+    "description": "Good look nature drawing made with water colors ",
+    "dimensions": "100 x 100",
+    "author": "Ramanjot Singh ",
+    "location": "Patiala",
+    "price": 13999,
+    "image": "https://i.pinimg.com/736x/ec/e5/49/ece5496a43d74a68d1b2c051dc87cf70.jpg"
   }
 ]
