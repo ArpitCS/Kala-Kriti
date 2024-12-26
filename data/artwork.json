@@ -88,5 +88,14 @@
     "location": "Mumbai, India",
     "price": 1000,
     "image": "https://i.etsystatic.com/51083786/r/il/029b84/5939745414/il_1588xN.5939745414_nor6.jpg"
+  },
+  {
+    "title": "The Human face",
+    "description": "A face that depicts the two human and walls",
+    "dimensions": "77 X 45 X 4",
+    "author": "Pablo Picasso",
+    "location": "Italy",
+    "price": 2500,
+    "image": "https://stylemywall.com.au/cdn/shop/files/street-of-the-legion-of-honor-2-by-pablo-picasso-164755.jpg?v=1719144164&width=1000"
   }
 ]
