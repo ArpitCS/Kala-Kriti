@@ -15,7 +15,7 @@ const serveFile = (filePath, contentType, res) => {
     res.writeHead(200, { "Content-Type": contentType });
     res.end(data);
   });
-};
+}; 
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
