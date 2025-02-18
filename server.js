@@ -4,7 +4,7 @@ const path = require("path");
 const url = require("url");
 const querystring = require("querystring");
 
-const PORT = process.env.PORT;
+const PORT = 3000;
 
 const serveFile = (filePath, contentType, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
@@ -303,7 +303,7 @@ const server = http.createServer((req, res) => {
             }
 
             // If successful, redirect to dashboard
-            localStorage.setItem("username", username);
+            // localStorage.setItem("username", username);
             res.writeHead(302, { Location: "/dashboard" });
             res.end();
           });
