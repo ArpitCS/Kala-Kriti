@@ -114,6 +114,11 @@ app.get("/portfolio", (req, res) => {
 // Error Handler
 app.use(errorHandler);
 
+// 404 Route
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+});
+
 // Start the Server
 app.listen(port, () => {
   console.log(`Kala-Kriti Live @ http://localhost:${port}`);
