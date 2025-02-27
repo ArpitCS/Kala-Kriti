@@ -36,7 +36,8 @@
         gap: 2rem;
       }
 
-      .image-preview-section, .form-section button {
+      .image-preview-section,
+      .form-section button {
         flex: 1;
         background-color: #fff;
         border: 1px solid #eee;
@@ -46,7 +47,8 @@
         text-align: center;
       }
 
-      .image-preview-section #preview-button, .form-section button {
+      .image-preview-section #preview-button,
+      .form-section button {
         font-family: "Open Sans", sans-serif;
         font-size: 16px;
         letter-spacing: 2px;
@@ -140,11 +142,7 @@
           <a href="/artists">Artists</a>
           <a href="/news">News</a>
           <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
+            <img src="/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
           </a>
           <a href="/buy">Buy</a>
           <a href="/sell">Sell</a>
@@ -287,6 +285,37 @@
             previewImage.style.display = "block";
           } else {
             alert("Please enter a valid image URL.");
+          }
+        });
+
+      document
+        .getElementById("sell-art-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = {
+            title: document.getElementById("art-title").value,
+            description: document.getElementById("art-description").value,
+            dimensions: document.getElementById("art-dimensions").value,
+            author: document.getElementById("art-author").value,
+            location: document.getElementById("art-location").value,
+            price: document.getElementById("art-price").value,
+            image: document.getElementById("art-image-url").value,
+          };
+
+          const response = await fetch("/api/upload-artwork", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (response.ok) {
+            alert("Artwork uploaded successfully!");
+            window.location.href = "/sell"; // Redirect to the sell page after submission
+          } else {
+            alert("Failed to upload artwork.");
           }
         });
     </script>
