@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const apiRoutes = require("./api/apiRoutes");
 app.use("/", apiRoutes);
 
-// Server Artwork JSON
+// Serve Artwork JSON
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
   fs.readFile(filePath, "utf8", (err, fileContents) => {
@@ -117,6 +117,48 @@ app.use(errorHandler);
 // 404 Route
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+});
+
+// Post Requests
+app.post("/upload-artwork", (req, res) => {
+  let body = "";
+  req.on("data", (chunk) => (body += chunk));
+  req.on("end", () => {
+    const parsedData = JSON.parse(body);
+    const { title, description, dimensions, author, location, price, image } = parsedData;
+    const newArtwork = {
+      title,
+      description,
+      dimensions,
+      author,
+      location,
+      price: parseFloat(price),
+      image,
+    };
+
+    const artworkPath = path.join(__dirname, "data", "artwork.json");
+
+    fs.readFile(artworkPath, "utf8", (err, data) => {
+      let artworks = [];
+      if (!err && data) {
+        try {
+          artworks = JSON.parse(data);
+        } catch {
+          console.error("Error parsing artwork.json. Defaulting to an empty array.");
+        }
+      }
+
+      artworks.push(newArtwork);
+
+      fs.writeFile(artworkPath, JSON.stringify(artworks, null, 2), (errWrite) => {
+        if (errWrite) {
+          res.status(500).send("Error saving artwork.");
+          return;
+        }
+        res.redirect("/sell");
+      });
+    });
+  });
 });
 
 // Start the Server

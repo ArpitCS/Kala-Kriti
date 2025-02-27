@@ -40,45 +40,45 @@ router.post('/register', (req, res, next) => {
 })
 
 // Art Upload Route
-router.post('/upload-artwork', (req, res, next) => {
-    let body = "";
-    req.on("data", (chunk) => (body += chunk));
-    req.on("end", () => {
-        const parsedData = JSON.parse(body);
-        const { title, description, dimensions, author, location, price, image } = parsedData;
-        const newArtwork = {
-            title,
-            description,
-            dimensions,
-            author,
-            location,
-            price: parseFloat(price),
-            image,
-        };
+// router.post('/upload-artwork', (req, res, next) => {
+//     let body = "";
+//     req.on("data", (chunk) => (body += chunk));
+//     req.on("end", () => {
+//         const parsedData = JSON.parse(body);
+//         const { title, description, dimensions, author, location, price, image } = parsedData;
+//         const newArtwork = {
+//             title,
+//             description,
+//             dimensions,
+//             author,
+//             location,
+//             price: parseFloat(price),
+//             image,
+//         };
 
-        const artworkPath = path.join(__dirname, '../data/artwork.json');
+//         const artworkPath = path.join(__dirname, '../data/artwork.json');
 
-        fs.readFile(artworkPath, "utf8", (err, data) => {
-            let artworks = [];
-            if (!err && data) {
-                try {
-                    artworks = JSON.parse(data);
-                } catch {
-                    console.error("Error parsing artwork.json. Defaulting to an empty array.");
-                }
-            }
+//         fs.readFile(artworkPath, "utf8", (err, data) => {
+//             let artworks = [];
+//             if (!err && data) {
+//                 try {
+//                     artworks = JSON.parse(data);
+//                 } catch {
+//                     console.error("Error parsing artwork.json. Defaulting to an empty array.");
+//                 }
+//             }
 
-            artworks.push(newArtwork);
+//             artworks.push(newArtwork);
 
-            fs.writeFile(artworkPath, JSON.stringify(artworks, null, 2), (errWrite) => {
-                if (errWrite) {
-                    return next(errWrite);
-                }
-                res.status(302).redirect('/sell');
-            });
-        });
-    });
-});
+//             fs.writeFile(artworkPath, JSON.stringify(artworks, null, 2), (errWrite) => {
+//                 if (errWrite) {
+//                     return next(errWrite);
+//                 }
+//                 res.status(302).redirect('/sell');
+//             });
+//         });
+//     });
+// });
 
 // Export the Module
 module.exports = router;

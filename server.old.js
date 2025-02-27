@@ -215,7 +215,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(404, { "Content-Type": "text/plain" });
         res.end("404 - Not Found");
         break;
-    }
+    }up
 
     // --- POST Requests ---
   } else if (req.method === "POST") {
