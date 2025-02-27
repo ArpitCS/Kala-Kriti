@@ -28,6 +28,7 @@ app.use(
       "default-src": ["*"],
       "img-src": ["'self'", "https: data:"],
       "script-src": ['*', "'unsafe-inline'"],
+      "script-src-attr": ['*', "'unsafe-inline'"],
     }
   })
 )
