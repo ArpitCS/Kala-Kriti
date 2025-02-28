@@ -27,11 +27,11 @@ app.use(
     directives: {
       "default-src": ["*"],
       "img-src": ["'self'", "https: data:"],
-      "script-src": ['*', "'unsafe-inline'"],
-      "script-src-attr": ['*', "'unsafe-inline'"],
-    }
+      "script-src": ["*", "'unsafe-inline'"],
+      "script-src-attr": ["*", "'unsafe-inline'"],
+    },
   })
-)
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -112,13 +112,13 @@ app.get("/portfolio", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "portfolio.html"));
 });
 
-// Error Handler
-app.use(errorHandler);
-
-// 404 Route
-app.use((req, res) => {
+// Handle 404 Errors
+app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
+
+// Error Handler
+app.use(errorHandler);
 
 // Start the Server
 app.listen(port, () => {

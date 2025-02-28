@@ -2,6 +2,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const errorHandler = require("../middlewares/errorHandler");
 const router = express.Router();
 
 // Login Route
@@ -68,7 +69,7 @@ router.post("/upload-artwork", (req, res, next) => {
       !price ||
       !image
     ) {
-      return res.status(400).json({ error: "All fields are required" });
+      return errorHandler(new Error("All fields are required"), req, res, next);
     }
 
     const newArtwork = {
@@ -90,9 +91,7 @@ router.post("/upload-artwork", (req, res, next) => {
         try {
           artworks = JSON.parse(data);
         } catch {
-          console.error(
-            "Error parsing artwork.json. Defaulting to an empty array."
-          );
+          return errorHandler(new Error("Invalid JSON file"), req, res, next);
         }
       }
 
@@ -105,12 +104,10 @@ router.post("/upload-artwork", (req, res, next) => {
           if (errWrite) {
             return next(errWrite);
           }
-          res
-            .status(201)
-            .json({
-              message: "Artwork uploaded successfully!",
-              artwork: newArtwork,
-            });
+          res.status(201).json({
+            message: "Artwork uploaded successfully!",
+            artwork: newArtwork,
+          });
         }
       );
     });
