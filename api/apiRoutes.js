@@ -19,6 +19,8 @@ router.post("/login", (req, res, next) => {
         (u) => u.username === username && u.password === password
       );
       if (user) {
+        res.cookie("username", username, { httpOnly: true });
+        res.cookie("isLogged", true, { httpOnly: true });
         return res.status(302).redirect("/dashboard");
       } else {
         return res.status(302).redirect("/register");
@@ -47,12 +49,21 @@ router.post("/register", (req, res, next) => {
         JSON.stringify(users, null, 2),
         (err) => {
           if (err) return next(err);
+          res.cookie("username", username, { httpOnly: true });
+          res.cookie("isLogged", true, { httpOnly: true });
           res.status(302).redirect("/login");
         }
       );
     }
   );
 });
+
+// Logout Route
+router.get("/logout", (req, res, next) => {
+  res.clearCookie("username");
+  res.clearCookie("isLogged");
+  res.redirect("/login")
+})
 
 // Upload Artwork Route
 router.post("/upload-artwork", (req, res, next) => {

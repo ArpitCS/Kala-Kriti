@@ -151,6 +151,19 @@
     .home-btn:hover {
       background-color: #2c3e50;
     }
+    .logout-btn {
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 5px 10px;
+      background-color: #e74c3c;
+      border-radius: 25px;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
     .artwork-card {
       background-color: #fff;
       border-radius: 8px;
@@ -191,10 +204,14 @@
           <i class="fa fa-home"></i>
           <span>Home</span>
         </a>
+        <a href="/api/logout" class="logout-btn">
+          <i class="fa fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </a>
       </div>
       <div class="profile">
         <img src="https://img.freepik.com/free-photo/handsome-man-with-glasses_144627-18665.jpg" alt="Profile Picture">
-        <h3><strong>Ryan Jackson</strong></h3>
+        <h3 id="username-field"><strong>Guest</strong></h3>
       </div>
       <ul class="nav-links">
         <li><a onclick="showSection('overview')"><i class="fas fa-tachometer-alt"></i> Overview</a></li>
@@ -375,6 +392,26 @@
         }
       });
     }
+
+    // Function to get cookie value by name
+    function getCookie(name) {
+      let cookieArr = document.cookie.split(";");
+      for (let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if (name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+      return null;
+    }
+
+    // Set the username in the dashboard
+    document.addEventListener("DOMContentLoaded", function() {
+      const username = getCookie("username");
+      if (username) {
+        document.getElementById("username-field").innerText = username;
+      }
+    });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

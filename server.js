@@ -65,6 +65,12 @@ app.get("/contact", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+  
+  const isLogged = req.cookies.isLogged;
+  if (isLogged === 'true') {
+    return res.redirect("/dashboard");
+  }
+
   res.sendFile(path.join(__dirname, "views", "login.html"));
 });
 
