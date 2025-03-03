@@ -72,17 +72,6 @@ router.post("/upload-artwork", (req, res, next) => {
       return errorHandler(new Error("All fields are required"), req, res, next);
     }
 
-    const newArtwork = {
-      title,
-      description,
-      dimensions,
-      author,
-      location,
-      price: parseFloat(price),
-      image,
-      createdAt: new Date(),
-    };
-
     const artworkPath = path.join(__dirname, "../data/artwork.json");
 
     fs.readFile(artworkPath, "utf8", (err, data) => {
@@ -94,6 +83,20 @@ router.post("/upload-artwork", (req, res, next) => {
           return errorHandler(new Error("Invalid JSON file"), req, res, next);
         }
       }
+
+      const newId = artworks.length ? parseInt(artworks[artworks.length - 1].id) + 1 : 1;
+
+      const newArtwork = {
+        id: newId.toString(),
+        title,
+        description,
+        dimensions,
+        author,
+        location,
+        price: parseFloat(price),
+        image,
+        createdAt: new Date().toISOString(),
+      };
 
       artworks.push(newArtwork);
 
