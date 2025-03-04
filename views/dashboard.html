@@ -392,26 +392,6 @@
         }
       });
     }
-
-    // Function to get cookie value by name
-    function getCookie(name) {
-      let cookieArr = document.cookie.split(";");
-      for (let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if (name == cookiePair[0].trim()) {
-          return decodeURIComponent(cookiePair[1]);
-        }
-      }
-      return null;
-    }
-
-    // Set the username in the dashboard
-    document.addEventListener("DOMContentLoaded", function() {
-      const username = getCookie("username");
-      if (username) {
-        document.getElementById("username-field").innerText = username;
-      }
-    });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
