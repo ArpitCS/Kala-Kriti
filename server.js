@@ -30,8 +30,8 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // For JSON Payloads
+app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-Encoded Payloads 
 
 // Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
