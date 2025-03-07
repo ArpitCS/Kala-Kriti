@@ -62,7 +62,7 @@ router.post("/register", (req, res, next) => {
 router.get("/logout", (req, res, next) => {
   res.clearCookie("username");
   res.clearCookie("isLogged");
-  res.redirect("/login")
+  res.status(302).redirect("/login")
 })
 
 // Upload Artwork Route
