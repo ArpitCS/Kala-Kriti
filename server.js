@@ -15,9 +15,6 @@ const port = 9000;
 const logger = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // Middleware Setup
 app.use(logger);
 app.use(cors());
