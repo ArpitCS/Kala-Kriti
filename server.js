@@ -11,7 +11,7 @@ const path = require("path");
 const app = express();
 const port = 9000;
 
-// Loggnode er and Error Handler Middlewares
+// Logger and Error Handler Middlewares
 const logger = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
 
