@@ -78,6 +78,10 @@ app.get("/register", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "register.html"));
 });
 
+app.get("/error", (req, res) => {
+  errorHandler(new Error("An Error Occurred!"), req, res);
+});
+
 app.get("/dashboard", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "dashboard.html"));
 });
