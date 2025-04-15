@@ -44,7 +44,6 @@ router.post('/wishlist/toggle', (req, res) => {
   res.json({ message: `Wishlist toggled for ${art.title}` });
 });
 
-module.exports = router;
 
 // POST /api/upload-artwork
 // Expects a JSON body with artwork details and returns a confirmation message
@@ -63,10 +62,16 @@ router.post('/upload-artwork', (req, res) => {
     price: parseFloat(price),
     image
   };
-
+  
   // Add to your data source (this is a simplified example)
   // In a real app, you would save to a database
   artworksData.push(newArtwork);
   
   res.json({ success: true, message: 'Artwork uploaded successfully' });
 });
+
+router.get('/cart', (req, res) => {
+  res.render('cart'); // Renders views/cart.ejs
+});
+
+module.exports = router;

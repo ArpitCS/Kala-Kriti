@@ -97,8 +97,8 @@ app.get("/events", (req, res) => {
   res.render("events.ejs");
 });
 
-app.get("/news", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "news.html"));
+app.get('/news', (req, res) => {
+  res.render('news', { newsApiKey: '9d4d7f3138cc49faa95dde0b3f2ad6d7' });
 });
 
 app.get("/artists", (req, res) => {
@@ -115,7 +115,7 @@ app.get("/sell", (req, res) => {
 });
 
 app.get("/cart", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "cart.html"));
+  res.render("cart.ejs");
 });
 
 app.get("/favorites", (req, res) => {
