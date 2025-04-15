@@ -44,19 +44,22 @@ app.use(express.static(path.join(__dirname, "public")));
 const apiRoutes = require("./api/apiRoutes");
 app.use("/api", apiRoutes);
 
-// Serve Artwork JSON
-app.get("/data/artwork.json", (req, res) => {
-  const filePath = path.join(__dirname, "data", "artwork.json");
-  fs.readFile(filePath, "utf8", (err, fileContents) => {
-    if (err) {
-      res.status(404).send("File Not Found");
-      return;
-    }
-    res.status(200).json(JSON.parse(fileContents));
-  });
-});
+const ejsRoutes = require("./routes/ejs_routes");
+app.use("/ejs", ejsRoutes);
 
-// Get Routes
+// Optionally, if you still need to serve the raw artwork JSON, uncomment this block:
+// app.get("/data/artwork.json", (req, res) => {
+//   const filePath = path.join(__dirname, "data", "artwork.json");
+//   fs.readFile(filePath, "utf8", (err, fileContents) => {
+//     if (err) {
+//       res.status(404).send("File Not Found");
+//       return;
+//     }
+//     res.status(200).json(JSON.parse(fileContents));
+//   });
+// });
+
+// Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
@@ -66,12 +69,10 @@ app.get("/contact", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  
   const isLogged = req.cookies.isLogged;
   if (isLogged === 'true') {
     return res.redirect("/dashboard");
   }
-
   res.sendFile(path.join(__dirname, "views", "login.html"));
 });
 
@@ -103,12 +104,13 @@ app.get("/artists", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "artists.html"));
 });
 
+// Render the EJS "buy" page
 app.get("/buy", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "buy.html"));
+  res.render("buy");
 });
 
 app.get("/sell", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "sell.html"));
+  res.render("sell");
 });
 
 app.get("/cart", (req, res) => {
@@ -133,7 +135,7 @@ app.get("*", (req, res) => {
   });
 });
 
-// Error Handler
+// Error Handler Middleware
 app.use(errorHandler);
 
 // Start the Server

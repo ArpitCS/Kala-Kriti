@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Kala-Kriti | Sell</title>
 
+    <!-- CSS Libraries -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -12,10 +13,12 @@
       referrerpolicy="no-referrer"
     />
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
 
     <style>
+      /* Reset and basic styles */
       * {
         margin: 0;
         padding: 0;
@@ -117,23 +120,13 @@
         border-radius: 5px;
       }
     </style>
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
   </head>
   <body>
     <!-- Header -->
     <header>
       <div class="header-container">
         <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
+          <a href="/contact" class="contact-btn"><i class="fa fa-phone"></i></a>
           <a href="/#about">About Us</a>
           <a href="/portfolio">Portfolio</a>
         </div>
@@ -169,56 +162,15 @@
 
       <div class="form-section">
         <h2>Artwork Details</h2>
-        <form id="sell-art-form" method="POST" action="/upload-artwork">
-          <input
-            type="text"
-            name="title"
-            id="art-title"
-            placeholder="Title"
-            required
-          />
-          <textarea
-            name="description"
-            id="art-description"
-            placeholder="Description"
-            rows="4"
-            required
-          ></textarea>
-          <input
-            type="text"
-            name="dimensions"
-            id="art-dimensions"
-            placeholder="Dimensions (W x H x D cm)"
-            required
-          />
-          <input
-            type="text"
-            name="author"
-            id="art-author"
-            placeholder="Author"
-            required
-          />
-          <input
-            type="text"
-            name="location"
-            id="art-location"
-            placeholder="Location"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            id="art-price"
-            placeholder="Price ($)"
-            required
-          />
-          <input
-            type="url"
-            name="image"
-            id="art-image-url"
-            placeholder="Image URL"
-            required
-          />
+        <!-- The form uses JavaScript to send data to the API route -->
+        <form id="sell-art-form">
+          <input type="text" name="title" id="art-title" placeholder="Title" required />
+          <textarea name="description" id="art-description" placeholder="Description" rows="4" required></textarea>
+          <input type="text" name="dimensions" id="art-dimensions" placeholder="Dimensions (W x H x D cm)" required />
+          <input type="text" name="author" id="art-author" placeholder="Author" required />
+          <input type="text" name="location" id="art-location" placeholder="Location" required />
+          <input type="number" name="price" id="art-price" placeholder="Price ($)" required />
+          <input type="url" name="image" id="art-image-url" placeholder="Image URL" required />
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -273,36 +225,35 @@
       </div>
     </footer>
 
+    <!-- Client-Side Scripts -->
     <script>
-      document
-        .getElementById("preview-button")
-        .addEventListener("click", function () {
-          const imageUrl = document.getElementById("art-image-url").value;
-          const previewImage = document.getElementById("art-preview");
+      // Preview the image provided by the user
+      document.getElementById("preview-button").addEventListener("click", function () {
+        const imageUrl = document.getElementById("art-image-url").value;
+        const previewImage = document.getElementById("art-preview");
+        if (imageUrl) {
+          previewImage.src = imageUrl;
+          previewImage.style.display = "block";
+        } else {
+          alert("Please enter a valid image URL.");
+        }
+      });
 
-          if (imageUrl) {
-            previewImage.src = imageUrl;
-            previewImage.style.display = "block";
-          } else {
-            alert("Please enter a valid image URL.");
-          }
-        });
+      // Handle the sell-art form submission
+      document.getElementById("sell-art-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      document
-        .getElementById("sell-art-form")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
+        const formData = {
+          title: document.getElementById("art-title").value,
+          description: document.getElementById("art-description").value,
+          dimensions: document.getElementById("art-dimensions").value,
+          author: document.getElementById("art-author").value,
+          location: document.getElementById("art-location").value,
+          price: document.getElementById("art-price").value,
+          image: document.getElementById("art-image-url").value,
+        };
 
-          const formData = {
-            title: document.getElementById("art-title").value,
-            description: document.getElementById("art-description").value,
-            dimensions: document.getElementById("art-dimensions").value,
-            author: document.getElementById("art-author").value,
-            location: document.getElementById("art-location").value,
-            price: document.getElementById("art-price").value,
-            image: document.getElementById("art-image-url").value,
-          };
-
+        try {
           const response = await fetch("/api/upload-artwork", {
             method: "POST",
             headers: {
@@ -313,11 +264,15 @@
 
           if (response.ok) {
             alert("Artwork uploaded successfully!");
-            window.location.href = "/sell"; // Redirect to the sell page after submission
+            window.location.href = "/sell"; // Redirect on success (adjust as needed)
           } else {
             alert("Failed to upload artwork.");
           }
-        });
+        } catch (err) {
+          console.error(err);
+          alert("Failed to upload artwork.");
+        }
+      });
     </script>
   </body>
 </html>
