@@ -89,8 +89,8 @@ app.get("/dashboard", (req, res) => {
   res.render("dashboard.ejs");
 });
 
-app.get("/gallery", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "gallery.html"));
+app.get('/gallery', (req, res) => {
+  res.render('gallery'); // Renders views/gallery.ejs
 });
 
 app.get("/events", (req, res) => {
