@@ -61,11 +61,11 @@ app.use("/ejs", ejsRoutes);
 
 // Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "index.html"));
+  res.render("index.ejs");
 });
 
 app.get("/contact", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "contact.html"));
+  res.render("contact.ejs");
 });
 
 app.get("/login", (req, res) => {
@@ -74,10 +74,11 @@ app.get("/login", (req, res) => {
     return res.redirect("/dashboard");
   }
   res.sendFile(path.join(__dirname, "views", "login.html"));
+  res.render("login.ejs");
 });
 
 app.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "register.html"));
+  res.render("register.ejs");
 });
 
 app.get("/error", (req, res) => {
@@ -85,7 +86,7 @@ app.get("/error", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "dashboard.html"));
+  res.render("dashboard.ejs");
 });
 
 app.get("/gallery", (req, res) => {
@@ -93,7 +94,7 @@ app.get("/gallery", (req, res) => {
 });
 
 app.get("/events", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "events.html"));
+  res.render("events.ejs");
 });
 
 app.get("/news", (req, res) => {
@@ -101,7 +102,7 @@ app.get("/news", (req, res) => {
 });
 
 app.get("/artists", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "artists.html"));
+  res.render("artists.ejs");
 });
 
 // Render the EJS "buy" page
@@ -118,11 +119,11 @@ app.get("/cart", (req, res) => {
 });
 
 app.get("/favorites", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "favorites.html"));
+  res.render("favorites.ejs");
 });
 
 app.get("/portfolio", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "portfolio.html"));
+  res.render("portfolio.ejs");
 });
 
 // Handle 404 Errors
