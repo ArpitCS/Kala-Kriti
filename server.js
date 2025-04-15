@@ -15,6 +15,10 @@ const port = 9000;
 const logger = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
 
+// Set View Engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 // Middleware Setup
 app.use(logger);
 app.use(cors());
@@ -120,8 +124,13 @@ app.get("/portfolio", (req, res) => {
 });
 
 // Handle 404 Errors
-app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+app.get("*", (req, res) => {
+  res.status(404).render("404", {
+      title: "404",
+      imagePath: "/art/with-every-kiss.png",
+      logoPath: "/logo-color.png",
+      year: new Date().getFullYear()
+  });
 });
 
 // Error Handler
