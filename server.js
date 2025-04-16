@@ -101,7 +101,6 @@ app.get("/artists", (req, res) => {
   res.render("artists.ejs");
 });
 
-// Render the EJS "buy" page
 app.get("/buy", (req, res) => {
   res.render("buy");
 });
