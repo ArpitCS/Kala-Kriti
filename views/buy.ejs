@@ -324,16 +324,16 @@
     <script>
       let artworks = [];
 
-      // Fetch artwork data from local JSON
-      fetch('/data/artwork.json')
-        .then(response => response.json())
-        .then(data => {
-          artworks = data;
-          displayGallery(artworks);
-        })
-        .catch(error => {
-          console.error('Error loading artwork data:', error);
-        });
+      // Moved Client Side Artwork Render to EJS
+      // fetch('/data/artwork.json')
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     artworks = data;
+      //     displayGallery(artworks);
+      //   })
+      //   .catch(error => {
+      //     console.error('Error loading artwork data:', error);
+      //   });
 
       function displayGallery(items) {
         const gallery = document.getElementById('art-gallery');
