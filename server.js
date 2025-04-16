@@ -44,20 +44,16 @@ app.use(express.static(path.join(__dirname, "public")));
 const apiRoutes = require("./api/apiRoutes");
 app.use("/api", apiRoutes);
 
-const ejsRoutes = require("./routes/ejs_routes");
-app.use("/ejs", ejsRoutes);
-
-// Optionally, if you still need to serve the raw artwork JSON, uncomment this block:
-// app.get("/data/artwork.json", (req, res) => {
-//   const filePath = path.join(__dirname, "data", "artwork.json");
-//   fs.readFile(filePath, "utf8", (err, fileContents) => {
-//     if (err) {
-//       res.status(404).send("File Not Found");
-//       return;
-//     }
-//     res.status(200).json(JSON.parse(fileContents));
-//   });
-// });
+app.get("/data/artwork.json", (req, res) => {
+  const filePath = path.join(__dirname, "data", "artwork.json");
+  fs.readFile(filePath, "utf8", (err, fileContents) => {
+    if (err) {
+      res.status(404).send("File Not Found");
+      return;
+    }
+    res.status(200).json(JSON.parse(fileContents));
+  });
+});
 
 // Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {

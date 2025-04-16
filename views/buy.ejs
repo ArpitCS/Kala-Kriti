@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Kala-Kriti | Buy</title>
 
-    <!-- CSS Libraries -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -13,9 +12,9 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
+
     <style>
       /* Reuse styles from reference */
       * {
@@ -28,6 +27,7 @@
         background-color: #fafafa;
         color: #333;
       }
+
       .gallery-container {
         width: 90%;
         max-width: 1200px;
@@ -37,23 +37,28 @@
         text-align: center;
         margin-bottom: 2rem;
       }
+
       .masonry {
         column-count: 3;
         column-gap: 1.5rem;
       }
+
       .gallery-item {
         display: inline-block;
         margin-bottom: 1.5rem;
         width: 100%;
       }
+
       .card {
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
+
       .image-container {
         position: relative;
         width: 100%;
       }
+
       .image-container img {
         display: block;
         width: 100%;
@@ -61,24 +66,29 @@
         filter: brightness(100%);
         transition: filter 0.3s ease;
       }
+
       .card-content {
         padding: 1rem;
       }
+
       .card-content h2 {
         font-size: 1rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
       }
+
       .card-content p {
         font-size: 0.9rem;
         color: #666;
         margin: 0.2rem 0;
       }
+
       .card-content .price {
         font-size: 1rem;
         font-weight: bold;
         color: #333;
       }
+
       .overlay {
         position: absolute;
         top: 0;
@@ -94,13 +104,16 @@
         opacity: 0;
         transition: opacity 0.3s ease;
       }
+
       .image-container:hover .overlay {
         opacity: 1;
       }
+
       .overlay .action-icons {
         display: flex;
         gap: 0.5rem;
       }
+
       .action-icons i {
         font-size: 1.5rem;
         color: black;
@@ -109,6 +122,7 @@
         padding: 0.5rem;
         border-radius: 50%;
       }
+
       .search-bar {
         display: flex;
         justify-content: center;
@@ -120,6 +134,7 @@
         border-radius: 50px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
+
       .search-bar input {
         flex-grow: 1;
         padding: 0.5rem;
@@ -129,6 +144,7 @@
         margin-left: 0.5rem;
         text-align: center;
       }
+
       .search-bar .search-icon {
         display: inline-block;
         background-color: black;
@@ -145,6 +161,7 @@
         justify-content: center;
         align-items: center;
       }
+
       .search-bar .clear-button {
         display: inline-block;
         background-color: red;
@@ -157,6 +174,7 @@
         border: none;
         cursor: pointer;
       }
+
       .buy-button {
         background-color: green;
         color: white;
@@ -167,10 +185,12 @@
         font-size: 1rem;
         margin-top: 0.5rem;
       }
+
       @media screen and (max-width: 992px) {
         .masonry {
           column-count: 2;
         }
+
         .search-bar input {
           width: 80%;
         }
@@ -179,6 +199,7 @@
         .masonry {
           column-count: 1;
         }
+
         .search-bar input {
           width: 90%;
         }
@@ -201,7 +222,11 @@
           <a href="/artists">Artists</a>
           <a href="/news">News</a>
           <a href="/">
-            <img src="/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+            <img
+              src="/logo-color.png"
+              alt="Kala-Kriti Logo"
+              class="logo"
+            />
           </a>
           <a href="/buy">Buy</a>
           <a href="/sell">Sell</a>
@@ -225,9 +250,7 @@
           <i class="fas fa-search"></i>
         </div>
       </div>
-      <div id="art-gallery" class="masonry">
-        <!-- Gallery items will be appended here -->
-      </div>
+      <div id="art-gallery" class="masonry"></div>
     </div>
 
     <!-- Footer -->
@@ -279,17 +302,20 @@
       </div>
     </footer>
 
-    <!-- Client-Side Scripts -->
     <script>
-      // Call the API route to load all or filtered artwork data
-      function loadGallery(search = '') {
-        fetch('/ejs/artworks?search=' + encodeURIComponent(search))
-          .then(response => response.json())
-          .then(data => displayGallery(data))
-          .catch(error => console.error('Error:', error));
-      }
+      let artworks = [];
 
-      // Render gallery items in the page
+      // Fetch artwork data from local JSON
+      fetch('/data/artwork.json')
+        .then(response => response.json())
+        .then(data => {
+          artworks = data;
+          displayGallery(artworks);
+        })
+        .catch(error => {
+          console.error('Error loading artwork data:', error);
+        });
+
       function displayGallery(items) {
         const gallery = document.getElementById('art-gallery');
         gallery.innerHTML = '';
@@ -306,61 +332,78 @@
                 <h2>${art.title}</h2>
                 <p>${art.dimensions || 'Dimensions not available'}</p>
                 <p>${art.author || 'Author information not available'}</p>
-                <p>${art.description || 'Description not available'}</p>
+                <p>${art.description || 'Author information not available'}</p>
                 <p>${art.location || 'Location not available'}</p>
                 <p class="price">$${art.price}</p>
                 <button class="buy-button" onclick="addToCart('${art.id}')">Add to Cart</button>
               </div>
             </div>
           `;
+
           gallery.appendChild(item);
         });
       }
 
-      // Search for artworks via the API
       function searchArtworks() {
-        const query = document.getElementById('search-input').value.trim();
-        if (!query) {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        if (!query.trim()) {
           alert('Please enter a search term');
           return;
         }
-        loadGallery(query);
+
+        const filteredArtworks = artworks.filter(art =>
+          art.title.toLowerCase().includes(query) ||
+          art.author.toLowerCase().includes(query) ||
+          art.description.toLowerCase().includes(query)
+        );
+
+        displayGallery(filteredArtworks);
       }
 
-      // Clear search input and load all artworks
       function clearSearch() {
         document.getElementById('search-input').value = '';
-        loadGallery();
+        displayGallery(artworks);
       }
 
-      // Call the API to add artwork to the cart
       function addToCart(artId) {
-        fetch('/ejs/cart/add', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ artId: artId })
-        })
-          .then(res => res.json())
-          .then(data => alert(data.message))
-          .catch(err => console.error(err));
+        const art = artworks.find(a => a.id === artId);
+        if (!art) {
+          alert('Artwork not found');
+          return;
+        }
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const exists = cart.find(item => item.id === artId);
+
+        if (exists) {
+          alert('This artwork is already in your cart');
+        } else {
+          cart.push(art);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert(`${art.title} has been added to your cart`);
+        }
       }
 
-      // Call the API to toggle an artwork in the wishlist
       function toggleWishlist(artId) {
-        fetch('/ejs/wishlist/toggle', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ artId: artId })
-        })
-          .then(res => res.json())
-          .then(data => alert(data.message))
-          .catch(err => console.error(err));
-      }
+        const art = artworks.find(a => a.id === artId);
+        if (!art) {
+          alert('Artwork not found');
+          return;
+        }
 
-      // Load the gallery on initial page load
-      document.addEventListener('DOMContentLoaded', () => {
-        loadGallery();
-      });
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const index = wishlist.findIndex(item => item.id === artId);
+
+        if (index >= 0) {
+          wishlist.splice(index, 1);
+          alert(`${art.title} has been removed from your wishlist`);
+        } else {
+          wishlist.push(art);
+          alert(`${art.title} has been added to your wishlist`);
+        }
+
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      }
     </script>
   </body>
 </html>

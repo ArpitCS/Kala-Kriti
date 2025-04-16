@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Kala-Kriti | Gallery</title>
 
-    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -204,7 +203,7 @@
     </style>
   </head>
   <body>
-    <!-- Header (Unchanged) -->
+
     <header>
       <div class="header-container">
         <div class="header-left">
@@ -219,7 +218,11 @@
           <a href="/artists">Artists</a>
           <a href="/news">News</a>
           <a href="/">
-            <img src="/logo-color.png" alt="Kala-Kriti Logo" class="logo" />
+            <img
+              src="/logo-color.png"
+              alt="Kala-Kriti Logo"
+              class="logo"
+            />
           </a>
           <a href="/buy">Buy</a>
           <a href="/sell">Sell</a>
@@ -295,8 +298,8 @@
     <script>
       let artworks = [];
 
-      // Fetch artwork data from the Art Institute of Chicago API.
-      // (Using a search query "paintings" along with specific fields)
+      // Fetch artwork data from the Art Institute of Chicago API
+      // fetch('https://api.artic.edu/api/v1/artworks?fields=id,title,image_id,artist_display,date_display,dimensions')
       fetch('https://api.artic.edu/api/v1/artworks/search?q=paintings&fields=id,title,image_id,artist_display,date_display,dimensions')
         .then(response => response.json())
         .then(data => {
