@@ -250,7 +250,26 @@
           <i class="fas fa-search"></i>
         </div>
       </div>
-      <div id="art-gallery" class="masonry"></div>
+      <div id="art-gallery" class="masonry">
+        <% artworks.forEach(art => { %>
+          <div class="gallery-item">
+            <div class="card">
+              <div class="image-container">
+                <img src="<%= art.image %>" alt="<%= art.title %>" />
+              </div>
+              <div class="card-content">
+                <h2><%= art.title %></h2>
+                <p><%= art.dimensions || 'Dimensions not available' %></p>
+                <p><%= art.author || 'Author information not available' %></p>
+                <p><%= art.description || 'Description not available' %></p>
+                <p><%= art.location || 'Location not available' %></p>
+                <p class="price">$<%= art.price %></p>
+                <button class="buy-button" onclick="addToCart('<%= art.id %>')">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
     </div>
 
     <!-- Footer -->

@@ -102,7 +102,8 @@ app.get("/artists", (req, res) => {
 });
 
 app.get("/buy", (req, res) => {
-  res.render("buy");
+  const artworks = require("./data/artwork.json");
+  res.render("buy", { artworks });
 });
 
 app.get("/sell", (req, res) => {
