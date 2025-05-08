@@ -1,540 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kala-Kriti | Events</title>
-    <link rel="stylesheet" href="/css/header.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-
-      .scroller {
-        white-space: nowrap;
-        overflow-x: auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .scroller .card {
-        display: inline-block;
-        width: 300px;
-        margin-right: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: white;
-      }
-
-      .scroller .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 5px 5px 0 0;
-      }
-
-      .card-details {
-        padding: 10px;
-      }
-
-      .event-table {
-        width: 90%;
-        margin: 20px auto;
-        border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .event-table th,
-      .event-table td {
-        padding: 10px;
-        text-align: left;
-        border: 1px solid #ddd;
-      }
-
-      .event-table th {
-        background-color: #444;
-        color: white;
-      }
-
-
-
-      .featured-section {
-        padding: 50px 20px;
-        background-color: #fff;
-        text-align: center;
-      }
-
-      .featured-section h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-        color: #333;
-        text-transform: uppercase;
-        font-weight: bold;
-        position: relative;
-        display: inline-block;
-      }
-
-      .featured-section h2::before,
-      .featured-section h2::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 50px;
-        height: 2px;
-        background-color: #333;
-      }
-
-      .featured-section h2::before {
-        left: -60px;
-      }
-
-      .featured-section h2::after {
-        right: -60px;
-      }
-
-      .featured-section p {
-        font-size: 1rem;
-        color: #555;
-        font-style: italic;
-        margin-top: -10px;
-      }
-
-      .banner-section {
-    position: relative;
-    text-align: center;
-    color: white;
-  }
-
-  .banner-image {
-    width: 100%;
-    /* height: 500px; */
-    object-fit: cover;
-  }
-
-    </style>
-  </head>
-  <body>
-    
-    <header>
-      <div class="header-container">
-        <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
-          <a href="/#about">About Us</a>
-          <a href="/portfolio">Portfolio</a>
-        </div>
-        <div class="header-center">
-          <a href="/gallery">Gallery</a>
-          <a href="/artists">Artists</a>
-          <a href="/news">News</a>
-          <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
-          </a>
-          <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a>
-          <a href="/events">Events</a>
-        </div>
-        <div class="header-right">
-          <a href="/login"><i class="fas fa-user"></i></a>
-          <a href="/favorites"><i class="fas fa-heart"></i></a>
-          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-      </div>
-    </header>
-
-
-<section class="banner-section">
-  <img src="/images/events-banner.png" alt="Event Banner" class="banner-image" />
-  <div class="banner-text">
-  </div>
-</section>
-
-
-    <section class="featured-section">
-      <h2>Upcoming Offline Events</h2>
-      <p>Discover the talents behind the masterpieces</p>
-    
-      <div class="scroller">
-        <!-- Event 1 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/fe/1b/6d/fe1b6dbecf9616490acd6eb465c25e48.jpg"
-            alt="Sculpture Exhibition"
-          />
-          <div class="card-details">
-            <h3>Sculpture Exhibition</h3>
-            <p>Date: January 15, 2024</p>
-            <p>Time: 10:00 AM - 4:00 PM</p>
-            <p>Venue: Downtown Art Center</p>
-            <p>Category: Sculpture</p>
-          </div>
-        </div>
-    
-        <!-- Event 2 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/a1/3e/25/a13e25eb158e80e1144caee6cbeaefaf.jpg"
-            alt="Painting Workshop"
-          />
-          <div class="card-details">
-            <h3>Painting Workshop</h3>
-            <p>Date: February 5, 2024</p>
-            <p>Time: 9:00 AM - 12:00 PM</p>
-            <p>Venue: Creative Arts Studio</p>
-            <p>Category: Painting</p>
-          </div>
-        </div>
-    
-        <!-- Event 3 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/4c/20/de/4c20def9197e065fd274795454ffac5c.jpg"
-            alt="Photography Meetup"
-          />
-          <div class="card-details">
-            <h3>Photography Meetup</h3>
-            <p>Date: March 12, 2024</p>
-            <p>Time: 1:00 PM - 4:00 PM</p>
-            <p>Venue: Urban Gallery</p>
-            <p>Category: Photography</p>
-          </div>
-        </div>
-    
-        <!-- Event 4 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/b2/17/47/b217472c84ae54592acfb8b117780fa2.jpg"
-            alt="Nature Photography Workshop"
-          />
-          <div class="card-details">
-            <h3>Nature Photography Workshop</h3>
-            <p>Date: April 18, 2024</p>
-            <p>Time: 9:00 AM - 5:00 PM</p>
-            <p>Venue: Riverside Park</p>
-            <p>Category: Photography</p>
-          </div>
-        </div>
-    
-        <!-- Event 5 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/4a/88/d1/4a88d1392deb156c54a9de0c1a04ec14.jpg"
-            alt="Street Art Tour"
-          />
-          <div class="card-details">
-            <h3>Street Art Tour</h3>
-            <p>Date: May 9, 2024</p>
-            <p>Time: 2:00 PM - 6:00 PM</p>
-            <p>Venue: Downtown District</p>
-            <p>Category: Street Art</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
-
-    <section class="featured-section">
-      <h2>Upcoming Online Events</h2>
-      <p>Discover the talents behind the masterpieces</p>
-    
-      <div class="scroller">
-        <!-- Event 1 -->
-        <div class="card">
-          <img
-            src="https://thumbs2.follow.art/thumbs/event_list_xxxl/pieces-thubnail-666-x-400-px-673b9b0fca083920734255.jpg"
-            alt="Sculpture Exhibition"
-          />
-          <div class="card-details">
-            <h3>Sculpture Exhibition</h3>
-            <p>Date: January 15, 2024</p>
-            <p>Time: 10:00 AM - 4:00 PM</p>
-            <p>Platform: Zoom</p>
-            <p>Category: Sculpture</p>
-          </div>
-        </div>
-    
-        <!-- Event 2 -->
-        <div class="card">
-          <img
-            src="https://thumbs2.follow.art/thumbs/event_list_xxl/8b92d5a7-344c-4e8f-acad-27b33d884301-6768ac781d2b8547885942.jpg"
-            alt="Painting Workshop"
-          />
-          <div class="card-details">
-            <h3>Painting Workshop</h3>
-            <p>Date: February 5, 2024</p>
-            <p>Time: 9:00 AM - 12:00 PM</p>
-            <p>Platform: Google Meet</p>
-            <p>Category: Painting</p>
-          </div>
-        </div>
-    
-        <!-- Event 3 -->
-        <div class="card">
-          <img
-            src="https://thumbs2.follow.art/thumbs/event_list_xxxl/locandina-sara-thumbnail-674ecf2b97b4e516579006.jpg"
-            alt="Photography Meetup"
-          />
-          <div class="card-details">
-            <h3>Photography Meetup</h3>
-            <p>Date: March 12, 2024</p>
-            <p>Time: 1:00 PM - 4:00 PM</p>
-            <p>Platform: Zoom</p>
-            <p>Category: Photography</p>
-          </div>
-        </div>
-    
-        <!-- Event 4 -->
-        <div class="card">
-          <img
-            src="https://thumbs2.follow.art/thumbs/event_list_xxxl/thumbnail-666-x-400-px-673744768c385236941491.jpg"
-            alt="Nature Photography Workshop"
-          />
-          <div class="card-details">
-            <h3>Nature Photography Workshop</h3>
-            <p>Date: April 18, 2024</p>
-            <p>Time: 9:00 AM - 5:00 PM</p>
-            <p>Platform: Skype</p>
-            <p>Category: Photography</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
-
-    <section class="featured-section">
-      <h2>Past Events</h2>
-      <p>Discover the talents behind the masterpieces</p>
-    
-      <div class="scroller">
-        <!-- Event 1 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/9d/c7/2f/9dc72fc53cd7f5dd2a9a3370d3fc2b4a.jpg"
-            alt="Photography Meetup"
-          />
-          <div class="card-details">
-            <h3>Photography Meetup</h3>
-            <p>Date: October 5, 2024</p>
-            <p>Venue: Downtown Photography Studio</p>
-            <p>Category: Photography</p>
-          </div>
-        </div>
-    
-        <!-- Event 2 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/71/8a/7c/718a7c64fd9dabf15744a4bb75a4f6c1.jpg"
-            alt="Painting Exhibition"
-          />
-          <div class="card-details">
-            <h3>Painting Exhibition</h3>
-            <p>Date: November 18, 2024</p>
-            <p>Venue: Grand Art Gallery</p>
-            <p>Category: Painting</p>
-          </div>
-        </div>
-    
-        <!-- Event 3 -->
-        <div class="card">
-          <img
-            src="https://i.pinimg.com/736x/03/b5/ab/03b5ab446c1606ac6b337cac71d7a4e4.jpg"
-            alt="Sculpture Workshop"
-          />
-          <div class="card-details">
-            <h3>Sculpture Workshop</h3>
-            <p>Date: December 1, 2024</p>
-            <p>Venue: Sculpture Arts Studio</p>
-            <p>Category: Sculpture</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
-
-<section class="featured-section">
-  <h2>Event Calender</h2>
-  <p>Discover the talents behind the masterpieces</p>
-
-  <table class="event-table">
-    <thead>
-      <tr>
-        <th>Event Name</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Venue</th>
-        <th>Category</th>
-        <th>Mode</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Event 1 - Sculpture Exhibition -->
-      <tr>
-        <td>Sculpture Exhibition</td>
-        <td>January 15, 2024</td>
-        <td>10:00 AM - 4:00 PM</td>
-        <td>Downtown Art Center</td>
-        <td>Sculpture</td>
-        <td>Offline</td>
-      </tr>
-      <!-- Event 2 - Painting Workshop -->
-      <tr>
-        <td>Painting Workshop</td>
-        <td>February 5, 2024</td>
-        <td>9:00 AM - 12:00 PM</td>
-        <td>Creative Arts Studio</td>
-        <td>Painting</td>
-        <td>Offline</td>
-      </tr>
-      <!-- Event 3 - Photography Meetup -->
-      <tr>
-        <td>Photography Meetup</td>
-        <td>March 12, 2024</td>
-        <td>1:00 PM - 4:00 PM</td>
-        <td>Urban Gallery</td>
-        <td>Photography</td>
-        <td>Offline</td>
-      </tr>
-      <!-- Event 4 - Nature Photography Workshop -->
-      <tr>
-        <td>Nature Photography Workshop</td>
-        <td>April 18, 2024</td>
-        <td>9:00 AM - 5:00 PM</td>
-        <td>Riverside Park</td>
-        <td>Photography</td>
-        <td>Offline</td>
-      </tr>
-      <!-- Event 5 - Street Art Tour -->
-      <tr>
-        <td>Street Art Tour</td>
-        <td>May 9, 2024</td>
-        <td>2:00 PM - 6:00 PM</td>
-        <td>Downtown District</td>
-        <td>Street Art</td>
-        <td>Offline</td>
-      </tr>
-      <!-- Event 6 - Sculpture Exhibition (Online) -->
-      <tr>
-        <td>Sculpture Exhibition</td>
-        <td>January 15, 2024</td>
-        <td>10:00 AM - 4:00 PM</td>
-        <td>Meet</td>
-        <td>Sculpture</td>
-        <td>Online</td>
-      </tr>
-      <!-- Event 7 - Painting Workshop (Online) -->
-      <tr>
-        <td>Painting Workshop</td>
-        <td>February 5, 2024</td>
-        <td>9:00 AM - 12:00 PM</td>
-        <td>Zoom</td>
-        <td>Painting</td>
-        <td>Online</td>
-      </tr>
-      <!-- Event 8 - Photography Meetup (Online) -->
-      <tr>
-        <td>Photography Meetup</td>
-        <td>March 12, 2024</td>
-        <td>1:00 PM - 4:00 PM</td>
-        <td>Zoom</td>
-        <td>Photography</td>
-        <td>Online</td>
-      </tr>
-      <!-- Event 9 - Nature Photography Workshop (Online) -->
-      <tr>
-        <td>Nature Photography Workshop</td>
-        <td>April 18, 2024</td>
-        <td>9:00 AM - 5:00 PM</td>
-        <td>Meet</td>
-        <td>Photography</td>
-        <td>Online</td>
-      </tr>
-    </tbody>
-  </table>
+<head>
+  <title>Kala-Kriti | Events</title>
+  <%- include('partials/base-head') %>
+</head>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'events' %>
   
-    </section>
-
-
-
-
-<footer class="footer-section">
-      <div class="footer-content">
-        <div class="footer-logo">
-            <a href="/">
-                <img src="/logo-color.png" alt="Kala-Kriti Logo" />
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- Events Header Section - Updated to match artists.ejs style -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">Art Events</h1>
+        <p class="text-gray-600 text-lg">
+          Exhibitions, workshops, and gatherings for the art community. 
+          Join us for in-person and virtual events that celebrate creativity
+          and connect artists with enthusiasts.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Upcoming Offline Events Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Upcoming Offline Events</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Experience art in person at these carefully curated exhibitions and workshops</p>
+      </div>
+      
+      <!-- Events Slider -->
+      <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
+        <!-- Event 1 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/fe/1b/6d/fe1b6dbecf9616490acd6eb465c25e48.jpg"
+              alt="Sculpture Exhibition"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Jan 15, 2025</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Sculpture Exhibition</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>10:00 AM - 4:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Downtown Art Center</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
             </a>
-          <p>contact@kala-kriti.com</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
-        <div class="footer-links">
-          <h3>Mediums</h3>
-          <ul>
-            <li><a href="#">Painting</a></li>
-            <li><a href="#">Limited Edition</a></li>
-            <li><a href="#">Drawing</a></li>
-            <li><a href="#">Sculpture</a></li>
-            <li><a href="#">Photography</a></li>
-          </ul>
+        
+        <!-- Event 2 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/a1/3e/25/a13e25eb158e80e1144caee6cbeaefaf.jpg"
+              alt="Painting Workshop"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Feb 5, 2025</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Painting Workshop</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>9:00 AM - 12:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Creative Arts Studio</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Informations</h3>
-          <ul>
-            <li><a href="#">Who are we?</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy / Cookies</a></li>
-            <li><a href="#">Legal notice</a></li>
-          </ul>
+        
+        <!-- Event 3 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/4c/20/de/4c20def9197e065fd274795454ffac5c.jpg"
+              alt="Photography Meetup"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Mar 12, 2025</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>1:00 PM - 4:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Urban Gallery</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Account</h3>
-          <ul>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Create account</a></li>
-            <li><a href="#">Help / FAQ</a></li>
-            <li><a href="#">How it works?</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
+        
+        <!-- Event 4 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/b2/17/47/b217472c84ae54592acfb8b117780fa2.jpg"
+              alt="Nature Photography Workshop"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Apr 18, 2025</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Nature Photography Workshop</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>9:00 AM - 5:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Riverside Park</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Instagram</h3>
-          <p>There are not any images in this Instagram.</p>
+        
+        <!-- Event 5 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/4a/88/d1/4a88d1392deb156c54a9de0c1a04ec14.jpg"
+              alt="Street Art Tour"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">May 9, 2025</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Street Art Tour</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>2:00 PM - 6:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Downtown District</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Street Art</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
         </div>
       </div>
-    </footer>
-
-    <script>
-      const carouselImages = document.querySelectorAll(".carousel img");
-      let currentIndex = 0;
-
-      setInterval(() => {
-        carouselImages[currentIndex].classList.remove("active");
-        currentIndex = (currentIndex + 1) % carouselImages.length;
-        carouselImages[currentIndex].classList.add("active");
-      }, 3000);
-    </script>
-  </body>
+      
+      <div class="text-center mt-8">
+        <a href="#" class="inline-block px-6 py-3 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+          View All Offline Events
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Upcoming Online Events Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Upcoming Online Events</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Participate in virtual art experiences from anywhere in the world</p>
+      </div>
+      
+      <!-- Events Slider -->
+      <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
+        <!-- Event 1 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/pieces-thubnail-666-x-400-px-673b9b0fca083920734255.jpg"
+              alt="Online Sculpture Exhibition"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Jan 15, 2025</p>
+            </div>
+            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              ONLINE
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Sculpture Exhibition</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>10:00 AM - 4:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-video mr-2"></i>
+              <span>Zoom</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 2 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://thumbs2.follow.art/thumbs/event_list_xxl/8b92d5a7-344c-4e8f-acad-27b33d884301-6768ac781d2b8547885942.jpg"
+              alt="Online Painting Workshop"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Feb 5, 2025</p>
+            </div>
+            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              ONLINE
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Painting Workshop</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>9:00 AM - 12:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-video mr-2"></i>
+              <span>Google Meet</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 3 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/locandina-sara-thumbnail-674ecf2b97b4e516579006.jpg"
+              alt="Online Photography Meetup"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Mar 12, 2025</p>
+            </div>
+            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              ONLINE
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>1:00 PM - 4:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-video mr-2"></i>
+              <span>Zoom</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 4 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/thumbnail-666-x-400-px-673744768c385236941491.jpg"
+              alt="Online Nature Photography Workshop"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Apr 18, 2025</p>
+            </div>
+            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              ONLINE
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Nature Photography Workshop</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="far fa-clock mr-2"></i>
+              <span>9:00 AM - 5:00 PM</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-3">
+              <i class="fas fa-video mr-2"></i>
+              <span>Skype</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Details
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="#" class="inline-block px-6 py-3 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+          View All Online Events
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Past Events Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Past Events</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Browse through our successful past events and exhibitions</p>
+      </div>
+      
+      <!-- Events Slider -->
+      <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
+        <!-- Event 1 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/9d/c7/2f/9dc72fc53cd7f5dd2a9a3370d3fc2b4a.jpg"
+              alt="Photography Meetup"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Oct 5, 2024</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Downtown Photography Studio</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Gallery
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 2 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/71/8a/7c/718a7c64fd9dabf15744a4bb75a4f6c1.jpg"
+              alt="Painting Exhibition"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Nov 18, 2024</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Painting Exhibition</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Grand Art Gallery</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Gallery
+            </a>
+          </div>
+        </div>
+        
+        <!-- Event 3 -->
+        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="relative h-48">
+            <img
+              src="https://i.pinimg.com/736x/03/b5/ab/03b5ab446c1606ac6b337cac71d7a4e4.jpg"
+              alt="Sculpture Workshop"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+              <p class="text-sm font-medium">Dec 1, 2024</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold mb-2">Sculpture Workshop</h3>
+            <div class="flex items-center text-gray-600 text-sm mb-2">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span>Sculpture Arts Studio</span>
+            </div>
+            <div class="flex items-center text-gray-600 text-sm mb-4">
+              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
+            </div>
+            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Gallery
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="#" class="inline-block px-6 py-3 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+          View All Past Events
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Event Calendar Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Event Calendar</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Plan ahead with our complete schedule of upcoming art events</p>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
+        <table class="w-full min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-800 text-white">
+            <tr>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Event Name</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Date</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Time</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Venue</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Category</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold">Mode</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <!-- Event 1 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Sculpture Exhibition</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">January 15, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">10:00 AM - 4:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Downtown Art Center</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Sculpture</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+              </td>
+            </tr>
+            
+            <!-- Event 2 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Painting Workshop</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">February 5, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 12:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Creative Arts Studio</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Painting</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+              </td>
+            </tr>
+            
+            <!-- Event 3 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Photography Meetup</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">March 12, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">1:00 PM - 4:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Urban Gallery</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Photography</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+              </td>
+            </tr>
+            
+            <!-- Event 4 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Nature Photography Workshop</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">April 18, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 5:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Riverside Park</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Photography</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+              </td>
+            </tr>
+            
+            <!-- Event 5 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Street Art Tour</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">May 9, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">2:00 PM - 6:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Downtown District</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Street Art</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+              </td>
+            </tr>
+            
+            <!-- Event 6 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Sculpture Exhibition (Online)</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">January 15, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">10:00 AM - 4:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Meet</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Sculpture</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded-full">Online</span>
+              </td>
+            </tr>
+            
+            <!-- Event 7 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="font-medium">Painting Workshop (Online)</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">February 5, 2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 12:00 PM</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Zoom</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Painting</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded-full">Online</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call To Action -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-gray-50 p-8 md:p-12 rounded-lg shadow-sm text-center">
+        <h2 class="text-3xl font-semibold mb-4">Want to Host an Art Event?</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Partner with Kala-Kriti to organize and promote your art event to our community of collectors and enthusiasts.</p>
+        <a href="/contact" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
+  
+  <style>
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</body>
 </html>

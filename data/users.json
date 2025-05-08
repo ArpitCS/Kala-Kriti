@@ -18,5 +18,9 @@
   {
     "username": "sample@kalakriti.com",
     "password": "sample"
+  },
+  {
+    "username": "sample@mail.com",
+    "password": "sample"
   }
 ]

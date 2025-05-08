@@ -1,276 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kala-Kriti | News</title>
-
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/header.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-
-      .news-header {
-        text-align: center;
-        padding: 50px 20px;
-        background-color: #f9f9f9;
-      }
-
-      .news-header h1 {
-        font-size: 2.5rem;
-        color: var(--primary-text-color);
-        margin-bottom: 20px;
-      }
-
-      .news-header p {
-        font-size: 1.2rem;
-        color: var(--secondary-text-color);
-      }
-
-      .blogs {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-        margin: 20px auto;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        padding: 30px;
-        gap: 20px;
-      }
-
-      .blog-card {
-        text-align: left;
-        background: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        /* max-width: 300px; */
-        flex: 0 0 auto;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .blog-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
-
-      .blog-card img {
-        width: 100%;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        object-fit: cover;
-        height: 180px;
-      }
-
-      .blog-card h3 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .blog-card p {
-        font-size: 0.9rem;
-        color: #777;
-        line-height: 1.5;
-        margin-bottom: 10px;
-      }
-
-      .blog-card p:last-child {
-        margin-bottom: 0;
-      }
-
-      .load-more-btn {
-        display: block;
-        margin: 20px auto;
-        padding: 10px 20px;
-        font-size: 1rem;
-        color: #fff;
-        background-color: #f90;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .load-more-btn:hover {
-        background-color: #e08000;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Header -->
-    <header>
-      <div class="header-container">
-        <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
-          <a href="/#about">About Us</a>
-          <a href="/portfolio">Portfolio</a>
-        </div>
-        <div class="header-center">
-          <a href="/gallery">Gallery</a>
-          <a href="/artists">Artists</a>
-          <a href="/news">News</a>
-          <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
-          </a>
-          <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a>
-          <a href="/events">Events</a>
-        </div>
-        <div class="header-right">
-          <a href="/login"><i class="fas fa-user"></i></a>
-          <a href="/favorites"><i class="fas fa-heart"></i></a>
-          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
+<head>
+  <title>Kala-Kriti | News</title>
+  <%- include('partials/base-head') %>
+</head>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'news' %>
+  
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- News Header Section -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">Art News</h1>
+        <p class="text-gray-600 text-lg">
+          Stay informed about the latest happenings in the art world with our curated news articles.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- News Search Section -->
+  <section class="bg-white border-t border-b border-gray-100 py-6">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex items-center bg-gray-50 rounded-full px-6 py-2 shadow-sm">
+          <input type="text" id="searchInput" placeholder="Search news articles..." class="w-full bg-transparent border-0 focus:outline-none px-2 py-2 text-gray-700">
+          <button id="searchButton" class="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 ml-2">
+            <i class="fas fa-search"></i>
+          </button>
+          <button id="clearButton" class="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 ml-2">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
       </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-      <div class="blogs" id="cards-container">
-        <!-- Dynamic News Cards -->
+    </div>
+  </section>
+  
+  <!-- News Filter Section -->
+  <section class="bg-white py-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="news-filter active px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="art OR design OR painting OR sculpture OR auction">All</button>
+        <button class="news-filter px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="painting OR canvas OR oil painting">Paintings</button>
+        <button class="news-filter px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="sculpture OR 3D art">Sculpture</button>
+        <button class="news-filter px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="photography OR camera art">Photography</button>
+        <button class="news-filter px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="digital art OR NFT OR crypto art">Digital Art</button>
+        <button class="news-filter px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200" data-filter="art auction OR art market">Art Market</button>
       </div>
-      <button class="load-more-btn" id="load-more-btn">Load More</button>
-    </main>
+    </div>
+  </section>
+  
+  <!-- News Articles Grid -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div id="cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- News cards will be inserted here by JavaScript -->
+      </div>
+      <div class="text-center mt-12">
+        <button id="load-more-btn" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+          Load More Articles
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-sm">
+        <div class="text-center">
+          <h2 class="text-3xl font-semibold mb-4">Subscribe to Our Newsletter</h2>
+          <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Get the latest art news, exhibition announcements, and exclusive content delivered directly to your inbox.</p>
+          <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+            <input type="email" placeholder="Your email address" class="px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent rounded-md flex-grow">
+            <button type="submit" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
+  
+  <!-- News API Integration -->
+  <script>
+    const API_KEY = "<%= newsApiKey %>";
+    const url = "https://newsapi.org/v2/everything?q=";
+    const cardsContainer = document.getElementById("cards-container");
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const clearButton = document.getElementById("clearButton");
+    const filterButtons = document.querySelectorAll(".news-filter");
 
-    <!-- Footer -->
-    <footer class="footer-section">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/logo-color.png" alt="Kala-Kriti Logo" />
-          <p>contact@kala-kriti.com</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+    let articles = [];
+    let articlesToShow = 8;
+    let currentFilter = "art OR design OR painting OR sculpture OR auction";
+
+    window.addEventListener("load", () => fetchNews(currentFilter));
+
+    // Handle filter buttons
+    filterButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        this.classList.add("active");
+        currentFilter = this.getAttribute("data-filter");
+        articlesToShow = 8;
+        fetchNews(currentFilter);
+      });
+    });
+
+    // Search functionality
+    searchButton.addEventListener("click", () => {
+      const searchTerm = searchInput.value.trim();
+      if (searchTerm) {
+        articlesToShow = 8;
+        fetchNews(searchTerm);
+      }
+    });
+
+    searchInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) {
+          articlesToShow = 8;
+          fetchNews(searchTerm);
+        }
+      }
+    });
+
+    clearButton.addEventListener("click", () => {
+      searchInput.value = "";
+      articlesToShow = 8;
+      fetchNews(currentFilter);
+    });
+
+    // Load more functionality
+    loadMoreBtn.addEventListener("click", () => {
+      articlesToShow += 4;
+      bindData();
+    });
+
+    async function fetchNews(query) {
+      try {
+        // Show loading state
+        cardsContainer.innerHTML = '<div class="col-span-full text-center py-12"><i class="fas fa-circle-notch fa-spin text-4xl text-gray-400"></i></div>';
+        
+        const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
+        const data = await res.json();
+        articles = data.articles || [];
+        bindData();
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        cardsContainer.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-red-500">Failed to load news articles. Please try again later.</p></div>';
+        loadMoreBtn.style.display = "none";
+      }
+    }
+
+    function bindData() {
+      cardsContainer.innerHTML = "";
+
+      if (articles.length === 0) {
+        cardsContainer.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No articles found matching your search.</p></div>';
+        loadMoreBtn.style.display = "none";
+        return;
+      }
+
+      const slicedArticles = articles.slice(0, articlesToShow);
+
+      slicedArticles.forEach((article) => {
+        if (!article.urlToImage) return;
+        const card = createCard(article);
+        cardsContainer.appendChild(card);
+      });
+
+      loadMoreBtn.style.display = articlesToShow >= articles.length ? "none" : "block";
+    }
+
+    function createCard(article) {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300";
+
+      const formattedDate = new Date(article.publishedAt).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+
+      card.innerHTML = `
+        <div class="relative overflow-hidden">
+          <img src="${article.urlToImage}" alt="${article.title}" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300">
+          <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white px-3 py-1 text-xs">
+            ${formattedDate}
           </div>
         </div>
-        <div class="footer-links">
-          <h3>Mediums</h3>
-          <ul>
-            <li><a href="#">Painting</a></li>
-            <li><a href="#">Limited Edition</a></li>
-            <li><a href="#">Drawing</a></li>
-            <li><a href="#">Sculpture</a></li>
-            <li><a href="#">Photography</a></li>
-          </ul>
+        <div class="p-4">
+          <h3 class="font-medium text-gray-900 text-lg mb-2 line-clamp-2">${article.title}</h3>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">${article.description || ""}</p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500">${article.source.name || "Unknown Source"}</span>
+            <a href="${article.url}" target="_blank" class="text-black hover:text-gray-700 text-sm font-medium transition-colors duration-200">
+              Read More <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Informations</h3>
-          <ul>
-            <li><a href="#">Who are we?</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy / Cookies</a></li>
-            <li><a href="#">Legal notice</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Account</h3>
-          <ul>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Create account</a></li>
-            <li><a href="#">Help / FAQ</a></li>
-            <li><a href="#">How it works?</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Instagram</h3>
-          <p>There are not any images in this Instagram.</p>
-        </div>
-      </div>
-    </footer>
+      `;
 
-    <!-- News API Integration -->
-    <script>
-      const API_KEY = "<%= newsApiKey %>";
-      const url = "https://newsapi.org/v2/everything?q=";
-      const cardsContainer = document.getElementById("cards-container");
-      const loadMoreBtn = document.getElementById("load-more-btn");
-
-      let articles = [];
-      let articlesToShow = 12;
-
-      window.addEventListener("load", () =>
-        fetchNews("art OR design OR painting OR sculpture OR auction")
-      );
-
-      async function fetchNews(query) {
-        try {
-          const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
-          const data = await res.json();
-          articles = data.articles;
-          bindData();
-        } catch (error) {
-          console.error("Error fetching news:", error);
-        }
-      }
-
-      function bindData() {
-        cardsContainer.innerHTML = "";
-
-        const slicedArticles = articles.slice(0, articlesToShow);
-
-        slicedArticles.forEach((article) => {
-          if (!article.urlToImage) return;
-          const card = createCard(article);
-          cardsContainer.appendChild(card);
-        });
-
-        if (articlesToShow >= articles.length) {
-          loadMoreBtn.style.display = "none";
-        } else {
-          loadMoreBtn.style.display = "block";
-        }
-      }
-
-      function createCard(article) {
-        const card = document.createElement("div");
-        card.classList.add("blog-card");
-
-        card.innerHTML = `
-                <img src="${article.urlToImage}" alt="news image">
-                <h3>${article.title}</h3>
-                <p>${new Date(article.publishedAt).toLocaleDateString()}</p>
-                <p>${article.description || ""}</p>
-            `;
-
-        card.addEventListener("click", () => {
-          window.open(article.url, "_blank");
-        });
-
-        return card;
-      }
-
-      loadMoreBtn.addEventListener("click", () => {
-        articlesToShow += 9;
-        bindData();
-      });
-    </script>
-  </body>
+      return card;
+    }
+  </script>
+  
+  <style>
+    .news-filter.active {
+      background-color: #000;
+      color: white;
+    }
+    
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</body>
 </html>

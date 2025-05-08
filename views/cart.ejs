@@ -1,562 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Kala-Kriti | Cart</title>
-
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <!-- Header / Footer CSS (unchanged) -->
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-
-    <!-- Revamped Cart Page Styles -->
-    <style>
-      /* Generic Reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #fafafa;
-        color: #333;
-      }
-
-      /* Primary brand color pulled from logo */
-      :root {
-        --brand-color: #1389B2;
-        --brand-hover: #0e6a8b;
-      }
-
-      /* CART SECTION REVAMP */
-      .cart-page-wrapper {
-        width: 90%;
-        max-width: 1200px;
-        margin: 2rem auto;
-        display: flex;
-        gap: 2rem;
-      }
-
-      /* Left Side: "Shopping Bag" + Cart Items */
-      .cart-left {
-        flex: 2;
-      }
-
-      .cart-left h1 {
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-
-      .cart-left p.subheading {
-        font-size: 1rem;
-        color: #555;
-        margin-bottom: 2rem;
-      }
-
-      /* Table-like container for products */
-      .cart-products {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Table Header (Product | Price | Quantity | Total) */
-      .cart-header {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        padding: 1rem;
-        border-bottom: 1px solid #eee;
-        font-weight: bold;
-        color: #666;
-      }
-
-      /* Individual cart item row */
-      .cart-row {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid #eee;
-      }
-
-      .product-details {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .product-details img {
-        width: 80px;
-        height: 80px;
-        border-radius: 8px;
-        object-fit: cover;
-      }
-
-      .product-info {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .product-title {
-        font-weight: bold;
-        font-size: 1rem;
-        color: #333;
-      }
-
-      .product-meta {
-        font-size: 0.85rem;
-        color: #666;
-      }
-
-      .cart-row span.price,
-      .cart-row span.quantity,
-      .cart-row span.total {
-        font-weight: 600;
-        color: #333;
-      }
-
-      .remove-button {
-        background-color: #ff5c5c;
-        border: none;
-        color: #fff;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.6rem;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 0.5rem;
-      }
-      .remove-button:hover {
-        background-color: #ff2c2c;
-      }
-
-      /* Empty cart message */
-      .empty-cart {
-        margin-top: 2rem;
-        font-size: 1.2rem;
-        text-align: center;
-        color: #999;
-      }
-
-      /* Right Side: Shipping, Coupon, Summary */
-      .cart-right {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .summary-box {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .summary-box h2 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        color: #333;
-      }
-
-      .shipping-container,
-      .coupon-container {
-        margin-bottom: 1.5rem;
-      }
-
-      .shipping-container label,
-      .coupon-container label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: #666;
-        font-weight: bold;
-      }
-
-      .shipping-container input,
-      .coupon-container input,
-      .shipping-container select {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 0.5rem;
-        outline: none;
-      }
-
-      /* Summary Totals */
-      .summary-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.6rem;
-        font-size: 1rem;
-        color: #666;
-      }
-
-      .summary-item span {
-        font-weight: 500;
-      }
-
-      .summary-total {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-top: 1rem;
-        color: #333;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      /* Buttons colored to match brand theme */
-      .checkout-button,
-      .shipping-container button,
-      .coupon-container button {
-        background-color: var(--brand-color);
-        color: white;
-        border: none;
-        padding: 1rem 2rem;
-        font-size: 1rem;
-        border-radius: 10px;
-        cursor: pointer;
-        text-transform: uppercase;
-        margin-top: 1.5rem;
-        width: 100%;
-        font-weight: bold;
-      }
-      .checkout-button:hover,
-      .shipping-container button:hover,
-      .coupon-container button:hover {
-        background-color: var(--brand-hover);
-      }
-
-      /* Info badges (Free shipping, etc.) */
-      .info-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-top: 1rem;
-      }
-
-      .badge {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 1rem;
-        flex: 1 1 calc(50% - 1rem);
-        min-width: 140px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .badge i {
-        font-size: 1.5rem;
-        color: #666;
-        margin-bottom: 0.5rem;
-      }
-
-      .badge p {
-        font-size: 0.9rem;
-        color: #333;
-        margin-top: 0.5rem;
-      }
-
-      @media (max-width: 768px) {
-        .cart-page-wrapper {
-          flex-direction: column;
-        }
-
-        .cart-header,
-        .cart-row {
-          grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-
-        .checkout-button,
-        .shipping-container button,
-        .coupon-container button {
-          width: 100%;
-          margin-top: 0.5rem;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Header (Unchanged) -->
-    <header>
-      <div class="header-container">
-        <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
-          <a href="/#about">About Us</a>
-          <a href="/portfolio">Portfolio</a>
-        </div>
-        <div class="header-center">
-          <a href="/gallery">Gallery</a>
-          <a href="/artists">Artists</a>
-          <a href="/news">News</a>
-          <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
-          </a>
-          <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a>
-          <a href="/events">Events</a>
-        </div>
-        <div class="header-right">
-          <a href="/login"><i class="fas fa-user"></i></a>
-          <a href="/favorites"><i class="fas fa-heart"></i></a>
-          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-        </div>
+<head>
+  <title>Kala-Kriti | Cart</title>
+  <%- include('partials/base-head') %>
+</head>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'cart' %>
+  
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- Cart Header Section -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">Shopping Cart</h1>
+        <p class="text-gray-600 text-lg">
+          Review your items and proceed to checkout when ready
+        </p>
       </div>
-    </header>
-
-    <!-- CART PAGE REVAMP -->
-    <div class="cart-page-wrapper">
-      <!-- LEFT COLUMN: Shopping Bag + Items -->
-      <div class="cart-left">
-        <h1>Shopping Bag</h1>
-        <p class="subheading">You have <span id="items-count">0</span> item(s) in your bag</p>
-
-        <div class="cart-products">
-          <!-- Table Header -->
-          <div class="cart-header">
-            <div>Product</div>
-            <div>Price</div>
-            <div>Qty</div>
-            <div>Total</div>
+    </div>
+  </section>
+  
+  <!-- Cart Content Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left: Cart Items -->
+        <div class="w-full lg:w-2/3">
+          <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+            <!-- Cart Table Header -->
+            <div class="hidden md:grid md:grid-cols-12 text-sm font-medium text-gray-500 bg-gray-50 border-b border-gray-200 p-4">
+              <div class="col-span-6">Product</div>
+              <div class="col-span-2 text-center">Price</div>
+              <div class="col-span-2 text-center">Quantity</div>
+              <div class="col-span-2 text-center">Total</div>
+            </div>
+            
+            <!-- Cart Items Container (Dynamic content) -->
+            <div id="cart-items-container">
+              <!-- Items will be loaded with JavaScript -->
+            </div>
+            
+            <!-- Empty Cart Message -->
+            <div id="empty-cart" class="py-16 text-center">
+              <div class="max-w-md mx-auto">
+                <div class="text-5xl text-gray-300 mb-6">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-3">Your Cart is Empty</h2>
+                <p class="text-gray-600 mb-8">Looks like you haven't added any artwork to your cart yet.</p>
+                <a href="/gallery" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+                  Continue Shopping
+                </a>
+              </div>
+            </div>
           </div>
-
-          <!-- Dynamic items will be loaded here -->
-          <div id="cart-items-container"></div>
+          
+          <!-- Continue Shopping Button -->
+          <div class="flex justify-between mt-6">
+            <a href="/gallery" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200 flex items-center">
+              <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+            </a>
+            
+            <button id="clear-cart-btn" class="px-6 py-3 border border-red-300 text-red-600 font-medium rounded-md hover:bg-red-50 transition-colors duration-200">
+              Clear Cart
+            </button>
+          </div>
         </div>
         
-        <!-- Empty Cart Message -->
-        <p class="empty-cart">Your cart is empty. Start shopping now!</p>
-      </div>
-
-      <!-- RIGHT COLUMN: Shipping, Coupon, Summary -->
-      <div class="cart-right">
-        <div class="summary-box">
-          <h2>Calculated Shipping</h2>
-          <div class="shipping-container">
-            <label for="country">Country</label>
-            <select id="country">
-              <option value="">Select Country</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="GB">UK</option>
-              <option value="IND">India</option>
-            </select>
-            <label for="zip">ZIP / Postal Code</label>
-            <input type="text" id="zip" placeholder="Enter ZIP Code" />
-            <!-- Update Shipping Button -->
-            <button style="margin-top: 0.5rem;">Update</button>
+        <!-- Right: Order Summary -->
+        <div class="w-full lg:w-1/3">
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+            
+            <!-- Summary Items -->
+            <div id="summary-items" class="border-b border-gray-200 pb-4">
+              <!-- Summary items will be loaded with JavaScript -->
+            </div>
+            
+            <!-- Shipping Options -->
+            <div class="py-4 border-b border-gray-200">
+              <h3 class="font-medium mb-3">Shipping</h3>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="radio" name="shipping" value="free" checked class="mr-2">
+                  <span>Standard Shipping (Free)</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="radio" name="shipping" value="express" class="mr-2">
+                  <span>Express Shipping (+$15.00)</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Promo Code -->
+            <div class="py-4 border-b border-gray-200">
+              <h3 class="font-medium mb-3">Promo Code</h3>
+              <div class="flex flex-col">
+                <input type="text" id="promo-code" placeholder="Enter code" class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent flex-grow w-full sm:w-auto mb-2 sm:mb-0">
+                <button id="apply-promo" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-black transition-colors duration-200">Apply</button>
+              </div>
+            </div>
+            
+            <!-- Total Calculation -->
+            <div class="py-4">
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Subtotal</span>
+                <span id="summary-subtotal" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-600">Shipping</span>
+                <span id="summary-shipping" class="font-medium">Free</span>
+              </div>
+              <div id="discount-row" class="flex justify-between mb-2 hidden">
+                <span class="text-gray-600">Discount</span>
+                <span id="summary-discount" class="font-medium text-green-600">-$0.00</span>
+              </div>
+              <div class="flex justify-between text-xl font-semibold mt-4">
+                <span>Total</span>
+                <span id="summary-total">$0.00</span>
+              </div>
+            </div>
+            
+            <!-- Checkout Button -->
+            <button id="checkout-btn" class="w-full px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200 mt-4 flex items-center justify-center">
+              <i class="fas fa-lock mr-2"></i> Proceed to Checkout
+            </button>
+            
+            <!-- Secure Payment Info -->
+            <div class="mt-6 text-center text-gray-500 text-sm">
+              <div class="flex justify-center space-x-2 mb-2">
+                <i class="fas fa-lock"></i>
+                <span>Secure Checkout</span>
+              </div>
+              <div class="flex justify-center space-x-2 mt-4">
+                <i class="fab fa-cc-visa text-xl"></i>
+                <i class="fab fa-cc-mastercard text-xl"></i>
+                <i class="fab fa-cc-amex text-xl"></i>
+                <i class="fab fa-cc-paypal text-xl"></i>
+                <i class="fab fa-apple-pay text-xl"></i>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div class="summary-box">
-          <h2>Coupon Code</h2>
-          <div class="coupon-container">
-            <label for="coupon">Enter your code</label>
-            <input type="text" id="coupon" placeholder="Coupon Code" />
-            <!-- Apply Coupon Button -->
-            <button style="margin-top: 0.5rem;">Apply</button>
-          </div>
-        </div>
-
-        <div class="summary-box">
-          <h2>Cart Summary</h2>
-          <div id="summary-items">
-            <!-- Dynamically loaded summary items -->
-          </div>
-          <div class="summary-total" id="summary-total">
-            <span>Total</span>
-            <span>$0</span>
-          </div>
-          <button class="checkout-button" onclick="checkout()">Checkout</button>
-        </div>
-
-        <!-- Info Badges (example) -->
-        <div class="info-badges">
-          <div class="badge">
-            <i class="fa fa-truck"></i>
-            <p>Free Shipping</p>
-          </div>
-          <div class="badge">
-            <i class="fa fa-money-bill"></i>
-            <p>Cash On Delivery</p>
-          </div>
-          <div class="badge">
-            <i class="fa fa-headphones-alt"></i>
-            <p>24/7 Support</p>
-          </div>
-          <div class="badge">
-            <i class="fa fa-gift"></i>
-            <p>Gift Cards</p>
+          
+          <!-- Support Info Cards -->
+          <div class="grid grid-cols-2 gap-4 mt-6">
+            <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+              <i class="fas fa-truck text-gray-600 text-xl mb-2"></i>
+              <p class="text-sm font-medium">Free Shipping</p>
+              <p class="text-xs text-gray-500">On orders over $250</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+              <i class="fas fa-undo text-gray-600 text-xl mb-2"></i>
+              <p class="text-sm font-medium">30-Day Returns</p>
+              <p class="text-xs text-gray-500">Satisfaction guaranteed</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+              <i class="fas fa-shield-alt text-gray-600 text-xl mb-2"></i>
+              <p class="text-sm font-medium">Secure Payment</p>
+              <p class="text-xs text-gray-500">SSL encrypted checkout</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+              <i class="fas fa-headset text-gray-600 text-xl mb-2"></i>
+              <p class="text-sm font-medium">24/7 Support</p>
+              <p class="text-xs text-gray-500">Contact us anytime</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- FOOTER (Unchanged) -->
-    <footer class="footer-section">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/logo-color.png" alt="Kala-Kriti Logo" />
-          <p>contact@kala-kriti.com</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+  </section>
+  
+  <!-- You May Also Like Section -->
+  <section id="recommendations" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">You May Also Like</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Other artworks that match your style</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Recommended Products (Will be populated by JavaScript) -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+          <div class="relative overflow-hidden">
+            <img src="/art/sunset-horizon.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+              <div class="flex space-x-2">
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900">Sunset Dreams</h3>
+            <p class="text-sm text-gray-600 mb-1">By Sarah Johnson</p>
+            <p class="font-medium">$950</p>
           </div>
         </div>
-        <div class="footer-links">
-          <h3>Mediums</h3>
-          <ul>
-            <li><a href="#">Painting</a></li>
-            <li><a href="#">Limited Edition</a></li>
-            <li><a href="#">Drawing</a></li>
-            <li><a href="#">Sculpture</a></li>
-            <li><a href="#">Photography</a></li>
-          </ul>
+        
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+          <div class="relative overflow-hidden">
+            <img src="/art/urban-landscape.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+              <div class="flex space-x-2">
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900">City Dreams</h3>
+            <p class="text-sm text-gray-600 mb-1">By Michael Chen</p>
+            <p class="font-medium">$1,150</p>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Informations</h3>
-          <ul>
-            <li><a href="#">Who are we?</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy / Cookies</a></li>
-            <li><a href="#">Legal notice</a></li>
-          </ul>
+        
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+          <div class="relative overflow-hidden">
+            <img src="/art/nature-abstractions.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+              <div class="flex space-x-2">
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900">Natural Flow</h3>
+            <p class="text-sm text-gray-600 mb-1">By Elena Rodriguez</p>
+            <p class="font-medium">$875</p>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Account</h3>
-          <ul>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Create account</a></li>
-            <li><a href="#">Help / FAQ</a></li>
-            <li><a href="#">How it works?</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Instagram</h3>
-          <p>There are not any images in this Instagram.</p>
+        
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
+          <div class="relative overflow-hidden">
+            <img src="/art/with-every-kiss.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+              <div class="flex space-x-2">
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium text-gray-900">Passionate Heart</h3>
+            <p class="text-sm text-gray-600 mb-1">By David Kim</p>
+            <p class="font-medium">$1,290</p>
+          </div>
         </div>
       </div>
-    </footer>
-
-    <!-- CART SCRIPT (UPDATED TO MATCH NEW MARKUP) -->
-    <script>
-      function loadCart() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartItemsContainer = document.getElementById('cart-items-container');
-        const summaryItemsContainer = document.getElementById('summary-items');
-        const summaryTotal = document
-          .getElementById('summary-total')
-          .getElementsByTagName('span')[1];
-        const itemsCount = document.getElementById('items-count');
-
-        let total = 0;
-
-        cartItemsContainer.innerHTML = '';
-        summaryItemsContainer.innerHTML = '';
-
-        if (cart.length === 0) {
-          document.querySelector('.empty-cart').style.display = 'block';
-          itemsCount.textContent = 0;
-          summaryTotal.textContent = '$0';
-          return;
-        }
-
-        document.querySelector('.empty-cart').style.display = 'none';
-        itemsCount.textContent = cart.length;
-
-        cart.forEach(item => {
-          // Create row
-          const row = document.createElement('div');
-          row.classList.add('cart-row');
-
-          // Product details
-          const productCell = document.createElement('div');
-          productCell.classList.add('product-details');
-          productCell.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" />
-            <div class="product-info">
-              <div class="product-title">${item.title}</div>
-              <div class="product-meta">${item.dimensions || 'Dimensions not available'}</div>
-              <div class="product-meta">${item.author || 'Author not available'}</div>
-              <button class="remove-button" onclick="removeFromCart('${item.id}')">Remove</button>
-            </div>
-          `;
-
-          // Price
-          const priceCell = document.createElement('span');
-          priceCell.classList.add('price');
-          priceCell.textContent = `$${item.price}`;
-
-          // Quantity
-          const quantityCell = document.createElement('span');
-          quantityCell.classList.add('quantity');
-          quantityCell.textContent = item.quantity || 1;
-
-          // Total for that item
-          const itemTotalPrice = (item.quantity || 1) * item.price;
-          total += itemTotalPrice;
-
-          const totalCell = document.createElement('span');
-          totalCell.classList.add('total');
-          totalCell.textContent = `$${itemTotalPrice}`;
-
-          row.appendChild(productCell);
-          row.appendChild(priceCell);
-          row.appendChild(quantityCell);
-          row.appendChild(totalCell);
-
-          cartItemsContainer.appendChild(row);
-
-          // Summary item
-          const summaryItem = document.createElement('div');
-          summaryItem.classList.add('summary-item');
-          summaryItem.innerHTML = `
-            <span>${item.title} (x${item.quantity || 1})</span>
-            <span>$${itemTotalPrice}</span>
-          `;
-          summaryItemsContainer.appendChild(summaryItem);
-        });
-
-        // Update total
-        summaryTotal.textContent = `$${total}`;
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
+  
+  <!-- Cart Page Specific Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCart();
+      
+      // Event listeners
+      document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+      document.getElementById('checkout-btn').addEventListener('click', checkout);
+      document.getElementById('apply-promo').addEventListener('click', applyPromoCode);
+      
+      // Shipping option changes
+      const shippingOptions = document.querySelectorAll('input[name="shipping"]');
+      shippingOptions.forEach(option => {
+        option.addEventListener('change', updateOrderSummary);
+      });
+    });
+    
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsContainer = document.getElementById('cart-items-container');
+      const emptyCartMessage = document.getElementById('empty-cart');
+      const recommendationsSection = document.getElementById('recommendations');
+      
+      cartItemsContainer.innerHTML = '';
+      
+      if (cart.length === 0) {
+        emptyCartMessage.classList.remove('hidden');
+        recommendationsSection.classList.add('hidden');
+        document.getElementById('clear-cart-btn').classList.add('hidden');
+        updateOrderSummary();
+        return;
       }
-
-      function removeFromCart(itemId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id !== itemId);
+      
+      emptyCartMessage.classList.add('hidden');
+      recommendationsSection.classList.remove('hidden');
+      document.getElementById('clear-cart-btn').classList.remove('hidden');
+      
+      // Generate cart items
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'border-b border-gray-200 p-4';
+        
+        const itemTotal = (item.price * (item.quantity || 1)).toFixed(2);
+        
+        cartItem.innerHTML = `
+          <div class="md:grid md:grid-cols-12 flex flex-wrap items-center relative">
+            <div class="col-span-6 flex items-center mb-4 md:mb-0">
+              <div class="w-20 h-20 mr-4 flex-shrink-0">
+                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover rounded-md">
+              </div>
+              <div>
+                <h3 class="font-medium">${item.title}</h3>
+                <p class="text-sm text-gray-600">By ${item.artist || 'Unknown Artist'}</p>
+              </div>
+            </div>
+            
+            <div class="col-span-2 text-center w-1/2 md:w-auto">
+              <span class="md:hidden text-gray-500 mr-2">Price:</span>
+              <span>$${item.price}</span>
+            </div>
+            
+            <div class="col-span-2 text-center w-1/2 md:w-auto">
+              <div class="inline-flex items-center">
+                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">
+                  <i class="fas fa-minus text-xs bg-gray-200 p-1 rounded"></i>
+                </button>
+                <span class="mx-2 w-8 text-center">${item.quantity || 1}</span>
+                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">
+                  <i class="fas fa-plus text-xs bg-gray-200 p-1 rounded"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="col-span-2 text-center w-1/2 md:w-auto mt-4 md:mt-0">
+              <span class="md:hidden text-gray-500 mr-2">Total:</span>
+              <span>$${itemTotal}</span>
+            </div>
+            
+            <div class="w-1/2 md:hidden text-right mt-4">
+              <button onclick="removeFromCart('${item.id}')" class="text-red-500">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            
+            <div class="absolute top-4 right-4 hidden md:block">
+              <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-red-500">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        
+        cartItemsContainer.appendChild(cartItem);
+      });
+      
+      updateOrderSummary();
+    }
+    
+    function updateOrderSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const summaryItemsContainer = document.getElementById('summary-items');
+      const summarySubtotal = document.getElementById('summary-subtotal');
+      const summaryShipping = document.getElementById('summary-shipping');
+      const summaryTotal = document.getElementById('summary-total');
+      
+      // Clear summary items
+      summaryItemsContainer.innerHTML = '';
+      
+      let subtotal = 0;
+      
+      // Generate summary items
+      cart.forEach(item => {
+        const itemPrice = item.price * (item.quantity || 1);
+        subtotal += itemPrice;
+        
+        const summaryItem = document.createElement('div');
+        summaryItem.className = 'flex justify-between py-2 text-sm';
+        summaryItem.innerHTML = `
+          <span>${item.title} × ${item.quantity || 1}</span>
+          <span>$${itemPrice.toFixed(2)}</span>
+        `;
+        
+        summaryItemsContainer.appendChild(summaryItem);
+      });
+      
+      // Update subtotal
+      summarySubtotal.textContent = `$${subtotal.toFixed(2)}`;
+      
+      // Check shipping option
+      const shippingOption = document.querySelector('input[name="shipping"]:checked').value;
+      let shippingCost = 0;
+      
+      if (shippingOption === 'express') {
+        shippingCost = 15.00;
+        summaryShipping.textContent = `$${shippingCost.toFixed(2)}`;
+      } else {
+        summaryShipping.textContent = 'Free';
+      }
+      
+      // Apply discount if any
+      let discountAmount = 0;
+      const activePromo = localStorage.getItem('activePromo');
+      
+      if (activePromo) {
+        discountAmount = calculateDiscount(subtotal, activePromo);
+        document.getElementById('discount-row').classList.remove('hidden');
+        document.getElementById('summary-discount').textContent = `-$${discountAmount.toFixed(2)}`;
+      } else {
+        document.getElementById('discount-row').classList.add('hidden');
+      }
+      
+      // Calculate total
+      const total = subtotal + shippingCost - discountAmount;
+      summaryTotal.textContent = `$${total.toFixed(2)}`;
+    }
+    
+    function updateQuantity(itemId, change) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      const itemIndex = cart.findIndex(item => item.id === itemId);
+      
+      if (itemIndex !== -1) {
+        // Ensure quantity is a number and at least 1
+        cart[itemIndex].quantity = Math.max(1, (cart[itemIndex].quantity || 1) + change);
         localStorage.setItem('cart', JSON.stringify(cart));
         loadCart();
       }
-
-      function checkout() {
-        alert('Checkout functionality coming soon!');
+    }
+    
+    function removeFromCart(itemId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== itemId);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Show removal animation
+      const itemElement = document.querySelector(`button[onclick="removeFromCart('${itemId}')"]`).closest('.border-b');
+      itemElement.style.transition = 'all 0.3s ease';
+      itemElement.style.opacity = '0';
+      itemElement.style.height = '0';
+      
+      setTimeout(() => {
+        loadCart();
+      }, 300);
+    }
+    
+    function clearCart() {
+      if (confirm('Are you sure you want to clear your cart?')) {
+        localStorage.removeItem('cart');
+        loadCart();
       }
-
-      // Load cart on page load
-      loadCart();
-    </script>
-  </body>
+    }
+    
+    function applyPromoCode() {
+      const promoInput = document.getElementById('promo-code');
+      const promoCode = promoInput.value.trim().toUpperCase();
+      
+      if (!promoCode) {
+        showNotification('Please enter a promo code', 'error');
+        return;
+      }
+      
+      // List of valid promo codes (in a real app this would be checked server-side)
+      const validPromoCodes = {
+        'WELCOME10': { type: 'percentage', value: 10 },
+        'ARTLOVER': { type: 'percentage', value: 15 },
+        'FREESHIP': { type: 'free_shipping', value: 0 }
+      };
+      
+      if (validPromoCodes[promoCode]) {
+        localStorage.setItem('activePromo', JSON.stringify(validPromoCodes[promoCode]));
+        showNotification(`Promo code "${promoCode}" applied successfully!`, 'success');
+        updateOrderSummary();
+      } else {
+        showNotification('Invalid promo code', 'error');
+      }
+    }
+    
+    function calculateDiscount(subtotal, promoString) {
+      const promo = JSON.parse(promoString);
+      
+      if (promo.type === 'percentage') {
+        return subtotal * (promo.value / 100);
+      } else if (promo.type === 'fixed') {
+        return promo.value;
+      }
+      
+      return 0;
+    }
+    
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      if (cart.length === 0) {
+        showNotification('Your cart is empty', 'error');
+        return;
+      }
+      
+      // In a real app, this would redirect to a checkout page
+      showNotification('Proceeding to checkout...', 'success');
+      setTimeout(() => {
+        window.location.href = '/checkout';
+      }, 1500);
+    }
+    
+    function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      
+      // Set classes based on type
+      let bgColor = 'bg-gray-800';
+      if (type === 'error') bgColor = 'bg-red-600';
+      if (type === 'success') bgColor = 'bg-green-600';
+      
+      notification.className = `fixed bottom-4 right-4 ${bgColor} text-white py-2 px-4 rounded-md shadow-lg transform translate-y-full opacity-0 transition-all duration-300`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.style.transform = 'translate(0)';
+        notification.style.opacity = '1';
+      }, 100);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.style.transform = 'translateY(10px)';
+        notification.style.opacity = '0';
+        
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+</body>
 </html>

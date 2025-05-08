@@ -1,241 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Kala-Kriti | Favorites</title>
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-
-    <style>
-      /* Reuse styles from the gallery page */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #fafafa;
-        color: #333;
-      }
-
-      .gallery-container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 2rem auto;
-      }
-      .gallery-container h1 {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-
-      .masonry {
-        column-count: 3;
-        column-gap: 1.5rem;
-      }
-
-      .gallery-item {
-        display: inline-block;
-        margin-bottom: 1.5rem;
-        width: 100%;
-      }
-
-      .card {
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .image-container {
-        position: relative;
-        width: 100%;
-      }
-
-      .image-container img {
-        display: block;
-        width: 100%;
-        height: auto;
-        filter: brightness(100%);
-        transition: filter 0.3s ease;
-      }
-
-      .image-container:hover img {
-        filter: brightness(80%);
-      }
-
-      .card-content {
-        padding: 1rem;
-      }
-
-      .card-content h2 {
-        font-size: 1rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-
-      .card-content p {
-        font-size: 0.9rem;
-        color: #666;
-        margin: 0.2rem 0;
-      }
-
-      .card-content .remove-button {
-        background-color: red;
-        color: white;
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-      }
-
-      @media screen and (max-width: 992px) {
-        .masonry {
-          column-count: 2;
-        }
-      }
-      @media screen and (max-width: 600px) {
-        .masonry {
-          column-count: 1;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="header-container">
-        <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
-          <a href="/#about">About Us</a>
-          <a href="/portfolio">Portfolio</a>
-        </div>
-        <div class="header-center">
-          <a href="/gallery">Gallery</a>
-          <a href="/artists">Artists</a>
-          <a href="/news">News</a>
-          <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
-          </a>
-          <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a>
-          <a href="/events">Events</a>
-        </div>
-        <div class="header-right">
-          <a href="/login"><i class="fas fa-user"></i></a>
-          <a href="/favorites"><i class="fas fa-heart"></i></a>
-          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-        </div>
+<head>
+  <title>Kala-Kriti | Favorites</title>
+  <%- include('partials/base-head') %>
+</head>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'favorites' %>
+  
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- Favorites Header Section -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">Your Favorites</h1>
+        <p class="text-gray-600 text-lg">
+          Your personally curated collection of artworks that inspire you.
+        </p>
       </div>
-    </header>
-
-    <div class="gallery-container">
-      <h1>Your Favorites</h1>
-      <div id="favorites-gallery" class="masonry"></div>
     </div>
-
-    <footer class="footer-section">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/logo-color.png" alt="Kala-Kriti Logo" />
-          <p>contact@kala-kriti.com</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <h3>Mediums</h3>
-          <ul>
-            <li><a href="#">Painting</a></li>
-            <li><a href="#">Limited Edition</a></li>
-            <li><a href="#">Drawing</a></li>
-            <li><a href="#">Sculpture</a></li>
-            <li><a href="#">Photography</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Informations</h3>
-          <ul>
-            <li><a href="#">Who are we?</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy / Cookies</a></li>
-            <li><a href="#">Legal notice</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Account</h3>
-          <ul>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Create account</a></li>
-            <li><a href="#">Help / FAQ</a></li>
-            <li><a href="#">How it works?</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Instagram</h3>
-          <p>There are not any images in this Instagram.</p>
-        </div>cl
+  </section>
+  
+  <!-- Favorites Gallery Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div id="favorites-gallery" class="masonry columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+        <!-- Gallery items will be inserted here by JavaScript -->
       </div>
-    </footer>
+      
+      <!-- Empty state message (initially hidden) -->
+      <div id="empty-state" class="hidden py-16 text-center">
+        <div class="max-w-md mx-auto">
+          <div class="text-5xl text-gray-300 mb-6">
+            <i class="far fa-heart"></i>
+          </div>
+          <h2 class="text-2xl font-semibold mb-3">Your Favorites List is Empty</h2>
+          <p class="text-gray-600 mb-8">You haven't added any artworks to your favorites yet. Browse our collection and click the heart icon to add pieces you love.</p>
+          <a href="/gallery" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+            Explore Gallery
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Related Artworks Section -->
+  <section id="related-section" class="py-16 bg-white hidden">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">You Might Also Like</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Discover more artworks based on your favorites.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Related artwork items will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </section>
 
-    <script>
-      function loadFavorites() {
-        const favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const gallery = document.getElementById('favorites-gallery');
-        gallery.innerHTML = '';
+  <!-- CTA Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-sm text-center">
+        <h2 class="text-3xl font-semibold mb-4">Create Your Own Collection</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Transform your favorite pieces from digital wishlist to physical reality. Start your own art collection today.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/buy" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">Start Shopping</a>
+          <a href="/contact" class="px-6 py-3 bg-white text-black font-medium border border-black rounded-md hover:bg-gray-100 transition-colors duration-200">Request Art Consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
+  
+  <!-- Favorites Page Specific Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadFavorites();
+    });
 
-        if (favorites.length === 0) {
-          gallery.innerHTML = '<p style="text-align:center;">No favorites added yet.</p>';
-          return;
-        }
+    function loadFavorites() {
+      const favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const gallery = document.getElementById('favorites-gallery');
+      const emptyState = document.getElementById('empty-state');
+      const relatedSection = document.getElementById('related-section');
+      
+      gallery.innerHTML = '';
 
-        favorites.forEach(fav => {
-          const item = document.createElement('div');
-          item.classList.add('gallery-item');
+      if (favorites.length === 0) {
+        gallery.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        relatedSection.classList.add('hidden');
+        return;
+      }
 
-          item.innerHTML = `
-            <div class="card">
-              <div class="image-container">
-                <img src="${fav.image}" alt="${fav.title}" />
-              </div>
-              <div class="card-content">
-                <h2>${fav.title}</h2>
-                <button class="remove-button" onclick="removeFromFavorites('${fav.id}')">Remove</button>
+      gallery.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      relatedSection.classList.remove('hidden');
+      
+      favorites.forEach(fav => {
+        const item = document.createElement('div');
+        item.classList.add('gallery-item', 'break-inside-avoid', 'mb-6');
+        
+        item.innerHTML = `
+          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="relative group">
+              <img src="${fav.image}" alt="${fav.title}" class="w-full transform transition-transform duration-300 group-hover:scale-105">
+              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                <div class="flex space-x-2">
+                  <button onclick="removeFromFavorites('${fav.id}')" class="bg-white p-2 rounded-full text-red-500 hover:text-red-700 transition-colors duration-200">
+                    <i class="fa-solid fa-trash-alt"></i>
+                  </button>
+                  <button onclick="addToCart('${fav.id}')" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors duration-200">
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </button>
+                  <button onclick="viewDetails('${fav.id}')" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors duration-200">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          `;
+            <div class="p-4">
+              <h3 class="font-medium text-gray-900">${fav.title}</h3>
+              <p class="text-sm text-gray-600 mb-1">By ${fav.artist || 'Unknown Artist'}</p>
+              <p class="font-medium">${fav.price ? '$' + fav.price : 'Price on request'}</p>
+            </div>
+          </div>
+        `;
 
-          gallery.appendChild(item);
-        });
+        gallery.appendChild(item);
+      });
+      
+      // Load related artworks if we have favorites
+      if (favorites.length > 0) {
+        loadRelatedArtworks();
       }
+    }
 
-      function removeFromFavorites(id) {
-        let favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
-        favorites = favorites.filter(fav => fav.id !== id);
-        localStorage.setItem('wishlist', JSON.stringify(favorites));
+    function removeFromFavorites(id) {
+      let favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
+      favorites = favorites.filter(fav => fav.id !== id);
+      localStorage.setItem('wishlist', JSON.stringify(favorites));
+      
+      // Show animation for item removal
+      const item = document.querySelector(`[onclick="removeFromFavorites('${id}')"]`).closest('.gallery-item');
+      item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0.8)';
+      
+      setTimeout(() => {
         loadFavorites();
+      }, 500);
+    }
+    
+    function addToCart(id) {
+      const favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const item = favorites.find(fav => fav.id === id);
+      
+      if (!item) return;
+      
+      // Add to cart logic
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Check if already in cart
+      const existingItem = cart.find(cartItem => cartItem.id === id);
+      
+      if (!existingItem) {
+        cart.push({...item, quantity: 1});
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Show notification
+        showNotification(`${item.title} added to cart!`);
+      } else {
+        showNotification('This item is already in your cart');
       }
-
-      // Load favorites on page load
-      window.onload = loadFavorites;
-    </script>
-  </body>
+    }
+    
+    function viewDetails(id) {
+      // In a real app, this would navigate to the artwork detail page
+      window.location.href = `/artwork?id=${id}`;
+    }
+    
+    function loadRelatedArtworks() {
+      // In a real app, this would fetch related artworks from the server
+      // For now, we'll just simulate with a few placeholder artworks
+      const relatedContainer = document.querySelector('#related-section .grid');
+      relatedContainer.innerHTML = '';
+      
+      const relatedArtworks = [
+        {id: 'r1', title: 'Urban Dream', artist: 'James Wilson', price: '950', image: '/art/urban-landscape.png'},
+        {id: 'r2', title: 'Sunset Melody', artist: 'Clara Zhang', price: '1,200', image: '/art/sunset-horizon.png'},
+        {id: 'r3', title: 'Abstract Flow', artist: 'David Park', price: '875', image: '/art/nature-abstractions.png'},
+        {id: 'r4', title: 'Passionate Embrace', artist: 'Sofia Romano', price: '1,450', image: '/art/with-every-kiss.png'}
+      ];
+      
+      relatedArtworks.forEach(art => {
+        const item = document.createElement('div');
+        item.classList.add('group');
+        
+        item.innerHTML = `
+          <div class="relative overflow-hidden rounded-lg mb-3">
+            <img src="${art.image}" alt="${art.title}" class="w-full transform transition-transform duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+              <div class="flex space-x-2">
+                <button onclick="addToWishlist('${art.id}', '${art.title}', '${art.artist}', '${art.price}', '${art.image}')" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <button onclick="addToCartFromRelated('${art.id}', '${art.title}', '${art.artist}', '${art.price}', '${art.image}')" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-medium text-gray-900">${art.title}</h3>
+          <p class="text-sm text-gray-600 mb-1">By ${art.artist}</p>
+          <p class="font-medium">$${art.price}</p>
+        `;
+        
+        relatedContainer.appendChild(item);
+      });
+    }
+    
+    function addToWishlist(id, title, artist, price, image) {
+      const favorites = JSON.parse(localStorage.getItem('wishlist')) || [];
+      
+      // Check if already in favorites
+      if (!favorites.some(fav => fav.id === id)) {
+        favorites.push({id, title, artist, price, image});
+        localStorage.setItem('wishlist', JSON.stringify(favorites));
+        showNotification(`${title} added to favorites!`);
+        loadFavorites();
+      } else {
+        showNotification('This item is already in your favorites');
+      }
+    }
+    
+    function addToCartFromRelated(id, title, artist, price, image) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Check if already in cart
+      if (!cart.some(item => item.id === id)) {
+        cart.push({id, title, artist, price, image, quantity: 1});
+        localStorage.setItem('cart', JSON.stringify(cart));
+        showNotification(`${title} added to cart!`);
+      } else {
+        showNotification('This item is already in your cart');
+      }
+    }
+    
+    function showNotification(message) {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = 'fixed bottom-4 right-4 bg-black text-white py-2 px-4 rounded-md shadow-lg transform translate-y-full opacity-0 transition-all duration-300';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.style.transform = 'translate(0)';
+        notification.style.opacity = '1';
+      }, 100);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.style.transform = 'translateY(10px)';
+        notification.style.opacity = '0';
+        
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+</body>
 </html>

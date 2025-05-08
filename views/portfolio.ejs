@@ -1,581 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kala-Kriti - Explore, Buy & Sell Art</title>
-  <link rel="stylesheet" href="/css/header.css"/>
-  <link rel="stylesheet" href="/css/footer.css"/>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
-      color: #333;
-    }
-
-    /* Header Adjustments */
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #fff;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      padding: 10px 20px;
-    }
-
-    .header-left a, .header-center a, .header-right a {
-      text-decoration: none;
-      color: #333;
-      margin: 0 10px;
-      font-weight: 500;
-    }
-
-    .logo {
-      max-height: 60px;
-    }
-
-    /* About Section */
-    .featured-section {
-      padding: 50px 20px;
-      background-color: #fff;
-      text-align: center;
-    }
-
-    .featured-section h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #333;
-      text-transform: uppercase;
-      font-weight: bold;
-      position: relative;
-      display: inline-block;
-    }
-
-    .featured-section h2::before,
-    .featured-section h2::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 50px;
-      height: 2px;
-      background-color: #333;
-    }
-
-    .featured-section h2::before {
-      left: -60px;
-    }
-
-    .featured-section h2::after {
-      right: -60px;
-    }
-
-    .featured-section p {
-      font-size: 1rem;
-      color: #555;
-      font-style: italic;
-      margin-top: -10px;
-    }
-
-    .about-section {
-      padding: 60px 30px;
-      background-color: #ffffff;
-    }
-    .about-section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .about-section h2::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: #007bff;
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-    }
-    .about-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: flex-start;
-    }
-    .about-text {
-      flex: 1 1 500px;
-    }
-    .about-text p {
-      margin-bottom: 20px;
-      font-size: 1rem;
-      color: #555;
-    }
-    .about-image {
-      flex: 1 1 400px;
-      position: relative;
-    }
-    .about-image img {
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .about-image img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Services / Offer Section */
-    .services-section {
-      padding: 60px 30px;
-      background-color: #D8D2C2;
-    }
-    .services-section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .services-section h2::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: #28a745;
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-    }
-    .services-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-    .service-card {
-      background-color: #ffffff;
-      border-radius: 15px;
-      padding: 30px 20px;
-      width: 300px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .service-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .service-card i {
-      font-size: 3rem;
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-    .service-card h3 {
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-      color: #333;
-    }
-    .service-card p {
-      font-size: 1rem;
-      color: #555;
-    }
-
-    /* Team Section */
-    .team-section {
-      padding: 60px 30px;
-      background-color: #ffffff;
-    }
-    .team-section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .team-section h2::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: #ffc107;
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-    }
-    .team-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-    .team-card {
-      background-color: #f9f9f9;
-      border-radius: 50%;
-      width: 200px;
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-      cursor: pointer;
-    }
-    .team-card:hover {
-      transform: scale(1.1);
-    }
-    .team-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .team-info {
-      position: absolute;
-      bottom: 0;
-      background: rgba(0,0,0,0.6);
-      width: 100%;
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .team-card:hover .team-info {
-      opacity: 1;
-    }
-
-    /* Future Plans Section */
-    .future-section {
-      padding: 60px 30px;
-      background-color: #E4E0E1;
-    }
-    .future-section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .future-section h2::after {
-      content: '';
-      width: 60px;
-      height: 4px;
-      background-color: #17a2b8;
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-    }
-    .future-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .future-container p {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    .future-container ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 0;
-      margin: 0;
-    }
-    .future-container li {
-      background-color: #ffffff;
-      border-radius: 10px;
-      padding: 20px;
-      width: 200px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .future-container li:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .future-container li i {
-      font-size: 2rem;
-      color: #28a745;
-      margin-bottom: 15px;
-    }
-    .future-container li h4 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #333;
-    }
-    .future-container li p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* Footer */
-    .footer-section {
-      background-color: #f8f9fa;
-      padding: 40px 20px;
-    }
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: space-between;
-    }
-    .footer-logo img {
-      max-width: 120px;
-      margin-bottom: 10px;
-    }
-    .footer-logo p {
-      color: #555;
-    }
-    .social-icons a {
-      text-decoration: none;
-      color: #555;
-      margin-right: 10px;
-    }
-    .footer-links h3 {
-      margin-bottom: 10px;
-      color: #333;
-      font-size: 1.2rem;
-    }
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .footer-links ul li a {
-      text-decoration: none;
-      color: #555;
-      display: block;
-      margin: 5px 0;
-      transition: color 0.3s;
-    }
-    .footer-links ul li a:hover {
-      color: #007bff;
-    }
-  </style>
+  <title>Kala-Kriti | Portfolio</title>
+  <%- include('partials/base-head') %>
 </head>
-<body>
-  <!-- HEADER -->
-  <header>
-    <div class="header-container">
-      <div class="header-left">
-        <a href="/contact" class="contact-btn">
-          <i class="fa fa-phone"></i>
-        </a>
-        <a href="/#about">About Us</a>
-        <a href="/portfolio">Portfolio</a>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'portfolio' %>
+  
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- Portfolio Header Section -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">About Kala-Kriti</h1>
+        <p class="text-gray-600 text-lg">
+          Experience a world of diverse art and artistic events through our innovative platform.
+        </p>
       </div>
-      <div class="header-center">
-        <a href="/gallery">Gallery</a>
-        <a href="/artists">Artists</a>
-        <a href="/news">News</a>
-        <a href="/">
-          <img
-            src="/logo-color.png"
-            alt="Kala-Kriti Logo"
-            class="logo"
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
+        <div class="w-full lg:w-1/2">
+          <div class="space-y-6">
+            <p class="text-gray-600 leading-relaxed">
+              At Kala-Kriti, we strive to connect art enthusiasts with artists from around the globe. Whether you are looking to buy a new centerpiece for your collection or sell your artwork to a broader audience, our platform provides seamless solutions.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              We feature exhibitions, live events, and digital galleries, ensuring that you not only discover incredible art but also stay informed about upcoming artistic happenings. Our mission is to cultivate a thriving community where creativity can flourish and art can truly shine.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              Join us in exploring a diverse range of artworks across various mediums. From classic paintings to modern sculptures and digital pieces, Kala-Kriti is dedicated to celebrating the spirit of art in all its forms.
+            </p>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2">
+          <img 
+            src="/images/about.png" 
+            alt="Art Showcase" 
+            class="w-full h-auto rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
           />
-        </a>
-        <a href="/buy">Buy</a>
-        <a href="/sell">Sell</a>
-        <a href="/events">Events</a>
-      </div>
-      <div class="header-right">
-        <a href="/login"><i class="fas fa-user"></i></a>
-        <a href="/favorites"><i class="fas fa-heart"></i></a>
-        <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ABOUT SECTION -->
-  <section class="featured-section">
-    <h2>About Our Website</h2>
-    <p>Experience a world of diverse art and artistic events</p>
-  </section>
-
-  <section id="ab" class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <p>At Kala-Kriti, we strive to connect art enthusiasts with artists from around the globe. Whether you are looking to buy a new centerpiece for your collection or sell your artwork to a broader audience, our platform provides seamless solutions.</p>
-        <p>We feature exhibitions, live events, and digital galleries, ensuring that you not only discover incredible art but also stay informed about upcoming artistic happenings. Our mission is to cultivate a thriving community where creativity can flourish and art can truly shine.</p>
-        <p>Join us in exploring a diverse range of artworks across various mediums. From classic paintings to modern sculptures and digital pieces, Kala-Kriti is dedicated to celebrating the spirit of art in all its forms.</p>
-      </div>
-      <div class="about-image">
-        <img src="/images/about.png" alt="Art Showcase">
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT WE OFFER SECTION -->
-  <section class="featured-section">
-    <h2>What We Offer</h2>
-    <p>Services tailored for artists, collectors, and enthusiasts</p>
-  </section>
-  <section id="of" class="services-section">
-    <div class="services-container">
-      <div class="service-card">
-        <i class="fas fa-palette"></i>
-        <h3>Explore Artwork</h3>
-        <p>Discover a wide range of art pieces, curated and organized for easy browsing.</p>
-      </div>
-      <div class="service-card">
-        <i class="fas fa-shopping-cart"></i>
-        <h3>Buy Art</h3>
-        <p>Purchase your favorite paintings, sculptures, or photographs from our collection.</p>
-      </div>
-      <div class="service-card">
-        <i class="fas fa-cash-register"></i>
-        <h3>Sell Art</h3>
-        <p>Showcase your creations and reach potential buyers around the world.</p>
-      </div>
-      <div class="service-card">
-        <i class="fas fa-calendar-day"></i>
-        <h3>Attend Events</h3>
-        <p>Stay updated on art exhibitions, workshops, and networking events.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CORE MEMBERS SECTION -->
-  <section class="featured-section">
-    <h2>Our Core Members</h2>
-    <p>Meet the visionaries behind Kala-Kriti</p>
-  </section>
-  <section id="te" class="team-section">
-    <div class="team-container">
-      <div class="team-card">
-        <img src="/images/sajal.png" alt="Team Member 1">
-        <div class="team-info">
-          <h5>Sajal Garg</h5>
-          <!-- <p>Founder & CEO</p> -->
-        </div>
-      </div>
-      <div class="team-card">
-        <img src="/images/arpit.png" alt="Team Member 2">
-        <div class="team-info">
-          <h5>Arpit Garg</h5>
-          <!-- <p>Co founder</p> -->
-        </div>
-      </div>
-      <div class="team-card">
-        <img src="/images/raman.jpeg" alt="Team Member 3">
-        <div class="team-info">
-          <h5>Ramanjot Singh</h5>
-          <!-- <p>Head of Design</p> -->
-        </div>
-      </div>
-      <div class="team-card">
-        <img src="/images/gupil.jpeg" alt="Team Member 4">
-        <div class="team-info">
-          <h5>Gupil Thappa</h5>
-          <!-- <p>Managing Director</p> -->
         </div>
       </div>
     </div>
   </section>
-
-  <!-- FUTURE PLANS SECTION -->
-  <section class="featured-section">
-    <h2>Our Future Plans</h2>
-    <p>Innovations and expansions in the world of art</p>
-  </section>
-  <section id="fu" class="future-section">
-    <div class="future-container">
-      <p>At Kala-Kriti, we are continually evolving our platform to enhance your experience. Here’s a glimpse of upcoming features:</p>
-      <ul>
-        <li>
-          <i class="fas fa-chart-line"></i>
-          <h4>Interactive Art Analytics</h4>
-          <p>Deep insights into trending styles and artists to help collectors and creators alike.</p>
-        </li>
-        <li>
-          <i class="fas fa-cloud-upload-alt"></i>
-          <h4>Cloud Portfolio</h4>
-          <p>Store and showcase your artwork securely online for seamless global access.</p>
-        </li>
-        <li>
-          <i class="fas fa-mobile-alt"></i>
-          <h4>Mobile App</h4>
-          <p>Connect with fellow art lovers and manage your collection on the go.</p>
-        </li>
-        <li>
-          <i class="fas fa-users"></i>
-          <h4>Community Forums</h4>
-          <p>Engage with art enthusiasts, participate in discussions, and share creative ideas.</p>
-        </li>
-        <li>
-          <i class="fas fa-globe"></i>
-          <h4>Global Events</h4>
-          <p>Plan or join international exhibitions, art fairs, and live showcases across continents.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer-section">
-    <div class="footer-content">
-      <div class="footer-logo">
-        <a href="/">
-          <img src="/logo-color.png" alt="Kala-Kriti Logo" />
-        </a>
-        <p>contact@kala-kriti.com</p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-pinterest"></i></a>
+  
+  <!-- What We Offer Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">What We Offer</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Services tailored for artists, collectors, and enthusiasts</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <!-- Service 1 -->
+        <div class="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Explore Artwork</h3>
+          <p class="text-gray-600">Discover a wide range of art pieces, curated and organized for easy browsing.</p>
+        </div>
+        
+        <!-- Service 2 -->
+        <div class="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Buy Art</h3>
+          <p class="text-gray-600">Purchase your favorite paintings, sculptures, or photographs from our collection.</p>
+        </div>
+        
+        <!-- Service 3 -->
+        <div class="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-cash-register"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Sell Art</h3>
+          <p class="text-gray-600">Showcase your creations and reach potential buyers around the world.</p>
+        </div>
+        
+        <!-- Service 4 -->
+        <div class="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Attend Events</h3>
+          <p class="text-gray-600">Stay updated on art exhibitions, workshops, and networking events.</p>
         </div>
       </div>
-      <div class="footer-links">
-        <h3>Mediums</h3>
-        <ul>
-          <li><a href="#">Painting</a></li>
-          <li><a href="#">Limited Edition</a></li>
-          <li><a href="#">Drawing</a></li>
-          <li><a href="#">Sculpture</a></li>
-          <li><a href="#">Photography</a></li>
-        </ul>
+    </div>
+  </section>
+  
+  <!-- Team Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Our Core Members</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Meet the visionaries behind Kala-Kriti</p>
       </div>
-      <div class="footer-links">
-        <h3>Information</h3>
-        <ul>
-          <li><a href="#">Who Are We?</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">Privacy / Cookies</a></li>
-          <li><a href="#">Legal Notice</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h3>Account</h3>
-        <ul>
-          <li><a href="#">Log In</a></li>
-          <li><a href="#">Create Account</a></li>
-          <li><a href="#">Help / FAQ</a></li>
-          <li><a href="#">How It Works?</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h3>Instagram</h3>
-        <p>There are no images in this Instagram.</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <!-- Team Member 1 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="relative">
+            <div class="aspect-square overflow-hidden">
+              <img 
+                src="/images/sajal.png" 
+                alt="Sajal Garg" 
+                class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end">
+              <div class="p-4 text-white w-full">
+                <div class="flex justify-center space-x-3 my-2">
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-github"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-medium text-gray-900">Sajal Garg</h3>
+            <p class="text-gray-600 text-sm">Co-founder & Lead Developer</p>
+          </div>
+        </div>
+        
+        <!-- Team Member 2 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="relative">
+            <div class="aspect-square overflow-hidden">
+              <img 
+                src="/images/arpit.png" 
+                alt="Arpit Garg" 
+                class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end">
+              <div class="p-4 text-white w-full">
+                <div class="flex justify-center space-x-3 my-2">
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-github"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-medium text-gray-900">Arpit Garg</h3>
+            <p class="text-gray-600 text-sm">Co-founder & Design Lead</p>
+          </div>
+        </div>
+        
+        <!-- Team Member 3 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="relative">
+            <div class="aspect-square overflow-hidden">
+              <img 
+                src="/images/raman.jpeg" 
+                alt="Ramanjot Singh" 
+                class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end">
+              <div class="p-4 text-white w-full">
+                <div class="flex justify-center space-x-3 my-2">
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-github"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-medium text-gray-900">Ramanjot Singh</h3>
+            <p class="text-gray-600 text-sm">Marketing Director</p>
+          </div>
+        </div>
+        
+        <!-- Team Member 4 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="relative">
+            <div class="aspect-square overflow-hidden">
+              <img 
+                src="/images/gupil.jpeg" 
+                alt="Gupil Thappa" 
+                class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end">
+              <div class="p-4 text-white w-full">
+                <div class="flex justify-center space-x-3 my-2">
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-github"></i></a>
+                  <a href="#" class="hover:text-gray-300 transition-colors"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-medium text-gray-900">Gupil Thappa</h3>
+            <p class="text-gray-600 text-sm">Operations Manager</p>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+  </section>
+  
+  <!-- Future Plans Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Our Future Plans</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Innovations and expansions in the world of art</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Future Plan 1 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Interactive Art Analytics</h3>
+          <p class="text-gray-600">Deep insights into trending styles and artists to help collectors and creators alike.</p>
+        </div>
+        
+        <!-- Future Plan 2 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Cloud Portfolio</h3>
+          <p class="text-gray-600">Store and showcase your artwork securely online for seamless global access.</p>
+        </div>
+        
+        <!-- Future Plan 3 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Mobile App</h3>
+          <p class="text-gray-600">Connect with fellow art lovers and manage your collection on the go.</p>
+        </div>
+        
+        <!-- Future Plan 4 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Community Forums</h3>
+          <p class="text-gray-600">Engage with art enthusiasts, participate in discussions, and share creative ideas.</p>
+        </div>
+        
+        <!-- Future Plan 5 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Global Events</h3>
+          <p class="text-gray-600">Plan or join international exhibitions, art fairs, and live showcases across continents.</p>
+        </div>
+        
+        <!-- Future Plan 6 -->
+        <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center">
+          <div class="text-4xl mb-4 text-gray-800 flex justify-center">
+            <i class="fas fa-vr-cardboard"></i>
+          </div>
+          <h3 class="text-xl font-medium mb-3">Virtual Reality Galleries</h3>
+          <p class="text-gray-600">Experience immersive art displays from the comfort of your home using VR technology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Join Us CTA Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-gray-50 p-8 md:p-12 rounded-lg shadow-sm text-center">
+        <h2 class="text-3xl font-semibold mb-4">Join Our Art Community</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Be part of a global network of artists, collectors, and enthusiasts. Together, we can create a vibrant space for art to thrive in the digital age.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/register" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">Create Account</a>
+          <a href="/contact" class="px-6 py-3 bg-white text-black font-medium border border-black rounded-md hover:bg-gray-100 transition-colors duration-200">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
 </body>
 </html>

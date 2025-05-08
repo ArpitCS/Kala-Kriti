@@ -1,487 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kala-Kriti | Artists</title>
-
-    <!-- Styles & Fonts -->
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    />
-
-    <!-- Inline Styles for demonstration -->
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-
-      .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #fff;
-        padding: 10px 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      .header-left a,
-      .header-center a,
-      .header-right a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        margin: 0 10px;
-        transition: color 0.3s;
-      }
-
-      .header-left a:hover,
-      .header-center a:hover,
-      .header-right a:hover {
-        color: #f90;
-      }
-
-      .header-center {
-        display: flex;
-        align-items: center;
-      }
-
-      .header-center .logo {
-        height: 50px;
-        margin: 0 20px;
-      }
-
-      .header-right a {
-        font-size: 18px;
-        color: #333;
-        margin-left: 15px;
-      }
-
-      .header-right a:hover {
-        color: #f90;
-      }
-
-      .header-container a {
-        font-size: 16px;
-      }
-
-      /* Intro Section (Optional) */
-      .intro-section {
-        text-align: center;
-        padding: 50px 20px;
-        background-color: #f9f9f9;
-      }
-
-      .intro-section h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .intro-section p {
-        font-size: 1rem;
-        color: #555;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      /* Artists Section */
-      .artists-section {
-        padding: 50px 20px;
-        background-color: #fff;
-        text-align: center;
-      }
-
-      .artists-section h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-        color: #333;
-        text-transform: uppercase;
-        font-weight: bold;
-        position: relative;
-        display: inline-block;
-      }
-
-      .artists-section h2::before,
-      .artists-section h2::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 50px;
-        height: 2px;
-        background-color: #333;
-      }
-
-      .artists-section h2::before {
-        left: -60px;
-      }
-
-      .artists-section h2::after {
-        right: -60px;
-      }
-
-      .artists-section p {
-        font-size: 1rem;
-        color: #555;
-        max-width: 700px;
-        margin: 0 auto 30px;
-      }
-
-      .artist-card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: none;
-        margin-bottom: 20px;
-      }
-
-      .artist-card img {
-        border-radius: 50%;
-        height: 150px;
-        width: 150px;
-        object-fit: cover;
-        margin: 0 auto;
-      }
-
-      .artist-card h5 {
-        margin-top: 15px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .artist-card p {
-        color: #777;
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-        line-height: 1.4;
-      }
-
-      /* Footer */
-      .footer-section {
-        padding: 50px 20px;
-        background-color: #fff;
-        color: #333;
-      }
-
-      .footer-content {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      .footer-logo {
-        text-align: center;
-        flex: 1;
-      }
-
-      .footer-logo img {
-        max-width: 150px;
-        margin-bottom: 10px;
-      }
-
-      .footer-logo p {
-        font-size: 1rem;
-        margin-bottom: 10px;
-        color: #555;
-      }
-
-      .social-icons a {
-        font-size: 1.2rem;
-        margin: 0 5px;
-        color: #333;
-        transition: color 0.3s;
-      }
-
-      .social-icons a:hover {
-        color: #f90;
-      }
-
-      .footer-links {
-        flex: 1;
-      }
-
-      .footer-links h3 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .footer-links ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .footer-links ul li {
-        margin-bottom: 5px;
-      }
-
-      .footer-links ul li a {
-        color: #555;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .footer-links ul li a:hover {
-        color: #f90;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Header -->
-    <header>
-      <div class="header-container">
-        <div class="header-left">
-          <a href="/contact" class="contact-btn">
-            <i class="fa fa-phone"></i>
-          </a>
-          <a href="/#about">About Us</a>
-          <a href="/portfolio">Portfolio</a>
-        </div>
-        <div class="header-center">
-          <a href="/gallery">Gallery</a>
-          <a href="/artists">Artists</a>
-          <a href="/news">News</a>
-          <a href="/">
-            <img
-              src="/logo-color.png"
-              alt="Kala-Kriti Logo"
-              class="logo"
-            />
-          </a>
-          <a href="/buy">Buy</a>
-          <a href="/sell">Sell</a>
-          <a href="/events">Events</a>
-        </div>
-        <div class="header-right">
-          <a href="/login"><i class="fas fa-user"></i></a>
-          <a href="/favorites"><i class="fas fa-heart"></i></a>
-          <a href="/cart"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <!-- Optional Intro Section -->
-      <section class="intro-section">
-        <h2>Explore Our Artists</h2>
-        <p>
+  <title>Kala-Kriti | Artists</title>
+  <%- include('partials/base-head') %>
+</head>
+<body class="bg-gray-50">
+  <!-- Set the active page for the header -->
+  <% locals.page = 'artists' %>
+  
+  <!-- Header -->
+  <%- include('partials/header') %>
+  
+  <!-- Artists Header Section -->
+  <section class="bg-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-semibold mb-4">Explore Our Artists</h1>
+        <p class="text-gray-600 text-lg">
           Delve into the biographies of creative minds from around the world. 
           Each artist brings a unique style and vision, making Kala-Kriti 
           an eclectic hub of Modern and Contemporary Art.
         </p>
-      </section>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Artists Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Featured Artists</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Meet the brilliant creators behind the masterpieces.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Artist 1 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://i3.wp.com/www.thetalentedindian.com/wp-content/uploads/2021/04/Screenshot-2021-04-29-at-11.41.39-AM.png"
+              alt="Raja Ravi Varma"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">Raja Ravi Varma</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              A celebrated Indian painter known for bringing mythological
+              stories to life with his blending of European techniques
+              and Indian sensibilities.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Oil Painting</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
+          </div>
+        </div>
 
-      <!-- Artists Listing Section -->
-      <section class="artists-section">
-        <h2>Featured Artists</h2>
-        <p>Meet the brilliant creators behind the masterpieces.</p>
+        <!-- Artist 2 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK11s0wae3t1OtN3up6xsMqcKzTWsm9cXkPA&s"
+              alt="M.F. Husain"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">M.F. Husain</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              One of the most iconic figures of modern Indian art, 
+              M.F. Husain's vibrant paintings capture the ethos 
+              of Indian culture.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Contemporary Painting</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
+          </div>
+        </div>
+
+        <!-- Artist 3 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://d197irk3q85upd.cloudfront.net/catalog/product/r/a/ram_kumar5.jpg"
+              alt="Ram Kumar"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">Ram Kumar</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              A master of abstract landscapes, Ram Kumar is known for 
+              his evocative paintings that depict human emotions 
+              through color and form.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Abstract Art</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
+          </div>
+        </div>
         
-        <div class="container">
-          <div class="row">
-            <!-- Artist 1 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://i3.wp.com/www.thetalentedindian.com/wp-content/uploads/2021/04/Screenshot-2021-04-29-at-11.41.39-AM.png"
-                  alt="Raja Ravi Varma"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Raja Ravi Varma</h5>
-                  <p>
-                    A celebrated Indian painter known for bringing mythological
-                    stories to life with his blending of European techniques
-                    and Indian sensibilities.
-                  </p>
-                  <p><strong>Country:</strong> India</p>
-                  <p><strong>Specialization:</strong> Oil Painting</p>
-                </div>
-              </div>
+        <!-- Artist 4 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCEo3NUUgP4cbpKzVyzl75fDeFZtAnyGz7UVpN4SYwksYhF03iIfVa15MR-IddPBgcnFs&usqp=CAU"
+              alt="Tyeb Mehta"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">Tyeb Mehta</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              Known for his bold, expressive lines and striking use 
+              of color, Tyeb Mehta explored themes of restraint 
+              and chaos in modern society.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Modern Painting</span></p>
             </div>
-
-            <!-- Artist 2 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK11s0wae3t1OtN3up6xsMqcKzTWsm9cXkPA&s"
-                  alt="M.F. Husain"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">M.F. Husain</h5>
-                  <p>
-                    One of the most iconic figures of modern Indian art, 
-                    M.F. Husain's vibrant paintings capture the ethos 
-                    of Indian culture.
-                  </p>
-                  <p><strong>Country:</strong> India</p>
-                  <p><strong>Specialization:</strong> Contemporary Painting</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Artist 3 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://d197irk3q85upd.cloudfront.net/catalog/product/r/a/ram_kumar5.jpg"
-                  alt="Ram Kumar"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Ram Kumar</h5>
-                  <p>
-                    A master of abstract landscapes, Ram Kumar is known for 
-                    his evocative paintings that depict human emotions 
-                    through color and form.
-                  </p>
-                  <p><strong>Country:</strong> India</p>
-                  <p><strong>Specialization:</strong> Abstract Art</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="row">
-            <!-- Artist 4 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCEo3NUUgP4cbpKzVyzl75fDeFZtAnyGz7UVpN4SYwksYhF03iIfVa15MR-IddPBgcnFs&usqp=CAU"
-                  alt="Tyeb Mehta"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Tyeb Mehta</h5>
-                  <p>
-                    Known for his bold, expressive lines and striking use 
-                    of color, Tyeb Mehta explored themes of restraint 
-                    and chaos in modern society.
-                  </p>
-                  <p><strong>Country:</strong> India</p>
-                  <p><strong>Specialization:</strong> Modern Painting</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Artist 5 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://artlogic-res.cloudinary.com/w_1200,c_limit,f_auto,fl_lossy,q_auto/ws-artlogicwebsite0399/usr/images/artists/artist_image/items/b3/b31d0313fd384b34b5196bf3a7116759/arpita-singh-.jpg"
-                  alt="Arpita Singh"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Arpita Singh</h5>
-                  <p>
-                    A prominent female artist whose works often depict 
-                    women's lives in modern India, blending bright 
-                    palettes with narratives of everyday life.
-                  </p>
-                  <p><strong>Country:</strong> India</p>
-                  <p><strong>Specialization:</strong> Figurative Art</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Artist 6 -->
-            <div class="col-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://image-timescontent.timesgroup.com/thumb/62167.webp"
-                  alt="S.H. Raza"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">S.H. Raza</h5>
-                  <p>
-                    Famous for his iconic Bindus and geometric abstracts, 
-                    Raza fused Indian cosmology with Western modernism 
-                    to create universal visual languages.
-                  </p>
-                  <p><strong>Country:</strong> India/France</p>
-                  <p><strong>Specialization:</strong> Abstract Geometric Art</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <!-- Artist 7 -->
-            <div class="col-md-4 offset-md-4">
-              <div class="card artist-card text-center">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRLLVHcYySyP6LApbmsbyfD69tNF0w_bovJQ&s"
-                  alt="F.N. Souza"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">F.N. Souza</h5>
-                  <p>
-                    A founding member of the Progressive Artists' Group, 
-                    Souza's edgy style and provocative themes 
-                    redefined modern Indian art.
-                  </p>
-                  <p><strong>Country:</strong> India/UK</p>
-                  <p><strong>Specialization:</strong> Expressionist Art</p>
-                </div>
-              </div>
-            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
           </div>
         </div>
-      </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer-section">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/logo-color.png" alt="Kala-Kriti Logo" />
-          <p>contact@kala-kriti.com</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
+        <!-- Artist 5 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://artlogic-res.cloudinary.com/w_1200,c_limit,f_auto,fl_lossy,q_auto/ws-artlogicwebsite0399/usr/images/artists/artist_image/items/b3/b31d0313fd384b34b5196bf3a7116759/arpita-singh-.jpg"
+              alt="Arpita Singh"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">Arpita Singh</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              A prominent female artist whose works often depict 
+              women's lives in modern India, blending bright 
+              palettes with narratives of everyday life.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Figurative Art</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
           </div>
         </div>
-        <div class="footer-links">
-          <h3>Mediums</h3>
-          <ul>
-            <li><a href="#">Painting</a></li>
-            <li><a href="#">Limited Edition</a></li>
-            <li><a href="#">Drawing</a></li>
-            <li><a href="#">Sculpture</a></li>
-            <li><a href="#">Photography</a></li>
-          </ul>
+
+        <!-- Artist 6 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 text-center">
+            <img
+              src="https://image-timescontent.timesgroup.com/thumb/62167.webp"
+              alt="S.H. Raza"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">S.H. Raza</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              Famous for his iconic Bindus and geometric abstracts, 
+              Raza fused Indian cosmology with Western modernism 
+              to create universal visual languages.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India/France</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Abstract Geometric Art</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <h3>Informations</h3>
-          <ul>
-            <li><a href="#">Who are we?</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy / Cookies</a></li>
-            <li><a href="#">Legal notice</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Account</h3>
-          <ul>
-            <li><a href="#">Log in</a></li>
-            <li><a href="#">Create account</a></li>
-            <li><a href="#">Help / FAQ</a></li>
-            <li><a href="#">How it works?</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <h3>Instagram</h3>
-          <p>There are not any images in this Instagram.</p>
+        
+        <!-- Artist 7 -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 lg:col-start-2">
+          <div class="p-6 text-center">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRLLVHcYySyP6LApbmsbyfD69tNF0w_bovJQ&s"
+              alt="F.N. Souza"
+              class="w-32 h-32 object-cover rounded-full mx-auto mb-6"
+            />
+            <h3 class="text-xl font-medium text-gray-900 mb-2">F.N. Souza</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              A founding member of the Progressive Artists' Group, 
+              Souza's edgy style and provocative themes 
+              redefined modern Indian art.
+            </p>
+            <div class="space-y-1 mb-6">
+              <p class="text-sm"><span class="font-medium text-gray-800">Country:</span> <span class="text-gray-600">India/UK</span></p>
+              <p class="text-sm"><span class="font-medium text-gray-800">Specialization:</span> <span class="text-gray-600">Expressionist Art</span></p>
+            </div>
+            <a href="#" class="inline-block px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+              View Profile
+            </a>
+          </div>
         </div>
       </div>
-    </footer>
-
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  </body>
+    </div>
+  </section>
+  
+  <!-- Browse By Category Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3">Browse By Specialty</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Explore artists by their area of expertise and artistic medium.</p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3 class="font-medium">Painters</h3>
+        </a>
+        
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
+          <h3 class="font-medium">Illustrators</h3>
+        </a>
+        
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-cubes"></i>
+          </div>
+          <h3 class="font-medium">Sculptors</h3>
+        </a>
+        
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-camera"></i>
+          </div>
+          <h3 class="font-medium">Photographers</h3>
+        </a>
+        
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3 class="font-medium">Digital Artists</h3>
+        </a>
+        
+        <a href="#" class="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-gray-50">
+          <div class="text-3xl mb-3 text-gray-800">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3 class="font-medium">Mixed Media</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Become An Artist CTA -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-gray-50 p-8 md:p-12 rounded-lg shadow-sm text-center">
+        <h2 class="text-3xl font-semibold mb-4">Join Our Artist Community</h2>
+        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Are you an artist looking to showcase your work? Join Kala-Kriti to connect with collectors and art enthusiasts from around the world.</p>
+        <a href="/sell" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+          Become an Artist
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  
+  <!-- Common Scripts -->
+  <%- include('partials/base-scripts') %>
+</body>
 </html>
