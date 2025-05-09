@@ -13,18 +13,18 @@ app.use(logger) // Log each request
 // Serve static files (HTML, CSS, JS) from the /public directory
 app.use(express.static(path.join(__dirname, 'public')))
 // Import API routes from apiRoutes.js
-const apiRoutes = require('./api/apiRoutes') // Import the API routes for login and register functionality
+const apiRoutes = require('./auth/apiRoutes') // Import the API routes for login and register functionality
 app.use('/api', apiRoutes) // Mount the API routes on /api path
 // Serve login.html at the root URL
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'login.html')) // Serve the login page at root URL
 })
 // Serve dashboard.html when user is authenticated
-app.get('/api/dashboard', (req, res) => {
+app.get('/auth/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'dashboard.html')) // Serve the dashboard HTML file
 })
 // Serve register.html when user needs to register
-app.get('/api/register', (req, res) => {
+app.get('/auth/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'register.html')) // Serve the register HTML file
 })
 // Use error handler middleware for catching and handling errors

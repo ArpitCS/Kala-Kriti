@@ -26,7 +26,9 @@
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <div class="flex items-center bg-gray-50 rounded-full px-6 py-2 shadow-sm">
-          <input type="text" id="searchInput" placeholder="Search by artist, title, style, or medium..." class="w-full bg-transparent border-0 focus:outline-none px-2 py-2 text-gray-700">
+          <input type="text" id="searchInput" placeholder="Search by artist, title, style, or medium..." 
+                 class="w-full bg-transparent border-0 focus:outline-none px-2 py-2 text-gray-700"
+                 value="<%= locals.searchQuery || '' %>">
           <button id="searchButton" class="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 ml-2">
             <i class="fas fa-search"></i>
           </button>
@@ -42,12 +44,12 @@
   <section class="bg-white py-6">
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap justify-center gap-4">
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">All</button>
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">Painting</button>
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">Sculpture</button>
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">Photography</button>
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">Digital Art</button>
-        <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm transition-colors duration-200">Mixed Media</button>
+        <a href="/gallery" class="px-4 py-2 <%= !locals.activeCategory ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">All</a>
+        <a href="/gallery/filter/painting" class="px-4 py-2 <%= locals.activeCategory === 'painting' ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">Painting</a>
+        <a href="/gallery/filter/sculpture" class="px-4 py-2 <%= locals.activeCategory === 'sculpture' ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">Sculpture</a>
+        <a href="/gallery/filter/photography" class="px-4 py-2 <%= locals.activeCategory === 'photography' ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">Photography</a>
+        <a href="/gallery/filter/digital-art" class="px-4 py-2 <%= locals.activeCategory === 'digital-art' ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">Digital Art</a>
+        <a href="/gallery/filter/mixed-media" class="px-4 py-2 <%= locals.activeCategory === 'mixed-media' ? 'bg-gray-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' %> rounded-md text-sm transition-colors duration-200">Mixed Media</a>
       </div>
     </div>
   </section>
@@ -55,215 +57,46 @@
   <!-- Gallery Grid -->
   <section class="py-12">
     <div class="container mx-auto px-4">
+      <% if (locals.error) { %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6" role="alert">
+          <p><%= error %></p>
+        </div>
+      <% } %>
+      
       <div class="masonry columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-        <!-- Gallery Items -->
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/sunset-horizon.png" alt="Sunset Horizon" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
+        <% if (locals.artworks && artworks.length > 0) { %>
+          <% artworks.forEach(function(artwork) { %>
+            <div class="gallery-item break-inside-avoid">
+              <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div class="relative group">
+                  <img src="<%= artwork.imageUrl %>" alt="<%= artwork.title %>" class="w-full">
+                  <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                    <div class="flex space-x-2">
+                      <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors" onclick="toggleFavorite('<%= artwork.id %>')">
+                        <i class="fa-regular fa-heart"></i>
+                      </button>
+                      <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors" onclick="addToCart('<%= artwork.id %>')">
+                        <i class="fa-solid fa-cart-plus"></i>
+                      </button>
+                      <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors" onclick="viewDetails('<%= artwork.id %>')">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3 class="font-medium text-gray-900"><%= artwork.title %></h3>
+                  <p class="text-sm text-gray-600 mb-1">By <%= artwork.artist %></p>
+                  <p class="font-medium">$<%= artwork.price.toLocaleString() %></p>
                 </div>
               </div>
             </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">Sunset Horizon</h3>
-              <p class="text-sm text-gray-600 mb-1">By Sarah Johnson</p>
-              <p class="font-medium">$1,250</p>
-            </div>
+          <% }); %>
+        <% } else { %>
+          <div class="col-span-full text-center py-12">
+            <p class="text-lg text-gray-500">No artworks found. Please try a different search.</p>
           </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/urban-landscape.png" alt="Urban Landscape" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">Urban Landscape</h3>
-              <p class="text-sm text-gray-600 mb-1">By Michael Chen</p>
-              <p class="font-medium">$895</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/nature-abstractions.png" alt="Nature Abstractions" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">Nature Abstractions</h3>
-              <p class="text-sm text-gray-600 mb-1">By Elena Rodriguez</p>
-              <p class="font-medium">$1,450</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/with-every-kiss.png" alt="With Every Kiss" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">With Every Kiss</h3>
-              <p class="text-sm text-gray-600 mb-1">By David Kim</p>
-              <p class="font-medium">$2,100</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/the-modern-soul.png" alt="The Modern Soul" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">The Modern Soul</h3>
-              <p class="text-sm text-gray-600 mb-1">By Amelia Patel</p>
-              <p class="font-medium">$1,850</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/sunset-horizon.png" alt="Abstract Dreams" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">Abstract Dreams</h3>
-              <p class="text-sm text-gray-600 mb-1">By Marcus Thompson</p>
-              <p class="font-medium">$975</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/urban-landscape.png" alt="City Reflections" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">City Reflections</h3>
-              <p class="text-sm text-gray-600 mb-1">By Sophie Laurent</p>
-              <p class="font-medium">$1,150</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item break-inside-avoid">
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="relative group">
-              <img src="/art/nature-abstractions.png" alt="Forest Whispers" class="w-full">
-              <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                <div class="flex space-x-2">
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-regular fa-heart"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-cart-plus"></i>
-                  </button>
-                  <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                    <i class="fa-solid fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3 class="font-medium text-gray-900">Forest Whispers</h3>
-              <p class="text-sm text-gray-600 mb-1">By Thomas Berg</p>
-              <p class="font-medium">$1,575</p>
-            </div>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
   </section>
@@ -273,17 +106,34 @@
     <div class="container mx-auto px-4">
       <div class="flex justify-center">
         <nav class="flex items-center space-x-2">
-          <a href="#" class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50">
-            <i class="fas fa-chevron-left"></i>
-          </a>
-          <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-gray-50 font-medium">1</a>
-          <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50">2</a>
-          <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50">3</a>
-          <span class="px-2 text-gray-500">...</span>
-          <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50">8</a>
-          <a href="#" class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50">
-            <i class="fas fa-chevron-right"></i>
-          </a>
+          <% if (locals.totalPages && totalPages > 1) { %>
+            <% const currentUrl = locals.searchQuery ? 
+               `/gallery/search?q=${encodeURIComponent(searchQuery)}` : 
+               locals.activeCategory ? 
+               `/gallery/filter/${activeCategory}` : 
+               '/gallery'; %>
+               
+            <a href="<%= currentUrl %>&page=<%= Math.max(1, currentPage-1) %>" 
+               class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 <%= currentPage <= 1 ? 'opacity-50 pointer-events-none' : '' %>">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+            
+            <% for(let i = 1; i <= Math.min(5, totalPages); i++) { %>
+              <a href="<%= currentUrl %>&page=<%= i %>" 
+                 class="px-4 py-2 border border-gray-300 rounded-md <%= currentPage === i ? 'text-gray-700 bg-gray-50 font-medium' : 'text-gray-500 hover:bg-gray-50' %>"><%= i %></a>
+            <% } %>
+            
+            <% if (totalPages > 5) { %>
+              <span class="px-2 text-gray-500">...</span>
+              <a href="<%= currentUrl %>&page=<%= totalPages %>" 
+                 class="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50"><%= totalPages %></a>
+            <% } %>
+            
+            <a href="<%= currentUrl %>&page=<%= Math.min(totalPages, currentPage+1) %>" 
+               class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 <%= currentPage >= totalPages ? 'opacity-50 pointer-events-none' : '' %>">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          <% } %>
         </nav>
       </div>
     </div>
@@ -315,43 +165,72 @@
   
   <!-- Gallery Page Specific Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Search functionality
-      const searchInput = document.getElementById('searchInput');
-      const searchButton = document.getElementById('searchButton');
-      const clearButton = document.getElementById('clearButton');
-      const galleryItems = document.querySelectorAll('.gallery-item');
-      
-      searchButton.addEventListener('click', function() {
-        searchGallery();
-      });
-      
-      searchInput.addEventListener('keyup', function(e) {
-        if (e.key === 'Enter') {
-          searchGallery();
-        }
-      });
-      
-      clearButton.addEventListener('click', function() {
-        searchInput.value = '';
-        galleryItems.forEach(item => {
-          item.style.display = 'block';
-        });
-      });
-      
-      function searchGallery() {
-        const searchTerm = searchInput.value.toLowerCase();
-        galleryItems.forEach(item => {
-          const title = item.querySelector('h3').textContent.toLowerCase();
-          const artist = item.querySelector('p').textContent.toLowerCase();
-          if (title.includes(searchTerm) || artist.includes(searchTerm)) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const clearButton = document.getElementById('clearButton');
+    
+    searchButton.addEventListener('click', function() {
+      if (searchInput.value.trim()) {
+        window.location.href = `/gallery/search?q=${encodeURIComponent(searchInput.value.trim())}`;
       }
     });
-  </script>
+    
+    searchInput.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        if (searchInput.value.trim()) {
+          window.location.href = `/gallery/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+        }
+      }
+    });
+    
+    clearButton.addEventListener('click', function() {
+      searchInput.value = '';
+      window.location.href = '/gallery';
+    });
+    
+    // Add to favorites functionality
+    window.toggleFavorite = function(artworkId) {
+      // Check if user is logged in
+      fetch('/profile/check-auth')
+        .then(response => response.json())
+        .then(data => {
+          if (data.authenticated) {
+            // Add to favorites logic
+            fetch(`/profile/toggle-favorite/${artworkId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert(data.message);
+              } else {
+                alert('Could not update favorites');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+          } else {
+            // Redirect to login
+            window.location.href = '/login?redirect=/gallery';
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    };
+    
+    // Add to cart functionality
+    window.addToCart = function(artworkId) {
+      // Add to cart logic here
+      alert('Added to cart: ' + artworkId);
+    };
+    
+    // View details functionality
+    window.viewDetails = function(artworkId) {
+      window.location.href = `/artwork/${artworkId}`;
+    };
+  });
+</script>
 </body>
-</html> 
+</html>

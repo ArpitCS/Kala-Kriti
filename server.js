@@ -6,14 +6,32 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+// Models
+const User = require("./models/Users");
+const Artwork = require("./models/Artworks");
+const Event = require("./models/Events");
+const Order = require("./models/Orders");
+
+// Load environment variables
+dotenv.config();
+
+// MongoDB Connection
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/kala-kriti";
+mongoose.connect(mongoURI)
+  .then(() => console.log("MongoDB Connected!"))
+  .catch((err) => console.error("MongoDB Connection Error:", err));
 
 // App and Port Setup
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 // Logger and Error Handler Middlewares
 const logger = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
+const { isAuthenticated, redirectIfAuthenticated } = require('./middlewares/auth');
 
 // Set View Engine
 app.set("view engine", "ejs");
@@ -41,8 +59,13 @@ app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-E
 app.use(express.static(path.join(__dirname, "public")));
 
 // API Routes
-const apiRoutes = require("./api/apiRoutes");
-app.use("/api", apiRoutes);
+const authRoutes = require("./routes/auth");
+const profileRoutes = require("./routes/profile");
+const galleryRoutes = require("./routes/gallery");
+
+app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
+app.use("/gallery", galleryRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -64,37 +87,40 @@ app.get("/contact", (req, res) => {
   res.render("contact.ejs");
 });
 
-app.get("/login", (req, res) => {
-  const isLogged = req.cookies.isLogged;
-  if (isLogged === 'true') {
-    return res.redirect("/dashboard");
-  }
-  res.sendFile(path.join(__dirname, "views", "login.html"));
-  res.render("login.ejs");
+// Public routes - add redirectIfAuthenticated to prevent authenticated users from accessing login/register
+app.get("/login", redirectIfAuthenticated, (req, res) => {
+  res.render("login.ejs", { error: req.query.error });
 });
 
-app.get("/register", (req, res) => {
-  res.render("register.ejs");
+app.get("/register", redirectIfAuthenticated, (req, res) => {
+  res.render("register.ejs", { error: req.query.error });
 });
 
 app.get("/error", (req, res) => {
   errorHandler(new Error("An Error Occurred!"), req, res);
 });
 
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard.ejs");
+// Protected routes
+app.get("/dashboard", isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.render("dashboard", { user: user });
+  } catch (err) {
+    console.error("Error fetching user data:", err);
+    res.status(500).send("Server error");
+  }
 });
 
-app.get('/gallery', (req, res) => {
-  res.render('gallery'); // Renders views/gallery.ejs
-});
+// app.get('/gallery', (req, res) => {
+//   res.render('gallery'); // Renders views/gallery.ejs
+// });
 
 app.get("/events", (req, res) => {
   res.render("events.ejs");
 });
 
 app.get('/news', (req, res) => {
-  res.render('news', { newsApiKey: '9d4d7f3138cc49faa95dde0b3f2ad6d7' });
+  res.render('news', { newsApiKey: process.env.NEWS_API_KEY || '9d4d7f3138cc49faa95dde0b3f2ad6d7' });
 });
 
 app.get("/artists", (req, res) => {
@@ -106,20 +132,20 @@ app.get("/buy", (req, res) => {
   res.render("buy", { artworks });
 });
 
-app.get("/sell", (req, res) => {
-  res.render("sell");
+app.get("/sell", isAuthenticated, (req, res) => {
+  res.render("sell", { user: req.user });
 });
 
-app.get("/cart", (req, res) => {
-  res.render("cart.ejs");
+app.get("/cart", isAuthenticated, (req, res) => {
+  res.render("cart.ejs", { user: req.user });
 });
 
-app.get("/favorites", (req, res) => {
-  res.render("favorites.ejs");
+app.get("/favorites", isAuthenticated, (req, res) => {
+  res.render("favorites.ejs", { user: req.user });
 });
 
-app.get("/portfolio", (req, res) => {
-  res.render("portfolio.ejs");
+app.get("/portfolio", isAuthenticated, (req, res) => {
+  res.render("portfolio.ejs", { user: req.user });
 });
 
 // Handle 404 Errors

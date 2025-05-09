@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-E
 app.use(express.static(path.join(__dirname, "public")));
 
 // API Routes
-const apiRoutes = require("./api/apiRoutes");
+const apiRoutes = require("./auth/apiRoutes");
 app.use("/api", apiRoutes);
 
 // Serve Artwork JSON
