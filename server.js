@@ -19,8 +19,10 @@ const Order = require("./models/Orders");
 dotenv.config();
 
 // MongoDB Connection
-const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/kala-kriti";
-mongoose.connect(mongoURI)
+const mongoURI =
+  process.env.MONGO_URI || "mongodb://localhost:27017/kala-kriti";
+mongoose
+  .connect(mongoURI)
   .then(() => console.log("MongoDB Connected!"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
@@ -31,7 +33,10 @@ const port = process.env.PORT || 9000;
 // Logger and Error Handler Middlewares
 const logger = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
-const { isAuthenticated, redirectIfAuthenticated } = require('./middlewares/auth');
+const {
+  isAuthenticated,
+  redirectIfAuthenticated,
+} = require("./middlewares/auth");
 
 // Set View Engine
 app.set("view engine", "ejs");
@@ -53,7 +58,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(bodyParser.json()); // For JSON Payloads
-app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-Encoded Payloads 
+app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-Encoded Payloads
 
 // Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
@@ -111,16 +116,37 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
   }
 });
 
-// app.get('/gallery', (req, res) => {
-//   res.render('gallery'); // Renders views/gallery.ejs
-// });
+app.get("/admin", isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user.role !== "admin") {
+      return res.status(403).send("Access denied");
+    }
+    const users = await User.find();
+    const artworks = await Artwork.find();
+    const events = await Event.find();
+    const orders = await Order.find();
+    res.render("admin", {
+      user: user,
+      users: users,
+      artworks: artworks,
+      events: events,
+      orders: orders,
+    });
+  } catch (err) {
+    console.error("Error fetching admin data:", err);
+    res.status(500).send("Server error");
+  }
+});
 
 app.get("/events", (req, res) => {
   res.render("events.ejs");
 });
 
-app.get('/news', (req, res) => {
-  res.render('news', { newsApiKey: process.env.NEWS_API_KEY || '9d4d7f3138cc49faa95dde0b3f2ad6d7' });
+app.get("/news", (req, res) => {
+  res.render("news", {
+    newsApiKey: process.env.NEWS_API_KEY || "9d4d7f3138cc49faa95dde0b3f2ad6d7",
+  });
 });
 
 app.get("/artists", (req, res) => {
@@ -151,10 +177,10 @@ app.get("/portfolio", isAuthenticated, (req, res) => {
 // Handle 404 Errors
 app.get("*", (req, res) => {
   res.status(404).render("404", {
-      title: "404",
-      imagePath: "/art/with-every-kiss.png",
-      logoPath: "/logo-color.png",
-      year: new Date().getFullYear()
+    title: "404",
+    imagePath: "/art/with-every-kiss.png",
+    logoPath: "/logo-color.png",
+    year: new Date().getFullYear(),
   });
 });
 
