@@ -28,8 +28,9 @@
         
         <!-- User actions -->
         <div class="flex items-center space-x-4">
-          <a href="/cart" class="text-gray-700 hover:text-gray-900" title="Cart">
+          <a href="/cart" class="text-gray-700 hover:text-gray-900 relative" title="Cart">
             <i class="fa-solid fa-shopping-cart"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
           </a>
           <a href="/wishlist" class="text-gray-700 hover:text-gray-900" title="Wishlist">
             <i class="fa-solid fa-heart"></i>

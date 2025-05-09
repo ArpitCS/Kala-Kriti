@@ -69,12 +69,16 @@ const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const galleryRoutes = require("./routes/gallery");
 const wishlistRoutes = require("./routes/wishlist");
+const cartRoutes = require("./routes/cart");
+const checkoutRoutes = require("./routes/checkout");
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/artworks", artworksRoutes);
 app.use("/wishlist", wishlistRoutes);
+app.use("/cart", cartRoutes);
+app.use("/checkout", checkoutRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -112,7 +116,7 @@ app.get("/register", redirectIfAuthenticated, (req, res) => {
 });
 
 app.get("/error", (req, res) => {
-  errorHandler(new Error("An Error Occurred!"), req, res);
+  res.render("error.ejs", { error: "An Error Occurred!" });
 });
 
 // Protected routes
@@ -198,10 +202,6 @@ app.get("/buy", (req, res) => {
 
 app.get("/sell", isAuthenticated, (req, res) => {
   res.render("sell", { user: req.user });
-});
-
-app.get("/cart", isAuthenticated, (req, res) => {
-  res.render("cart.ejs", { user: req.user });
 });
 
 app.get("/wishlist", isAuthenticated, (req, res) => {

@@ -51,7 +51,7 @@
                 </div>
                 <h2 class="text-2xl font-semibold mb-3">Your Cart is Empty</h2>
                 <p class="text-gray-600 mb-8">Looks like you haven't added any artwork to your cart yet.</p>
-                <a href="/gallery" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
+                <a href="/artworks" class="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
                   Continue Shopping
                 </a>
               </div>
@@ -60,7 +60,7 @@
           
           <!-- Continue Shopping Button -->
           <div class="flex justify-between mt-6">
-            <a href="/gallery" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200 flex items-center">
+            <a href="/artworks" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200 flex items-center">
               <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
             </a>
             
@@ -173,102 +173,7 @@
     </div>
   </section>
   
-  <!-- You May Also Like Section -->
-  <section id="recommendations" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-semibold mb-3">You May Also Like</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">Other artworks that match your style</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Recommended Products (Will be populated by JavaScript) -->
-        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
-          <div class="relative overflow-hidden">
-            <img src="/art/sunset-horizon.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
-            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-              <div class="flex space-x-2">
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-solid fa-cart-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900">Sunset Dreams</h3>
-            <p class="text-sm text-gray-600 mb-1">By Sarah Johnson</p>
-            <p class="font-medium">$950</p>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
-          <div class="relative overflow-hidden">
-            <img src="/art/urban-landscape.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
-            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-              <div class="flex space-x-2">
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-solid fa-cart-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900">City Dreams</h3>
-            <p class="text-sm text-gray-600 mb-1">By Michael Chen</p>
-            <p class="font-medium">$1,150</p>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
-          <div class="relative overflow-hidden">
-            <img src="/art/nature-abstractions.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
-            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-              <div class="flex space-x-2">
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-solid fa-cart-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900">Natural Flow</h3>
-            <p class="text-sm text-gray-600 mb-1">By Elena Rodriguez</p>
-            <p class="font-medium">$875</p>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group">
-          <div class="relative overflow-hidden">
-            <img src="/art/with-every-kiss.png" alt="Recommended Artwork" class="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-105">
-            <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-              <div class="flex space-x-2">
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-                <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                  <i class="fa-solid fa-cart-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-medium text-gray-900">Passionate Heart</h3>
-            <p class="text-sm text-gray-600 mb-1">By David Kim</p>
-            <p class="font-medium">$1,290</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
   
   <!-- Footer -->
   <%- include('partials/footer') %>
@@ -513,11 +418,8 @@
         return;
       }
       
-      // In a real app, this would redirect to a checkout page
-      showNotification('Proceeding to checkout...', 'success');
-      setTimeout(() => {
-        window.location.href = '/checkout';
-      }, 1500);
+      // Redirect to checkout page
+      window.location.href = '/checkout';
     }
     
     function showNotification(message, type = 'info') {

@@ -47,6 +47,19 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Artwork'
   }],
+  // Cart items stored directly in user document
+  cart: [{
+    artwork: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artwork',
+      required: true
+    },
+    quantity: {
+      type: Number,
+      default: 1,
+      min: 1
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now,

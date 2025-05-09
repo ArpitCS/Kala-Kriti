@@ -139,6 +139,23 @@
   
   <!-- Artwork Detail Page Specific Scripts -->
   <script>
+    function updateCartCount() {
+      const cartCountElement = document.getElementById('cart-count');
+      if (cartCountElement) {
+        // Get cart data from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const count = cart.length;
+        cartCountElement.textContent = count;
+        
+        // Hide badge if count is 0
+        if (count === 0) {
+          cartCountElement.style.display = 'none';
+        } else {
+          cartCountElement.style.display = 'flex';
+        }
+      }
+    }
+
     function addToCart(artId) {
       // Get the artwork details from the page
       const title = document.querySelector('h1').textContent;
@@ -147,16 +164,23 @@
       const price = parseFloat(priceText.replace(/,/g, ''));
       const image = document.querySelector('.lg\\:w-1\\/2 img').src;
       
-      // Get existing cart or create new one
+      // Update button appearance to show loading
+      const addToCartBtn = document.getElementById('add-to-cart-btn');
+      const originalButtonContent = addToCartBtn.innerHTML;
+      addToCartBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Adding...';
+      addToCartBtn.disabled = true;
+      
+      // Get existing cart from localStorage or create new one
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       
       // Check if item already exists in cart
-      const existingItem = cart.find(item => item.id === artId);
+      const index = cart.findIndex(item => item.id === artId);
       
-      if (existingItem) {
-        showNotification('This artwork is already in your cart', 'info');
+      if (index >= 0) {
+        // Update quantity if item exists
+        cart[index].quantity += 1;
       } else {
-        // Add to cart
+        // Add new item
         cart.push({
           id: artId,
           title: title,
@@ -165,23 +189,27 @@
           image: image,
           quantity: 1
         });
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        showNotification(`${title} has been added to your cart`, 'success');
-        
-        // Update cart count in header if it exists
-        updateCartCount();
-        
-        // Update button appearance
-        const addToCartBtn = document.getElementById('add-to-cart-btn');
-        addToCartBtn.classList.add('bg-green-600');
-        addToCartBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Added to Cart';
-        
-        setTimeout(() => {
-          addToCartBtn.classList.remove('bg-green-600');
-          addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i> Add to Cart';
-        }, 2000);
       }
+      
+      // Save updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Update cart count in header
+      if (window.updateCartCount) {
+        window.updateCartCount();
+      }
+      
+      // Update button appearance
+      addToCartBtn.classList.add('bg-green-600');
+      addToCartBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Added to Cart';
+      
+      setTimeout(() => {
+        addToCartBtn.classList.remove('bg-green-600');
+        addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i> Add to Cart';
+        addToCartBtn.disabled = false;
+      }, 2000);
+      
+      showNotification(`${title} has been added to your cart`, 'success');
     }
 
     function toggleWishlist(artId) {
@@ -216,14 +244,6 @@
       }
       
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
-    
-    function updateCartCount() {
-      const cartCountElement = document.getElementById('cart-count');
-      if (cartCountElement) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cartCountElement.textContent = cart.length;
-      }
     }
     
     // Show notification for user feedback
@@ -278,8 +298,10 @@
         addToCartBtn.disabled = true;
       }
       
-      // Update cart count on page load
-      updateCartCount();
+      // Update cart count
+      if (window.updateCartCount) {
+        window.updateCartCount();
+      }
       
       // Update related items wishlist/cart status
       updateRelatedItemsStatus();
@@ -355,7 +377,7 @@
       }
     }
     
-    // Handle cart functionality for related artworks
+    // Handle cart adding for related artworks
     function addRelatedToCart(artId, buttonElement) {
       try {
         // Get the artwork details from the DOM
@@ -366,16 +388,22 @@
         const price = parseFloat(priceText.replace(/,/g, ''));
         const image = artworkElement.querySelector('img').src;
         
-        // Get existing cart or create new one
+        // Update button to show loading
+        const originalButtonContent = buttonElement.innerHTML;
+        buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        buttonElement.disabled = true;
+        
+        // Get existing cart from localStorage or create new one
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         
         // Check if item already exists in cart
-        const existingItem = cart.find(item => item.id === artId);
+        const index = cart.findIndex(item => item.id === artId);
         
-        if (existingItem) {
-          showNotification('This artwork is already in your cart', 'info');
+        if (index >= 0) {
+          // Update quantity if item exists
+          cart[index].quantity += 1;
         } else {
-          // Add to cart
+          // Add new item
           cart.push({
             id: artId,
             title: title,
@@ -384,25 +412,40 @@
             image: image,
             quantity: 1
           });
-          
-          localStorage.setItem('cart', JSON.stringify(cart));
-          showNotification(`${title} has been added to your cart`, 'success');
-          
-          // Update cart count in header if it exists
-          updateCartCount();
-          
-          // Add visual feedback to the button
-          buttonElement.innerHTML = '<i class="fas fa-check"></i>';
         }
+        
+        // Save updated cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update button appearance
+        buttonElement.innerHTML = '<i class="fas fa-check"></i>';
+        
+        // Show notification
+        showNotification(`${title} has been added to your cart`, 'success');
+        
+        // Update cart count in header
+        if (window.updateCartCount) {
+          window.updateCartCount();
+        }
+        
+        // After a delay, reset the button
+        setTimeout(() => {
+          buttonElement.innerHTML = originalButtonContent;
+          buttonElement.disabled = false;
+        }, 2000);
         
         // Prevent the card from redirecting
         event.preventDefault();
         event.stopPropagation();
-        return false;
       } catch (error) {
-        console.error('Error adding to cart:', error);
-        showNotification('Error adding item to cart', 'error');
-        return false;
+        console.error('Error adding related item to cart:', error);
+        showNotification('Failed to add item to cart', 'error');
+        
+        // If possible, reset the button
+        if (buttonElement) {
+          buttonElement.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
+          buttonElement.disabled = false;
+        }
       }
     }
   </script>
