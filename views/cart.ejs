@@ -204,18 +204,24 @@
       const emptyCartMessage = document.getElementById('empty-cart');
       const recommendationsSection = document.getElementById('recommendations');
       
+      console.log('Cart contents from localStorage:', cart);
+      
       cartItemsContainer.innerHTML = '';
       
       if (cart.length === 0) {
         emptyCartMessage.classList.remove('hidden');
-        recommendationsSection.classList.add('hidden');
+        if (recommendationsSection) {
+          recommendationsSection.classList.add('hidden');
+        }
         document.getElementById('clear-cart-btn').classList.add('hidden');
         updateOrderSummary();
         return;
       }
       
       emptyCartMessage.classList.add('hidden');
-      recommendationsSection.classList.remove('hidden');
+      if (recommendationsSection) {
+        recommendationsSection.classList.remove('hidden');
+      }
       document.getElementById('clear-cart-btn').classList.remove('hidden');
       
       // Generate cart items
@@ -325,9 +331,16 @@
       const activePromo = localStorage.getItem('activePromo');
       
       if (activePromo) {
-        discountAmount = calculateDiscount(subtotal, activePromo);
-        document.getElementById('discount-row').classList.remove('hidden');
-        document.getElementById('summary-discount').textContent = `-$${discountAmount.toFixed(2)}`;
+        try {
+          const promoObj = JSON.parse(activePromo);
+          discountAmount = calculateDiscount(subtotal, promoObj);
+          document.getElementById('discount-row').classList.remove('hidden');
+          document.getElementById('summary-discount').textContent = `-$${discountAmount.toFixed(2)}`;
+        } catch (error) {
+          console.error('Error parsing activePromo:', error);
+          localStorage.removeItem('activePromo'); // Clear invalid promo
+          document.getElementById('discount-row').classList.add('hidden');
+        }
       } else {
         document.getElementById('discount-row').classList.add('hidden');
       }
@@ -356,14 +369,23 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       
       // Show removal animation
-      const itemElement = document.querySelector(`button[onclick="removeFromCart('${itemId}')"]`).closest('.border-b');
-      itemElement.style.transition = 'all 0.3s ease';
-      itemElement.style.opacity = '0';
-      itemElement.style.height = '0';
-      
-      setTimeout(() => {
+      const itemElement = document.querySelector(`button[onclick="removeFromCart('${itemId}')"]`);
+      if (itemElement) {
+        const containerElement = itemElement.closest('.border-b');
+        if (containerElement) {
+          containerElement.style.transition = 'all 0.3s ease';
+          containerElement.style.opacity = '0';
+          containerElement.style.height = '0';
+          
+          setTimeout(() => {
+            loadCart();
+          }, 300);
+        } else {
+          loadCart();
+        }
+      } else {
         loadCart();
-      }, 300);
+      }
     }
     
     function clearCart() {
@@ -398,13 +420,11 @@
       }
     }
     
-    function calculateDiscount(subtotal, promoString) {
-      const promo = JSON.parse(promoString);
-      
-      if (promo.type === 'percentage') {
-        return subtotal * (promo.value / 100);
-      } else if (promo.type === 'fixed') {
-        return promo.value;
+    function calculateDiscount(subtotal, promoObj) {
+      if (promoObj.type === 'percentage') {
+        return subtotal * (promoObj.value / 100);
+      } else if (promoObj.type === 'fixed') {
+        return promoObj.value;
       }
       
       return 0;

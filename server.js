@@ -71,6 +71,8 @@ const galleryRoutes = require("./routes/gallery");
 const wishlistRoutes = require("./routes/wishlist");
 const cartRoutes = require("./routes/cart");
 const checkoutRoutes = require("./routes/checkout");
+const eventsRoutes = require("./routes/events");
+const adminRoutes = require("./routes/admin");
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
@@ -79,6 +81,8 @@ app.use("/artworks", artworksRoutes);
 app.use("/wishlist", wishlistRoutes);
 app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
+app.use("/events", eventsRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -134,55 +138,29 @@ app.get("/admin", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (user.role !== "admin") {
-      return res.status(403).send("Access denied");
+      return res.status(403).redirect('/error?message=Access denied. Admin privileges required.');
     }
-    const users = await User.find();
-    const artworks = await Artwork.find();
-    const events = await Event.find();
-    const orders = await Order.find();
-    res.render("admin", {
+    
+    // Get initial counts for dashboard
+    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all([
+      User.countDocuments(),
+      Artwork.countDocuments(),
+      Event.countDocuments(),
+      Order.countDocuments()
+    ]);
+    
+    res.render("admin", { 
       user: user,
-      users: users,
-      artworks: artworks,
-      events: events,
-      orders: orders,
+      counts: {
+        users: userCount,
+        artworks: artworkCount,
+        events: eventCount,
+        orders: orderCount
+      }
     });
   } catch (err) {
-    console.error("Error fetching admin data:", err);
-    res.status(500).send("Server error");
-  }
-});
-
-app.get("/events", async (req, res) => {
-  try {
-    // Fetch events from the database
-    const upcomingOfflineEvents = await Event.find({ 
-      type: 'Offline', 
-      endTime: { $gt: new Date() }
-    }).sort({ startTime: 1 }).limit(5);
-    
-    const upcomingOnlineEvents = await Event.find({ 
-      type: 'Online', 
-      endTime: { $gt: new Date() }
-    }).sort({ startTime: 1 }).limit(5);
-    
-    const pastEvents = await Event.find({ 
-      endTime: { $lt: new Date() } 
-    }).sort({ endTime: -1 }).limit(5);
-    
-    const calendarEvents = await Event.find({
-      endTime: { $gt: new Date() }
-    }).sort({ startTime: 1 }).limit(10);
-    
-    res.render("events.ejs", { 
-      upcomingOfflineEvents,
-      upcomingOnlineEvents,
-      pastEvents,
-      calendarEvents
-    });
-  } catch (err) {
-    console.error("Error fetching events:", err);
-    res.status(500).send("Server error");
+    console.error("Error accessing admin page:", err);
+    res.status(500).redirect('/error?message=Server error');
   }
 });
 

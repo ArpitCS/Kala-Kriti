@@ -3,6 +3,7 @@
 <head>
   <title>Kala-Kriti | Admin Dashboard</title>
   <%- include('partials/base-head') %>
+  <link rel="stylesheet" href="/css/admin.css">
   <style>
     /* Admin dashboard specific styles */
     .sidebar-link.active {
@@ -160,7 +161,7 @@
                 </div>
               </div>
               <div class="flex items-baseline">
-                <span class="text-3xl font-bold"><%= users ? users.length : 0 %></span>
+                <span id="userCount" class="text-3xl font-bold"><%= counts.users %></span>
                 <span class="ml-2 text-sm text-green-500 flex items-center">
                   <i class="fas fa-arrow-up mr-1"></i>12%
                 </span>
@@ -177,7 +178,7 @@
                 </div>
               </div>
               <div class="flex items-baseline">
-                <span class="text-3xl font-bold"><%= artworks ? artworks.length : 0 %></span>
+                <span id="artworkCount" class="text-3xl font-bold"><%= counts.artworks %></span>
                 <span class="ml-2 text-sm text-green-500 flex items-center">
                   <i class="fas fa-arrow-up mr-1"></i>8%
                 </span>
@@ -194,7 +195,7 @@
                 </div>
               </div>
               <div class="flex items-baseline">
-                <span class="text-3xl font-bold"><%= events ? events.length : 0 %></span>
+                <span id="eventCount" class="text-3xl font-bold"><%= counts.events %></span>
                 <span class="ml-2 text-sm text-red-500 flex items-center">
                   <i class="fas fa-arrow-down mr-1"></i>3%
                 </span>
@@ -211,7 +212,7 @@
                 </div>
               </div>
               <div class="flex items-baseline">
-                <span class="text-3xl font-bold"><%= orders ? orders.length : 0 %></span>
+                <span id="orderCount" class="text-3xl font-bold"><%= counts.orders %></span>
                 <span class="ml-2 text-sm text-green-500 flex items-center">
                   <i class="fas fa-arrow-up mr-1"></i>24%
                 </span>
@@ -245,7 +246,7 @@
               <button class="text-sm text-blue-600 hover:text-blue-800">View All</button>
             </div>
             <div class="overflow-x-auto">
-              <table class="data-table">
+              <table id="activitiesTable" class="data-table">
                 <thead>
                   <tr>
                     <th>User</th>
@@ -255,166 +256,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="flex items-center">
-                      <img src="/default.jpg" alt="User" class="w-8 h-8 rounded-full mr-3">
-                      <span>John Doe</span>
-                    </td>
-                    <td>Created</td>
-                    <td>New Artwork: "Urban Dreams"</td>
-                    <td>10 min ago</td>
-                  </tr>
-                  <tr>
-                    <td class="flex items-center">
-                      <img src="/default.jpg" alt="User" class="w-8 h-8 rounded-full mr-3">
-                      <span>Sarah Johnson</span>
-                    </td>
-                    <td>Updated</td>
-                    <td>Event: "Summer Exhibition"</td>
-                    <td>2 hours ago</td>
-                  </tr>
-                  <tr>
-                    <td class="flex items-center">
-                      <img src="/default.jpg" alt="User" class="w-8 h-8 rounded-full mr-3">
-                      <span>Mike Chen</span>
-                    </td>
-                    <td>Purchased</td>
-                    <td>Artwork: "Sunset Horizon"</td>
-                    <td>4 hours ago</td>
-                  </tr>
-                  <tr>
-                    <td class="flex items-center">
-                      <img src="/default.jpg" alt="User" class="w-8 h-8 rounded-full mr-3">
-                      <span>Emma Wilson</span>
-                    </td>
-                    <td>Registered</td>
-                    <td>New User</td>
-                    <td>1 day ago</td>
-                  </tr>
-                  <tr>
-                    <td class="flex items-center">
-                      <img src="/default.jpg" alt="User" class="w-8 h-8 rounded-full mr-3">
-                      <span>David Kim</span>
-                    </td>
-                    <td>Updated</td>
-                    <td>Profile Information</td>
-                    <td>2 days ago</td>
-                  </tr>
+                  <!-- Activities will be populated by JavaScript -->
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Artworks Section -->
-        <div id="artworks" class="section hidden">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-900">Artwork Management</h2>
-            <button class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
-              <i class="fas fa-plus mr-2"></i>
-              Add New Artwork
-            </button>
-          </div>
-          
-          <!-- Filters -->
-          <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
-            <div class="flex flex-wrap gap-4 items-center">
-              <div class="flex-grow">
-                <input type="text" placeholder="Search artworks..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-              </div>
-              <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                  <option value="">All Categories</option>
-                  <option value="painting">Painting</option>
-                  <option value="sculpture">Sculpture</option>
-                  <option value="photography">Photography</option>
-                  <option value="digital">Digital Art</option>
-                </select>
-              </div>
-              <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                  <option value="">All Status</option>
-                  <option value="available">Available</option>
-                  <option value="sold">Sold</option>
-                  <option value="reserved">Reserved</option>
-                </select>
-              </div>
-              <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
-                <i class="fas fa-filter mr-2"></i>
-                Apply Filters
-              </button>
-            </div>
-          </div>
-          
-          <!-- Artwork Table -->
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% if (artworks && artworks.length > 0) { %>
-                    <% artworks.forEach(artwork => { %>
-                      <tr>
-                        <td>
-                          <img src="<%= artwork.imageUrl || '/art/default.png' %>" alt="<%= artwork.title %>" class="w-16 h-16 object-cover rounded">
-                        </td>
-                        <td><%= artwork.title %></td>
-                        <td><%= artwork.artist %></td>
-                        <td><%= artwork.category %></td>
-                        <td>$<%= artwork.price.toFixed(2) %></td>
-                        <td>
-                          <% if (artwork.status === 'available') { %>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Available</span>
-                          <% } else if (artwork.status === 'sold') { %>
-                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Sold</span>
-                          <% } else { %>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">Reserved</span>
-                          <% } %>
-                        </td>
-                        <td>
-                          <div class="flex space-x-2">
-                            <button class="p-1 text-blue-600 hover:text-blue-800" title="Edit">
-                              <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="p-1 text-red-600 hover:text-red-800" title="Delete">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <button class="p-1 text-gray-600 hover:text-gray-800" title="View Details">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="7" class="text-center py-4">No artworks found</td>
-                    </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-            <div class="p-4 flex justify-between items-center border-t">
-              <div class="text-sm text-gray-700">
-                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium"><%= artworks ? artworks.length : 0 %></span> results
-              </div>
-              <div class="flex space-x-1">
-                <button class="pagination-btn" disabled>&laquo;</button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <button class="pagination-btn">&raquo;</button>
-              </div>
             </div>
           </div>
         </div>
@@ -423,7 +267,7 @@
         <div id="users" class="section hidden">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-900">User Management</h2>
-            <button class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
+            <button id="addUserBtn" class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
               <i class="fas fa-plus mr-2"></i>
               Add New User
             </button>
@@ -433,104 +277,111 @@
           <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
             <div class="flex flex-wrap gap-4 items-center">
               <div class="flex-grow">
-                <input type="text" placeholder="Search users..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <input type="text" id="userSearch" placeholder="Search users..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
               </div>
               <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <select id="userRoleFilter" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   <option value="">All Roles</option>
                   <option value="admin">Admin</option>
                   <option value="artist">Artist</option>
-                  <option value="collector">Collector</option>
                   <option value="user">User</option>
                 </select>
               </div>
-              <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                  <option value="">All Status</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="blocked">Blocked</option>
-                </select>
-              </div>
-              <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+              <button id="applyUserFilters" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                 <i class="fas fa-filter mr-2"></i>
                 Apply Filters
               </button>
             </div>
           </div>
           
-          <!-- Users Table -->
+          <!-- User Table -->
           <div class="bg-white rounded-lg shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-              <table class="data-table">
+              <table id="usersTable" class="data-table">
                 <thead>
                   <tr>
                     <th>User</th>
-                    <th>Email</th>
+                    <th>Full Name</th>
                     <th>Role</th>
-                    <th>Status</th>
-                    <th>Joined Date</th>
+                    <th>Joined</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% if (users && users.length > 0) { %>
-                    <% users.forEach(user => { %>
-                      <tr>
-                        <td class="flex items-center">
-                          <img src="<%= user.profilePicture || '/uploads/profile/default.jpg' %>" alt="<%= user.username %>" class="w-10 h-10 rounded-full mr-3 object-cover">
-                          <div>
-                            <div class="font-medium"><%= user.fullName || user.username %></div>
-                            <div class="text-sm text-gray-500">@<%= user.username %></div>
-                          </div>
-                        </td>
-                        <td><%= user.email %></td>
-                        <td>
-                          <span class="px-2 py-1 <%= user.role === 'admin' ? 'bg-purple-100 text-purple-800' : user.role === 'artist' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %> rounded-full text-xs font-medium">
-                            <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
-                          </span>
-                        </td>
-                        <td>
-                          <% if (!user.isActive) { %>
-                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Inactive</span>
-                          <% } else { %>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Active</span>
-                          <% } %>
-                        </td>
-                        <td><%= new Date(user.createdAt).toLocaleDateString() %></td>
-                        <td>
-                          <div class="flex space-x-2">
-                            <button class="p-1 text-blue-600 hover:text-blue-800" title="Edit">
-                              <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="p-1 text-red-600 hover:text-red-800" title="Delete">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <button class="p-1 text-gray-600 hover:text-gray-800" title="View Details">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="6" class="text-center py-4">No users found</td>
-                    </tr>
-                  <% } %>
+                  <!-- User data will be populated by JavaScript -->
                 </tbody>
               </table>
             </div>
             <div class="p-4 flex justify-between items-center border-t">
-              <div class="text-sm text-gray-700">
-                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium"><%= users ? users.length : 0 %></span> results
+              <div id="usersPaginationInfo" class="text-sm text-gray-700">
+                Showing <span class="font-medium">0</span> to <span class="font-medium">0</span> of <span class="font-medium">0</span> results
               </div>
-              <div class="flex space-x-1">
-                <button class="pagination-btn" disabled>&laquo;</button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <button class="pagination-btn">&raquo;</button>
+              <div id="usersPagination" class="flex space-x-1">
+                <!-- Pagination will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Artworks Section -->
+        <div id="artworks" class="section hidden">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-900">Artwork Management</h2>
+            <button id="addArtworkBtn" class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
+              <i class="fas fa-plus mr-2"></i>
+              Add New Artwork
+            </button>
+          </div>
+          
+          <!-- Filters -->
+          <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
+            <div class="flex flex-wrap gap-4 items-center">
+              <div class="flex-grow">
+                <input type="text" id="artworkSearch" placeholder="Search artworks..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+              </div>
+              <div class="flex-shrink-0">
+                <select id="artworkCategoryFilter" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                  <option value="">All Categories</option>
+                  <option value="painting">Painting</option>
+                  <option value="sculpture">Sculpture</option>
+                  <option value="photography">Photography</option>
+                  <option value="digital-art">Digital Art</option>
+                  <option value="mixed-media">Mixed Media</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <button id="applyArtworkFilters" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                <i class="fas fa-filter mr-2"></i>
+                Apply Filters
+              </button>
+            </div>
+          </div>
+          
+          <!-- Artwork Table -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table id="artworksTable" class="data-table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Artwork data will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+            <div class="p-4 flex justify-between items-center border-t">
+              <div id="artworksPaginationInfo" class="text-sm text-gray-700">
+                Showing <span class="font-medium">0</span> to <span class="font-medium">0</span> of <span class="font-medium">0</span> results
+              </div>
+              <div id="artworksPagination" class="flex space-x-1">
+                <!-- Pagination will be populated by JavaScript -->
               </div>
             </div>
           </div>
@@ -540,9 +391,9 @@
         <div id="events" class="section hidden">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-900">Event Management</h2>
-            <button class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
+            <button id="addEventBtn" class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
               <i class="fas fa-plus mr-2"></i>
-              Create New Event
+              Add New Event
             </button>
           </div>
           
@@ -550,121 +401,47 @@
           <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
             <div class="flex flex-wrap gap-4 items-center">
               <div class="flex-grow">
-                <input type="text" placeholder="Search events..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <input type="text" id="eventSearch" placeholder="Search events..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
               </div>
               <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <select id="eventTypeFilter" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   <option value="">All Types</option>
-                  <option value="exhibition">Exhibition</option>
-                  <option value="workshop">Workshop</option>
-                  <option value="auction">Auction</option>
-                  <option value="other">Other</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
                 </select>
               </div>
-              <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                  <option value="">All Status</option>
-                  <option value="upcoming">Upcoming</option>
-                  <option value="ongoing">Ongoing</option>
-                  <option value="past">Past</option>
-                </select>
-              </div>
-              <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+              <button id="applyEventFilters" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                 <i class="fas fa-filter mr-2"></i>
                 Apply Filters
               </button>
             </div>
           </div>
           
-          <!-- Events Table -->
+          <!-- Event Table -->
           <div class="bg-white rounded-lg shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-              <table class="data-table">
+              <table id="eventsTable" class="data-table">
                 <thead>
                   <tr>
-                    <th>Event</th>
-                    <th>Type</th>
+                    <th>Image</th>
+                    <th>Name</th>
                     <th>Date</th>
                     <th>Location</th>
-                    <th>Status</th>
-                    <th>Attendees</th>
+                    <th>Type</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% if (events && events.length > 0) { %>
-                    <% events.forEach(event => { %>
-                      <tr>
-                        <td>
-                          <div class="flex items-center">
-                            <img src="<%= event.imageUrl || '/images/event-default.jpg' %>" alt="<%= event.title %>" class="w-16 h-16 object-cover rounded mr-3">
-                            <div>
-                              <div class="font-medium"><%= event.title %></div>
-                              <div class="text-sm text-gray-500"><%= event.description?.substring(0, 50) %>...</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td><%= event.type %></td>
-                        <td>
-                          <div><%= new Date(event.startDate).toLocaleDateString() %></div>
-                          <div class="text-sm text-gray-500"><%= new Date(event.startDate).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></div>
-                        </td>
-                        <td><%= event.location %></td>
-                        <td>
-                          <% 
-                            const now = new Date();
-                            const startDate = new Date(event.startDate);
-                            const endDate = new Date(event.endDate);
-                            let status = '';
-                            let statusClass = '';
-                            
-                            if (now < startDate) {
-                              status = 'Upcoming';
-                              statusClass = 'bg-blue-100 text-blue-800';
-                            } else if (now > endDate) {
-                              status = 'Past';
-                              statusClass = 'bg-gray-100 text-gray-800';
-                            } else {
-                              status = 'Ongoing';
-                              statusClass = 'bg-green-100 text-green-800';
-                            }
-                          %>
-                          <span class="px-2 py-1 <%= statusClass %> rounded-full text-xs font-medium"><%= status %></span>
-                        </td>
-                        <td><%= event.attendees?.length || 0 %> registered</td>
-                        <td>
-                          <div class="flex space-x-2">
-                            <button class="p-1 text-blue-600 hover:text-blue-800" title="Edit">
-                              <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="p-1 text-red-600 hover:text-red-800" title="Delete">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                            <button class="p-1 text-gray-600 hover:text-gray-800" title="View Details">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="7" class="text-center py-4">No events found</td>
-                    </tr>
-                  <% } %>
+                  <!-- Event data will be populated by JavaScript -->
                 </tbody>
               </table>
             </div>
             <div class="p-4 flex justify-between items-center border-t">
-              <div class="text-sm text-gray-700">
-                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium"><%= events ? events.length : 0 %></span> results
+              <div id="eventsPaginationInfo" class="text-sm text-gray-700">
+                Showing <span class="font-medium">0</span> to <span class="font-medium">0</span> of <span class="font-medium">0</span> results
               </div>
-              <div class="flex space-x-1">
-                <button class="pagination-btn" disabled>&laquo;</button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <button class="pagination-btn">&raquo;</button>
+              <div id="eventsPagination" class="flex space-x-1">
+                <!-- Pagination will be populated by JavaScript -->
               </div>
             </div>
           </div>
@@ -674,26 +451,16 @@
         <div id="orders" class="section hidden">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-900">Order Management</h2>
-            <div class="flex gap-2">
-              <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors flex items-center">
-                <i class="fas fa-download mr-2"></i>
-                Export
-              </button>
-              <button class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors flex items-center">
-                <i class="fas fa-plus mr-2"></i>
-                Create Order
-              </button>
-            </div>
           </div>
           
           <!-- Filters -->
           <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
             <div class="flex flex-wrap gap-4 items-center">
               <div class="flex-grow">
-                <input type="text" placeholder="Search orders..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <input type="text" id="orderSearch" placeholder="Search orders..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
               </div>
               <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+                <select id="orderStatusFilter" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   <option value="">All Status</option>
                   <option value="pending">Pending</option>
                   <option value="processing">Processing</option>
@@ -702,111 +469,38 @@
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
-              <div class="flex-shrink-0">
-                <select class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
-                  <option value="">Payment Status</option>
-                  <option value="paid">Paid</option>
-                  <option value="unpaid">Unpaid</option>
-                  <option value="refunded">Refunded</option>
-                </select>
-              </div>
-              <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+              <button id="applyOrderFilters" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
                 <i class="fas fa-filter mr-2"></i>
                 Apply Filters
               </button>
             </div>
           </div>
           
-          <!-- Orders Table -->
+          <!-- Order Table -->
           <div class="bg-white rounded-lg shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-              <table class="data-table">
+              <table id="ordersTable" class="data-table">
                 <thead>
                   <tr>
                     <th>Order ID</th>
                     <th>Customer</th>
                     <th>Date</th>
-                    <th>Items</th>
                     <th>Total</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% if (orders && orders.length > 0) { %>
-                    <% orders.forEach(order => { %>
-                      <tr>
-                        <td><span class="font-mono">#<%= order._id.toString().slice(-8).toUpperCase() %></span></td>
-                        <td class="flex items-center">
-                          <img src="/uploads/profile/<%= order.user?.profilePicture || 'default.jpg' %>" alt="User" class="w-8 h-8 rounded-full mr-3 object-cover">
-                          <div>
-                            <div class="font-medium"><%= order.user?.fullName || order.user?.username || 'Guest User' %></div>
-                            <div class="text-sm text-gray-500"><%= order.user?.email || 'No email' %></div>
-                          </div>
-                        </td>
-                        <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
-                        <td><%= order.items?.length || 0 %> item(s)</td>
-                        <td><span class="font-medium">$<%= order.total?.toFixed(2) || '0.00' %></span></td>
-                        <td>
-                          <% 
-                            let statusClass = '';
-                            switch(order.status) {
-                              case 'pending':
-                                statusClass = 'bg-yellow-100 text-yellow-800';
-                                break;
-                              case 'processing':
-                                statusClass = 'bg-blue-100 text-blue-800';
-                                break;
-                              case 'shipped':
-                                statusClass = 'bg-indigo-100 text-indigo-800';
-                                break;
-                              case 'delivered':
-                                statusClass = 'bg-green-100 text-green-800';
-                                break;
-                              case 'cancelled':
-                                statusClass = 'bg-red-100 text-red-800';
-                                break;
-                              default:
-                                statusClass = 'bg-gray-100 text-gray-800';
-                            }
-                          %>
-                          <span class="px-2 py-1 <%= statusClass %> rounded-full text-xs font-medium">
-                            <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
-                          </span>
-                        </td>
-                        <td>
-                          <div class="flex space-x-2">
-                            <button class="p-1 text-blue-600 hover:text-blue-800" title="Edit">
-                              <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="p-1 text-gray-600 hover:text-gray-800" title="View Details">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="p-1 text-green-600 hover:text-green-800" title="Invoice">
-                              <i class="fas fa-file-invoice"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    <% }); %>
-                  <% } else { %>
-                    <tr>
-                      <td colspan="7" class="text-center py-4">No orders found</td>
-                    </tr>
-                  <% } %>
+                  <!-- Order data will be populated by JavaScript -->
                 </tbody>
               </table>
             </div>
             <div class="p-4 flex justify-between items-center border-t">
-              <div class="text-sm text-gray-700">
-                Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium"><%= orders ? orders.length : 0 %></span> results
+              <div id="ordersPaginationInfo" class="text-sm text-gray-700">
+                Showing <span class="font-medium">0</span> to <span class="font-medium">0</span> of <span class="font-medium">0</span> results
               </div>
-              <div class="flex space-x-1">
-                <button class="pagination-btn" disabled>&laquo;</button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <button class="pagination-btn">&raquo;</button>
+              <div id="ordersPagination" class="flex space-x-1">
+                <!-- Pagination will be populated by JavaScript -->
               </div>
             </div>
           </div>
@@ -820,131 +514,6 @@
   
   <!-- Admin Dashboard specific scripts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set the default active section
-      showSection('overview');
-      
-      // Initialize charts
-      initCharts();
-    });
-
-    function showSection(sectionId) {
-      // Hide all sections
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => {
-        section.classList.add('hidden');
-      });
-      
-      // Show the selected section
-      document.getElementById(sectionId).classList.remove('hidden');
-      
-      // Update active state on sidebar links
-      const sidebarLinks = document.querySelectorAll('.sidebar-link');
-      sidebarLinks.forEach(link => {
-        link.classList.remove('active', 'bg-gray-800');
-      });
-      
-      // Add active class to the clicked sidebar link
-      const activeLink = document.querySelector(`.sidebar-link[onclick="showSection('${sectionId}')"]`);
-      if (activeLink) {
-        activeLink.classList.add('active', 'bg-gray-800');
-      }
-    }
-
-    function initCharts() {
-      // Monthly Sales Chart
-      const salesCtx = document.getElementById('monthlySalesChart').getContext('2d');
-      const salesChart = new Chart(salesCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [{
-            label: 'Monthly Sales ($)',
-            data: [5200, 4800, 6500, 7200, 8500, 9800, 9200, 10500, 11200, 10800, 12500, 14200],
-            backgroundColor: 'rgba(37, 99, 235, 0.7)',
-            borderColor: 'rgba(37, 99, 235, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                display: true,
-                drawBorder: true,
-                color: 'rgba(200, 200, 200, 0.3)',
-              }
-            },
-            x: {
-              grid: {
-                display: false,
-                drawBorder: true
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-
-      // User Growth Chart
-      const userCtx = document.getElementById('userGrowthChart').getContext('2d');
-      const userChart = new Chart(userCtx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [{
-            label: 'Artists',
-            data: [12, 19, 25, 32, 40, 45, 52, 60, 68, 74, 82, 95],
-            borderColor: 'rgba(220, 38, 38, 1)',
-            backgroundColor: 'rgba(220, 38, 38, 0.1)',
-            tension: 0.3,
-            fill: true
-          }, {
-            label: 'Collectors',
-            data: [30, 45, 58, 76, 92, 110, 125, 142, 156, 170, 185, 204],
-            borderColor: 'rgba(37, 99, 235, 1)',
-            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-            tension: 0.3,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                display: true,
-                drawBorder: true,
-                color: 'rgba(200, 200, 200, 0.3)',
-              }
-            },
-            x: {
-              grid: {
-                display: false,
-                drawBorder: true
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-            }
-          }
-        }
-      });
-    }
-  </script>
+  <script src="/js/admin.js"></script>
 </body>
 </html>
