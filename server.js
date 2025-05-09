@@ -68,11 +68,13 @@ app.use(express.static(path.join(__dirname, "public")));
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const galleryRoutes = require("./routes/gallery");
+const wishlistRoutes = require("./routes/wishlist");
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/artworks", artworksRoutes);
+app.use("/wishlist", wishlistRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -200,6 +202,10 @@ app.get("/sell", isAuthenticated, (req, res) => {
 
 app.get("/cart", isAuthenticated, (req, res) => {
   res.render("cart.ejs", { user: req.user });
+});
+
+app.get("/wishlist", isAuthenticated, (req, res) => {
+  res.redirect("/wishlist/");
 });
 
 app.get("/portfolio", isAuthenticated, (req, res) => {

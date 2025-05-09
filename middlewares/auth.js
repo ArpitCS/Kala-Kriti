@@ -35,7 +35,8 @@ exports.isAuthenticated = async (req, res, next) => {
       username: user.username,
       email: user.email,
       fullName: user.fullName,
-      role: user.role
+      role: user.role,
+      favorites: user.favorites || []
     };
     
     next();

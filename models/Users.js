@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
     postalCode: String,
     country: String
   },
+  favorites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Artwork'
+  }],
   createdAt: {
     type: Date,
     default: Date.now,

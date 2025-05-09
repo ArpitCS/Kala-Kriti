@@ -140,58 +140,65 @@
     }
     
     function toggleWishlist(artId, buttonElement) {
-      try {
-        // Get the artwork details from the DOM
-        const artworkElement = document.querySelector(`button[data-id="${artId}"]`).closest('.group');
-        const title = artworkElement.querySelector('h3').textContent;
-        const artist = artworkElement.querySelector('p.text-gray-600').textContent.replace('By ', '');
-        const priceText = artworkElement.querySelector('.text-3xl.font-bold').textContent.replace('$', '');
-        const price = parseFloat(priceText.replace(/,/g, ''));
-        const image = artworkElement.querySelector('img').src;
-        
-        // Get existing wishlist or create new one
-        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        
-        // Check if item already exists in wishlist
-        const index = wishlist.findIndex(item => item.id === artId);
-        
-        if (index >= 0) {
-          wishlist.splice(index, 1);
-          showNotification(`${title} has been removed from your wishlist`, 'info');
-          
-          // Update button appearance
-          if (buttonElement) {
+      // Only proceed if user is logged in
+      if (!isUserLoggedIn()) {
+        showNotification('Please log in to add items to your wishlist', 'info');
+        return false;
+      }
+      
+      // Get the artwork details for notification
+      const artworkElement = buttonElement.closest('.group');
+      const title = artworkElement.querySelector('h3').textContent;
+      
+      // Check current state (in wishlist or not)
+      const isCurrentlyInWishlist = buttonElement.classList.contains('text-red-500');
+      
+      // Endpoint and method based on current state
+      const endpoint = isCurrentlyInWishlist 
+        ? `/wishlist/remove/${artId}` 
+        : `/wishlist/add/${artId}`;
+      const method = isCurrentlyInWishlist ? 'DELETE' : 'POST';
+      
+      // Send request to add/remove from favorites
+      fetch(endpoint, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          if (isCurrentlyInWishlist) {
+            // Was in wishlist, now removed
+            showNotification(`${title} has been removed from your wishlist`, 'info');
             buttonElement.innerHTML = '<i class="fa-regular fa-heart mr-2"></i> Wishlist';
             buttonElement.classList.remove('text-red-500', 'border-red-500');
             buttonElement.classList.add('border-gray-300');
-          }
-        } else {
-          wishlist.push({
-            id: artId,
-            title: title,
-            artist: artist,
-            price: price,
-            image: image
-          });
-          showNotification(`${title} has been added to your wishlist`, 'success');
-          
-          // Update button appearance
-          if (buttonElement) {
+          } else {
+            // Was not in wishlist, now added
+            showNotification(`${title} has been added to your wishlist`, 'success');
             buttonElement.innerHTML = '<i class="fas fa-heart mr-2"></i> Wishlist';
             buttonElement.classList.add('text-red-500', 'border-red-500');
             buttonElement.classList.remove('border-gray-300');
           }
+        } else {
+          showNotification(data.message || 'Error updating wishlist', 'error');
         }
-        
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        
-        // Prevent the card from redirecting
-        return false;
-      } catch (error) {
+      })
+      .catch(error => {
         console.error('Error updating wishlist:', error);
         showNotification('Error updating wishlist', 'error');
-        return false;
-      }
+      });
+      
+      // Prevent the card from redirecting
+      return false;
+    }
+    
+    function isUserLoggedIn() {
+      // If the logout link is visible, user is logged in
+      const logoutLink = document.querySelector('a[href="/auth/logout"]');
+      return logoutLink && window.getComputedStyle(logoutLink).display !== 'none';
     }
     
     function addToCart(artId, buttonElement) {
@@ -292,27 +299,35 @@
       }, 3000);
     }
     
-    function updateWishlistUI() {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Check if each artwork is in the user's favorites
+    function checkWishlistStatus() {
+      // Only check if user is logged in
+      if (!isUserLoggedIn()) return;
       
-      // Update wishlist buttons
-      wishlist.forEach(item => {
-        const wishlistBtns = document.querySelectorAll(`.wishlist-btn[data-id="${item.id}"]`);
-        wishlistBtns.forEach(btn => {
-          btn.innerHTML = '<i class="fas fa-heart mr-2"></i> Wishlist';
-          btn.classList.add('text-red-500', 'border-red-500');
-          btn.classList.remove('border-gray-300');
-        });
-      });
+      // Get all wishlist buttons
+      const wishlistButtons = document.querySelectorAll('.wishlist-btn');
       
-      // Update cart buttons for items that are already in cart
-      cart.forEach(item => {
-        const cartBtns = document.querySelectorAll(`.cart-btn[data-id="${item.id}"]`);
-        cartBtns.forEach(btn => {
-          btn.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i> In Cart';
-          btn.classList.add('bg-gray-500');
-          btn.classList.remove('bg-black');
+      // For each button, check if its artwork is in the user's favorites
+      wishlistButtons.forEach(button => {
+        const artId = button.getAttribute('data-id');
+        
+        fetch(`/wishlist/check/${artId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success && data.isFavorite) {
+            // Update button to show it's in favorites
+            button.innerHTML = '<i class="fas fa-heart mr-2"></i> Wishlist';
+            button.classList.add('text-red-500', 'border-red-500');
+            button.classList.remove('border-gray-300');
+          }
+        })
+        .catch(error => {
+          console.error('Error checking wishlist status:', error);
         });
       });
     }
@@ -328,9 +343,11 @@
         });
       }
       
-      // Update cart count and wishlist UI on page load
+      // Update cart count on page load
       updateCartCount();
-      updateWishlistUI();
+      
+      // Check wishlist status for all artworks
+      checkWishlistStatus();
     });
   </script>
 </body>

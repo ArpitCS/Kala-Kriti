@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Artwork = require('../models/Artworks');
 const { isAuthenticated } = require('../middlewares/auth');
+const jwt = require('jsonwebtoken');
 
 // Get all artworks with optional category filtering
 router.get('/', async (req, res) => {
@@ -40,6 +41,9 @@ router.get('/', async (req, res) => {
     
     // Get all categories for the filter UI
     const categories = await Artwork.distinct('category');
+
+    // Check if user is logged in
+    const user = req.cookies.token ? jwt.verify(req.cookies.token, require('../config/keys').JWT_SECRET) : null;
     
     res.render('artworks', {
       artworks,
@@ -48,7 +52,8 @@ router.get('/', async (req, res) => {
       sortBy: sortBy || 'newest',
       searchQuery: search || '',
       minPrice: minPrice || '',
-      maxPrice: maxPrice || ''
+      maxPrice: maxPrice || '',
+      user: user
     });
   } catch (err) {
     console.error('Error fetching artworks:', err);
