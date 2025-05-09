@@ -19,7 +19,7 @@
           <img src="/logo-white.png" alt="Kala-Kriti" class="h-12 mx-auto mb-4">
         </a>
         <div class="mt-4 mb-8">
-          <img src="/uploads/profile/<%= user.profilePicture || 'default.jpg' %>" alt="Profile Picture" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-gray-700">
+          <img src="<%= user.profilePicture || '/uploads/profile/default.jpg' %>" alt="Profile Picture" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-gray-700">
           <h3 id="username-field" class="mt-3 font-medium text-lg"><%= user.fullName || user.username %></h3>
           <p class="text-gray-400 text-sm" id="role-field"><%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %></p>
         </div>
@@ -45,27 +45,9 @@
             </button>
           </li>
           <li>
-            <button onclick="showSection('orders')" class="sidebar-link w-full text-left px-4 py-3 rounded-md flex items-center text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200">
-              <i class="fas fa-box w-5"></i>
-              <span class="ml-3">Orders</span>
-            </button>
-          </li>
-          <li>
-            <button onclick="showSection('reviews')" class="sidebar-link w-full text-left px-4 py-3 rounded-md flex items-center text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200">
-              <i class="fas fa-star w-5"></i>
-              <span class="ml-3">Reviews</span>
-            </button>
-          </li>
-          <li>
             <button onclick="showSection('artworks')" class="sidebar-link w-full text-left px-4 py-3 rounded-md flex items-center text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200">
               <i class="fas fa-palette w-5"></i>
-              <span class="ml-3">Artworks</span>
-            </button>
-          </li>
-          <li>
-            <button onclick="showSection('settings')" class="sidebar-link w-full text-left px-4 py-3 rounded-md flex items-center text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200">
-              <i class="fas fa-cog w-5"></i>
-              <span class="ml-3">Settings</span>
+              <span class="ml-3">My Artworks</span>
             </button>
           </li>
         </ul>
@@ -78,21 +60,9 @@
         <i class="fas fa-tachometer-alt text-xl"></i>
         <span class="block text-xs mt-1">Overview</span>
       </button>
-      <button onclick="showSection('orders')" class="text-center">
-        <i class="fas fa-box text-xl"></i>
-        <span class="block text-xs mt-1">Orders</span>
-      </button>
-      <button onclick="showSection('reviews')" class="text-center">
-        <i class="fas fa-star text-xl"></i>
-        <span class="block text-xs mt-1">Reviews</span>
-      </button>
       <button onclick="showSection('artworks')" class="text-center">
         <i class="fas fa-palette text-xl"></i>
         <span class="block text-xs mt-1">Artworks</span>
-      </button>
-      <button onclick="showSection('settings')" class="text-center">
-        <i class="fas fa-cog text-xl"></i>
-        <span class="block text-xs mt-1">Settings</span>
       </button>
     </div>
     
@@ -116,198 +86,102 @@
       <div class="container mx-auto px-4 py-8 pb-20 md:pb-8">
         <!-- Overview Section -->
         <div id="overview" class="section">
-          <div class="mb-6">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Monthly Stats</h2>
-            <div class="bg-white rounded-lg shadow-sm p-6 h-80">
-              <canvas id="monthlyStatsChart"></canvas>
-            </div>
-          </div>
-          
           <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Performance Overview</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="bg-white rounded-lg shadow-sm p-6 text-center hover:shadow-md transition-shadow duration-300">
-                <h3 class="text-gray-500 text-sm mb-1">Total Earnings</h3>
-                <p class="text-3xl font-semibold mb-1">$5,000</p>
-                <p class="text-green-600 text-sm">
-                  <i class="fas fa-arrow-up mr-1"></i>
-                  <span>12% from last month</span>
-                </p>
-              </div>
-              
-              <div class="bg-white rounded-lg shadow-sm p-6 text-center hover:shadow-md transition-shadow duration-300">
-                <h3 class="text-gray-500 text-sm mb-1">Artworks Sold</h3>
-                <p class="text-3xl font-semibold mb-1">120</p>
-                <p class="text-green-600 text-sm">
-                  <i class="fas fa-arrow-up mr-1"></i>
-                  <span>5% from last month</span>
-                </p>
-              </div>
-              
-              <div class="bg-white rounded-lg shadow-sm p-6 text-center hover:shadow-md transition-shadow duration-300">
-                <h3 class="text-gray-500 text-sm mb-1">Average Rating</h3>
-                <p class="text-3xl font-semibold mb-1">4.8</p>
-                <div class="flex justify-center text-yellow-400 text-sm">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star-half-alt"></i>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Artist Profile Overview</h2>
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                <div class="w-32 h-32">
+                  <img id="profile-overview-pic" src="<%= user.profilePicture || '/uploads/profile/default.jpg' %>" alt="Profile Picture" class="rounded-full w-full h-full object-cover border-2 border-gray-200">
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-2xl font-medium mb-2"><%= user.fullName || user.username %></h3>
+                  <p class="text-gray-500 mb-4"><%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %></p>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <p class="text-sm text-gray-500">Email</p>
+                      <p><%= user.email %></p>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-500">Phone Number</p>
+                      <p><%= user.phoneNumber || 'Not provided' %></p>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <p class="text-sm text-gray-500">Bio</p>
+                    <p class="text-gray-700"><%= user.bio || 'No bio information provided.' %></p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <!-- Orders Section -->
-        <div id="orders" class="section hidden">
-          <h2 class="text-2xl font-semibold text-gray-900 mb-4">Recent Orders</h2>
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead class="bg-gray-50 text-left">
-                  <tr>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Artwork</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#12345</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sunset Horizon</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">John Doe</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$500</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Shipped</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#12346</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Urban Vibes</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Jane Smith</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$750</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#12347</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nature's Embrace</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Mike Johnson</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">$300</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">Delivered</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900">View</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          
+          <!-- User Activity Summary -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Activity Summary</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-blue-100 text-blue-500 mr-4">
+                    <i class="fas fa-palette text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-medium">My Artworks</h4>
+                    <p class="text-2xl font-bold" id="artwork-count">...</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-green-100 text-green-500 mr-4">
+                    <i class="fas fa-paint-brush text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-medium">Art Categories</h4>
+                    <p class="text-2xl font-bold" id="category-count">...</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-purple-100 text-purple-500 mr-4">
+                    <i class="fas fa-user-circle text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-medium">Account Status</h4>
+                    <p class="text-lg font-medium text-green-500">Active</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <!-- Reviews Section -->
-        <div id="reviews" class="section hidden">
-          <h2 class="text-2xl font-semibold text-gray-900 mb-4">Customer Reviews</h2>
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead class="bg-gray-50 text-left">
-                  <tr>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Artwork</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Review</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-                    <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="h-10 w-10 flex-shrink-0">
-                          <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900">John Doe</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sunset Horizon</td>
-                    <td class="px-6 py-4 text-sm text-gray-900">Great artwork, very satisfied!</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">May 1, 2025</td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="h-10 w-10 flex-shrink-0">
-                          <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/2.jpg" alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900">Jane Smith</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Urban Vibes</td>
-                    <td class="px-6 py-4 text-sm text-gray-900">Beautiful piece, will buy again.</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Apr 28, 2025</td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="h-10 w-10 flex-shrink-0">
-                          <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/3.jpg" alt="">
-                        </div>
-                        <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900">Mike Johnson</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nature's Embrace</td>
-                    <td class="px-6 py-4 text-sm text-gray-900">Good quality, fast shipping.</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Apr 22, 2025</td>
-                  </tr>
-                </tbody>
-              </table>
+          
+          <!-- Quick Actions -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href="/sell" class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-300 flex items-center">
+                <div class="p-3 rounded-full bg-black text-white mr-4">
+                  <i class="fas fa-plus"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-medium">List New Artwork</h4>
+                  <p class="text-sm text-gray-500">Upload and sell your latest creations</p>
+                </div>
+              </a>
+              
+              <a href="/artworks" class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-300 flex items-center">
+                <div class="p-3 rounded-full bg-black text-white mr-4">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-medium">Browse Gallery</h4>
+                  <p class="text-sm text-gray-500">Explore artwork from other artists</p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -316,181 +190,27 @@
         <div id="artworks" class="section hidden">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-900">Your Artworks</h2>
-            <button class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200 flex items-center">
+            <a href="/sell" class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200 flex items-center">
               <i class="fas fa-plus mr-2"></i>
               <span>Add New</span>
-            </button>
+            </a>
           </div>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div class="relative group">
-                <img src="https://i.pinimg.com/736x/8e/30/4a/8e304aac188acd1f61943e58752a2115.jpg" alt="Sunset Bliss" class="w-full h-48 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                  <div class="flex space-x-2">
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4">
-                <h3 class="font-medium text-gray-900">Sunset Bliss</h3>
-                <p class="text-sm text-gray-500 mb-1">Acrylic on canvas</p>
-                <div class="flex justify-between items-center mt-2">
-                  <span class="font-bold">$1,200</span>
-                  <span class="text-sm text-gray-500">12 views</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div class="relative group">
-                <img src="https://i.pinimg.com/736x/4d/c6/03/4dc603c489fd9dd018728fd1ce4a06ea.jpg" alt="Urban Vibes" class="w-full h-48 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                  <div class="flex space-x-2">
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4">
-                <h3 class="font-medium text-gray-900">Urban Vibes</h3>
-                <p class="text-sm text-gray-500 mb-1">Digital Art</p>
-                <div class="flex justify-between items-center mt-2">
-                  <span class="font-bold">$850</span>
-                  <span class="text-sm text-gray-500">27 views</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div class="relative group">
-                <img src="https://i.pinimg.com/736x/7f/ec/fd/7fecfd3b0e2a3b8fc6bb570746eb66bd.jpg" alt="Nature's Embrace" class="w-full h-48 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                  <div class="flex space-x-2">
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4">
-                <h3 class="font-medium text-gray-900">Nature's Embrace</h3>
-                <p class="text-sm text-gray-500 mb-1">Oil on canvas</p>
-                <div class="flex justify-between items-center mt-2">
-                  <span class="font-bold">$950</span>
-                  <span class="text-sm text-gray-500">18 views</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div class="relative group">
-                <img src="https://i.pinimg.com/736x/8e/30/4a/8e304aac188acd1f61943e58752a2115.jpg" alt="Emotional Journey" class="w-full h-48 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                  <div class="flex space-x-2">
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4">
-                <h3 class="font-medium text-gray-900">Emotional Journey</h3>
-                <p class="text-sm text-gray-500 mb-1">Mixed media</p>
-                <div class="flex justify-between items-center mt-2">
-                  <span class="font-bold">$1,100</span>
-                  <span class="text-sm text-gray-500">32 views</span>
-                </div>
-              </div>
+          <div id="user-artworks-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Artwork items will be loaded here -->
+            <div class="col-span-full text-center py-12 loading-indicator">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+              <p class="mt-2 text-gray-600">Loading your artworks...</p>
             </div>
           </div>
-        </div>
-        
-        <!-- Settings Section -->
-        <div id="settings" class="section hidden">
-          <h2 class="text-2xl font-semibold text-gray-900 mb-4">Account Settings</h2>
           
-          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="p-6">
-              <form>
-                <div class="mb-6">
-                  <h3 class="text-lg font-medium text-gray-900 mb-4">Profile Information</h3>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                      <input type="text" id="username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" readonly>
-                    </div>
-                    <div>
-                      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                      <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                    <div>
-                      <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                      <input type="text" id="full-name" name="fullName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                    <div>
-                      <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                      <input type="tel" id="phone" name="phoneNumber" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                    <div class="md:col-span-2">
-                      <label for="profile-picture" class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
-                      <div class="flex items-center space-x-4">
-                        <img id="current-profile-pic" class="h-16 w-16 rounded-full object-cover" alt="Current profile picture">
-                        <input type="file" id="profile-picture" name="profilePicture" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="mb-6">
-                  <h3 class="text-lg font-medium text-gray-900 mb-4">Password</h3>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
-                      <input type="password" id="current-password" name="current-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                    <div></div>
-                    <div>
-                      <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
-                      <input type="password" id="new-password" name="new-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                    <div>
-                      <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
-                      <input type="password" id="confirm-password" name="confirm-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="mb-6">
-                  <h3 class="text-lg font-medium text-gray-900 mb-4">Artist Bio</h3>
-                  <div>
-                    <label for="bio" class="block text-sm font-medium text-gray-700 mb-1">Biography</label>
-                    <textarea id="bio" name="bio" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent">Contemporary artist based in New York, specializing in abstract expressionism and urban landscapes. My work explores the intersection of nature and modern city life.</textarea>
-                  </div>
-                </div>
-                
-                <div class="flex justify-end">
-                  <button type="submit" class="px-6 py-2 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors duration-200">
-                    Save Changes
-                  </button>
-                </div>
-              </form>
-            </div>
+          <div id="no-artworks-message" class="hidden bg-white rounded-lg shadow-sm p-6 text-center">
+            <i class="fas fa-palette text-5xl text-gray-400 mb-4"></i>
+            <h3 class="text-xl font-medium mb-2">No Artworks Yet</h3>
+            <p class="text-gray-600 mb-4">You haven't listed any artworks for sale yet.</p>
+            <a href="/sell" class="inline-block px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors duration-200">
+              List Your First Artwork
+            </a>
           </div>
         </div>
       </div>
@@ -506,52 +226,8 @@
       // Set the default active section
       showSection('overview');
       
-      // Initialize chart
-      const ctx = document.getElementById('monthlyStatsChart').getContext('2d');
-      const monthlyStatsChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: [{
-            label: 'Earnings',
-            data: [1200, 1900, 3000, 5000, 2000, 3000, 4500, 4000, 6000, 7000, 8000, 9000],
-            borderColor: '#2c3e50',
-            backgroundColor: 'rgba(44, 62, 80, 0.1)',
-            borderWidth: 2,
-            tension: 0.3,
-            fill: true
-          },
-          {
-            label: 'Views',
-            data: [600, 1200, 900, 1800, 1500, 2200, 2800, 3100, 3500, 3800, 4200, 4500],
-            borderColor: '#e74c3c',
-            backgroundColor: 'rgba(231, 76, 60, 0.1)',
-            borderWidth: 2,
-            tension: 0.3,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top',
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
       // Load user profile data
       loadUserProfile();
-      
-      // Set up form submission handlers
-      setupFormHandlers();
     });
 
     function showSection(sectionId) {
@@ -575,10 +251,20 @@
       if (activeLink) {
         activeLink.classList.add('active', 'bg-gray-800');
       }
+      
+      // Load artworks if the artworks section is selected
+      if (sectionId === 'artworks') {
+        loadUserArtworks();
+      }
+      
+      // Update activity summary on the overview section
+      if (sectionId === 'overview') {
+        updateActivitySummary();
+      }
     }
 
     function loadUserProfile() {
-      fetch('/api/profile')
+      fetch('/auth/me')
         .then(response => response.json())
         .then(user => {
           // Update profile display in sidebar
@@ -588,108 +274,127 @@
           // Update profile image
           const profileImage = document.querySelector('.mt-4.mb-8 img');
           if (profileImage) {
-            profileImage.src = `/uploads/profile/${user.profilePicture || 'default.jpg'}`;
+            profileImage.src = user.profilePicture || '/uploads/profile/default.jpg';
           }
           
-          // Update form fields
-          document.getElementById('username').value = user.username;
-          document.getElementById('email').value = user.email;
-          document.getElementById('full-name').value = user.fullName;
-          document.getElementById('phone').value = user.phoneNumber || '';
-          document.getElementById('bio').value = user.bio || '';
-          
-          // Update current profile picture preview
-          const currentProfilePic = document.getElementById('current-profile-pic');
-          if (currentProfilePic) {
-            currentProfilePic.src = `/uploads/profile/${user.profilePicture || 'default.jpg'}`;
+          // Update profile overview image
+          const overviewProfilePic = document.getElementById('profile-overview-pic');
+          if (overviewProfilePic) {
+            overviewProfilePic.src = user.profilePicture || '/uploads/profile/default.jpg';
           }
+          
+          // Update activity summary
+          updateActivitySummary();
         })
         .catch(error => console.error('Error loading profile:', error));
     }
-
-    function setupFormHandlers() {
-      // Profile form
-      const profileForm = document.querySelector('#settings form');
-      profileForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Check if password fields are filled
-        const currentPassword = document.getElementById('current-password').value;
-        const newPassword = document.getElementById('new-password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-        
-        if (currentPassword && newPassword) {
-          updatePassword(currentPassword, newPassword, confirmPassword);
-        }
-        
-        // Always update profile
-        updateProfile();
-      });
-
-      // Handle profile picture preview
-      const profilePictureInput = document.getElementById('profile-picture');
-      if (profilePictureInput) {
-        profilePictureInput.addEventListener('change', function(e) {
-          if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              document.getElementById('current-profile-pic').src = e.target.result;
-            }
-            reader.readAsDataURL(e.target.files[0]);
-          }
-        });
-      }
-    }
-
-    function updateProfile() {
-      const profileForm = document.querySelector('#settings form');
-      const formData = new FormData(profileForm);
-      
-      fetch('/api/update-profile', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message) {
-          alert('Profile updated successfully');
-          // Refresh user data
-          loadUserProfile();
-        } else {
-          alert('Error: ' + (data.error || 'Failed to update profile'));
-        }
-      })
-      .catch(error => alert('Error updating profile'));
-    }
-
-    function updatePassword(current, newPass, confirm) {
-      if (newPass !== confirm) {
-        alert('New passwords do not match');
-        return;
-      }
-      
-      fetch('/api/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          currentPassword: current,
-          newPassword: newPass,
-          confirmPassword: confirm
+    
+    function updateActivitySummary() {
+      // Fetch artwork data for statistics
+      fetch('/artworks/my-artworks')
+        .then(response => response.json())
+        .then(artworks => {
+          // Update artwork count
+          document.getElementById('artwork-count').textContent = artworks.length;
+          
+          // Get unique categories
+          const categories = [...new Set(artworks.map(art => art.category))];
+          document.getElementById('category-count').textContent = categories.length || 0;
         })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message) {
-          alert('Password updated successfully');
-          // Clear password fields
-          document.getElementById('current-password').value = '';
-          document.getElementById('new-password').value = '';
-          document.getElementById('confirm-password').value = '';
-        } else {
-          alert('Error: ' + (data.error || 'Failed to update password'));
-        }
-      })
-      .catch(error => alert('Error updating password'));
+        .catch(error => {
+          console.error('Error loading artwork statistics:', error);
+          document.getElementById('artwork-count').textContent = '0';
+          document.getElementById('category-count').textContent = '0';
+        });
+    }
+    
+    function loadUserArtworks() {
+      const container = document.getElementById('user-artworks-container');
+      const loadingIndicator = container.querySelector('.loading-indicator');
+      const noArtworksMessage = document.getElementById('no-artworks-message');
+      
+      fetch('/artworks/my-artworks')
+        .then(response => response.json())
+        .then(artworks => {
+          // Hide loading indicator
+          if (loadingIndicator) {
+            loadingIndicator.remove();
+          }
+          
+          if (artworks.length === 0) {
+            // Show no artworks message
+            noArtworksMessage.classList.remove('hidden');
+          } else {
+            // Hide no artworks message
+            noArtworksMessage.classList.add('hidden');
+            
+            // Render artworks
+            const artworksHTML = artworks.map(artwork => `
+              <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div class="relative group">
+                  <img src="${artwork.imageUrl}" alt="${artwork.title}" class="w-full h-48 object-cover">
+                  <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                    <div class="flex space-x-2">
+                      <a href="/sell/edit/${artwork._id}" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button onclick="deleteArtwork('${artwork._id}')" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                      <a href="/artworks/${artwork._id}" class="bg-white p-2 rounded-full text-gray-800 hover:text-black transition-colors">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4">
+                  <h3 class="font-medium text-gray-900">${artwork.title}</h3>
+                  <p class="text-sm text-gray-500 mb-1">${artwork.category}</p>
+                  <div class="flex justify-between items-center mt-2">
+                    <span class="font-bold">$${artwork.price.toLocaleString()}</span>
+                    <span class="text-sm text-gray-500">${formatDate(artwork.createdAt)}</span>
+                  </div>
+                </div>
+              </div>
+            `).join('');
+            
+            container.innerHTML = artworksHTML;
+          }
+        })
+        .catch(error => {
+          console.error('Error loading artworks:', error);
+          container.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <i class="fas fa-exclamation-circle text-red-500 text-4xl mb-4"></i>
+              <p class="text-gray-700">Failed to load your artworks. Please try again later.</p>
+            </div>
+          `;
+        });
+    }
+    
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    
+    function deleteArtwork(artworkId) {
+      if (confirm('Are you sure you want to delete this artwork? This cannot be undone.')) {
+        fetch(`/artworks/${artworkId}`, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Artwork deleted successfully');
+            loadUserArtworks(); // Reload the artworks list
+            // Update activity summary stats
+            updateActivitySummary();
+          } else {
+            alert('Error: ' + (data.error || 'Failed to delete artwork'));
+          }
+        })
+        .catch(error => alert('Error deleting artwork'));
+      }
     }
   </script>
 </body>

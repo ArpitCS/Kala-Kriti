@@ -3,54 +3,39 @@ const mongoose = require("mongoose");
 const artworkSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   description: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   price: {
     type: Number,
     required: true
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   category: {
     type: String,
     required: true,
-    enum: ['painting', 'sculpture', 'photography', 'digital', 'mixed-media', 'other']
-  },
-  images: [{
-    type: String,
-    required: true
-  }],
-  artist: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    enum: ['painting', 'sculpture', 'photography', 'digital-art', 'mixed-media', 'other']
   },
   dimensions: {
-    width: Number,
-    height: Number,
-    depth: Number,
-    unit: {
-      type: String,
-      enum: ['cm', 'inch', 'mm'],
-      default: 'cm'
-    }
+    type: String,
+    trim: true
   },
-  medium: String,
-  year: Number,
-  available: {
-    type: Boolean,
-    default: true
+  artist: {
+    type: String,
+    required: true,
+    trim: true
   },
-  tags: [String],
-  views: {
-    type: Number,
-    default: 0
-  },
-  likes: {
-    type: Number,
-    default: 0
+  location: {
+    type: String,
+    trim: true
   },
   createdAt: {
     type: Date,
@@ -58,13 +43,5 @@ const artworkSchema = new mongoose.Schema({
   }
 });
 
-// Add any middleware or static methods here if needed
-// For example:
-// artworkSchema.pre('save', function(next) {
-//   // do something before saving
-//   next();
-// });
-
-// Define and export the model correctly
-const Artwork = mongoose.model("Artwork", artworkSchema);
-module.exports = Artwork;
+// Fix: Check if model exists before creating it
+module.exports = mongoose.models.Artwork || mongoose.model("Artwork", artworkSchema);

@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const artworksRoutes = require("./routes/artworks");
 
 // Models
 const User = require("./models/Users");
@@ -19,16 +20,16 @@ const Order = require("./models/Orders");
 dotenv.config();
 
 // MongoDB Connection
-const mongoURI =
-  process.env.MONGO_URI || "mongodb://localhost:27017/kala-kriti";
-mongoose
-  .connect(mongoURI)
-  .then(() => console.log("MongoDB Connected!"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kala-kriti', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // App and Port Setup
 const app = express();
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 3000;
 
 // Logger and Error Handler Middlewares
 const logger = require("./middlewares/logger");
@@ -71,6 +72,7 @@ const galleryRoutes = require("./routes/gallery");
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/gallery", galleryRoutes);
+app.use("/artworks", artworksRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -85,7 +87,13 @@ app.get("/data/artwork.json", (req, res) => {
 
 // Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  const token = req.cookies.token;
+  
+  if (token) {
+    res.redirect('/homepage');
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.get("/contact", (req, res) => {
@@ -139,8 +147,37 @@ app.get("/admin", isAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/events", (req, res) => {
-  res.render("events.ejs");
+app.get("/events", async (req, res) => {
+  try {
+    // Fetch events from the database
+    const upcomingOfflineEvents = await Event.find({ 
+      type: 'Offline', 
+      endTime: { $gt: new Date() }
+    }).sort({ startTime: 1 }).limit(5);
+    
+    const upcomingOnlineEvents = await Event.find({ 
+      type: 'Online', 
+      endTime: { $gt: new Date() }
+    }).sort({ startTime: 1 }).limit(5);
+    
+    const pastEvents = await Event.find({ 
+      endTime: { $lt: new Date() } 
+    }).sort({ endTime: -1 }).limit(5);
+    
+    const calendarEvents = await Event.find({
+      endTime: { $gt: new Date() }
+    }).sort({ startTime: 1 }).limit(10);
+    
+    res.render("events.ejs", { 
+      upcomingOfflineEvents,
+      upcomingOnlineEvents,
+      pastEvents,
+      calendarEvents
+    });
+  } catch (err) {
+    console.error("Error fetching events:", err);
+    res.status(500).send("Server error");
+  }
 });
 
 app.get("/news", (req, res) => {
@@ -154,8 +191,7 @@ app.get("/artists", (req, res) => {
 });
 
 app.get("/buy", (req, res) => {
-  const artworks = require("./data/artwork.json");
-  res.render("buy", { artworks });
+  res.redirect("/artworks");
 });
 
 app.get("/sell", isAuthenticated, (req, res) => {
@@ -166,12 +202,12 @@ app.get("/cart", isAuthenticated, (req, res) => {
   res.render("cart.ejs", { user: req.user });
 });
 
-app.get("/favorites", isAuthenticated, (req, res) => {
-  res.render("favorites.ejs", { user: req.user });
-});
-
 app.get("/portfolio", isAuthenticated, (req, res) => {
   res.render("portfolio.ejs", { user: req.user });
+});
+
+app.get("/homepage", isAuthenticated, (req, res) => {
+  res.render("index.ejs", { user: req.user });
 });
 
 // Handle 404 Errors

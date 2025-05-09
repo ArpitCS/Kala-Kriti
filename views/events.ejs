@@ -35,160 +35,44 @@
       
       <!-- Events Slider -->
       <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
-        <!-- Event 1 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/fe/1b/6d/fe1b6dbecf9616490acd6eb465c25e48.jpg"
-              alt="Sculpture Exhibition"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Jan 15, 2025</p>
+        <% if (upcomingOfflineEvents && upcomingOfflineEvents.length > 0) { %>
+          <% upcomingOfflineEvents.forEach(event => { %>
+            <!-- Event Card -->
+            <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div class="relative h-48">
+                <img
+                  src="<%= event.imageUrl || 'https://i.pinimg.com/736x/fe/1b/6d/fe1b6dbecf9616490acd6eb465c25e48.jpg' %>"
+                  alt="<%= event.name %>"
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+                  <p class="text-sm font-medium"><%= new Date(event.startTime).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) %></p>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3 class="text-lg font-semibold mb-2"><%= event.name %></h3>
+                <div class="flex items-center text-gray-600 text-sm mb-2">
+                  <i class="far fa-clock mr-2"></i>
+                  <span><%= new Date(event.startTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %> - <%= new Date(event.endTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %></span>
+                </div>
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                  <i class="fas fa-map-marker-alt mr-2"></i>
+                  <span><%= event.location %></span>
+                </div>
+                <div class="flex items-center text-gray-600 text-sm mb-4">
+                  <span class="bg-gray-100 rounded-full px-3 py-1"><%= event.category %></span>
+                </div>
+                <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+                  View Details
+                </a>
+              </div>
             </div>
+          <% }) %>
+        <% } else { %>
+          <div class="text-center w-full py-8">
+            <p class="text-gray-500">No upcoming offline events at the moment.</p>
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Sculpture Exhibition</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>10:00 AM - 4:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Downtown Art Center</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 2 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/a1/3e/25/a13e25eb158e80e1144caee6cbeaefaf.jpg"
-              alt="Painting Workshop"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Feb 5, 2025</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Painting Workshop</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>9:00 AM - 12:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Creative Arts Studio</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 3 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/4c/20/de/4c20def9197e065fd274795454ffac5c.jpg"
-              alt="Photography Meetup"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Mar 12, 2025</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>1:00 PM - 4:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Urban Gallery</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 4 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/b2/17/47/b217472c84ae54592acfb8b117780fa2.jpg"
-              alt="Nature Photography Workshop"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Apr 18, 2025</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Nature Photography Workshop</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>9:00 AM - 5:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Riverside Park</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 5 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/4a/88/d1/4a88d1392deb156c54a9de0c1a04ec14.jpg"
-              alt="Street Art Tour"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">May 9, 2025</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Street Art Tour</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>2:00 PM - 6:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Downtown District</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Street Art</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
+        <% } %>
       </div>
       
       <div class="text-center mt-8">
@@ -198,7 +82,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Upcoming Online Events Section -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
@@ -209,141 +93,47 @@
       
       <!-- Events Slider -->
       <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
-        <!-- Event 1 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/pieces-thubnail-666-x-400-px-673b9b0fca083920734255.jpg"
-              alt="Online Sculpture Exhibition"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Jan 15, 2025</p>
+        <% if (upcomingOnlineEvents && upcomingOnlineEvents.length > 0) { %>
+          <% upcomingOnlineEvents.forEach(event => { %>
+            <!-- Event Card -->
+            <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div class="relative h-48">
+                <img
+                  src="<%= event.imageUrl || 'https://thumbs2.follow.art/thumbs/event_list_xxxl/pieces-thubnail-666-x-400-px-673b9b0fca083920734255.jpg' %>"
+                  alt="<%= event.name %>"
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+                  <p class="text-sm font-medium"><%= new Date(event.startTime).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) %></p>
+                </div>
+                <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  ONLINE
+                </div>
+              </div>
+              <div class="p-5">
+                <h3 class="text-lg font-semibold mb-2"><%= event.name %></h3>
+                <div class="flex items-center text-gray-600 text-sm mb-2">
+                  <i class="far fa-clock mr-2"></i>
+                  <span><%= new Date(event.startTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %> - <%= new Date(event.endTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %></span>
+                </div>
+                <div class="flex items-center text-gray-600 text-sm mb-3">
+                  <i class="fas fa-video mr-2"></i>
+                  <span><%= event.platform || 'Online' %></span>
+                </div>
+                <div class="flex items-center text-gray-600 text-sm mb-4">
+                  <span class="bg-gray-100 rounded-full px-3 py-1"><%= event.category %></span>
+                </div>
+                <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+                  View Details
+                </a>
+              </div>
             </div>
-            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-              ONLINE
-            </div>
+          <% }) %>
+        <% } else { %>
+          <div class="text-center w-full py-8">
+            <p class="text-gray-500">No upcoming online events at the moment.</p>
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Sculpture Exhibition</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>10:00 AM - 4:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-video mr-2"></i>
-              <span>Zoom</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 2 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://thumbs2.follow.art/thumbs/event_list_xxl/8b92d5a7-344c-4e8f-acad-27b33d884301-6768ac781d2b8547885942.jpg"
-              alt="Online Painting Workshop"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Feb 5, 2025</p>
-            </div>
-            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-              ONLINE
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Painting Workshop</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>9:00 AM - 12:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-video mr-2"></i>
-              <span>Google Meet</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 3 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/locandina-sara-thumbnail-674ecf2b97b4e516579006.jpg"
-              alt="Online Photography Meetup"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Mar 12, 2025</p>
-            </div>
-            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-              ONLINE
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>1:00 PM - 4:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-video mr-2"></i>
-              <span>Zoom</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 4 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://thumbs2.follow.art/thumbs/event_list_xxxl/thumbnail-666-x-400-px-673744768c385236941491.jpg"
-              alt="Online Nature Photography Workshop"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Apr 18, 2025</p>
-            </div>
-            <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-              ONLINE
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Nature Photography Workshop</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="far fa-clock mr-2"></i>
-              <span>9:00 AM - 5:00 PM</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-3">
-              <i class="fas fa-video mr-2"></i>
-              <span>Skype</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Details
-            </a>
-          </div>
-        </div>
+        <% } %>
       </div>
       
       <div class="text-center mt-8">
@@ -353,7 +143,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Past Events Section -->
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
@@ -364,86 +154,40 @@
       
       <!-- Events Slider -->
       <div class="flex overflow-x-auto pb-6 -mx-4 px-4 space-x-6 scrollbar-hide">
-        <!-- Event 1 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/9d/c7/2f/9dc72fc53cd7f5dd2a9a3370d3fc2b4a.jpg"
-              alt="Photography Meetup"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Oct 5, 2024</p>
+        <% if (pastEvents && pastEvents.length > 0) { %>
+          <% pastEvents.forEach(event => { %>
+            <!-- Event Card -->
+            <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div class="relative h-48">
+                <img
+                  src="<%= event.imageUrl || 'https://i.pinimg.com/736x/9d/c7/2f/9dc72fc53cd7f5dd2a9a3370d3fc2b4a.jpg' %>"
+                  alt="<%= event.name %>"
+                  class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                />
+                <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
+                  <p class="text-sm font-medium"><%= new Date(event.startTime).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) %></p>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3 class="text-lg font-semibold mb-2"><%= event.name %></h3>
+                <div class="flex items-center text-gray-600 text-sm mb-2">
+                  <i class="fas fa-map-marker-alt mr-2"></i>
+                  <span><%= event.location %></span>
+                </div>
+                <div class="flex items-center text-gray-600 text-sm mb-4">
+                  <span class="bg-gray-100 rounded-full px-3 py-1"><%= event.category %></span>
+                </div>
+                <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
+                  View Gallery
+                </a>
+              </div>
             </div>
+          <% }) %>
+        <% } else { %>
+          <div class="text-center w-full py-8">
+            <p class="text-gray-500">No past events to display.</p>
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Photography Meetup</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Downtown Photography Studio</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Photography</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Gallery
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 2 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/71/8a/7c/718a7c64fd9dabf15744a4bb75a4f6c1.jpg"
-              alt="Painting Exhibition"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Nov 18, 2024</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Painting Exhibition</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Grand Art Gallery</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Painting</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Gallery
-            </a>
-          </div>
-        </div>
-        
-        <!-- Event 3 -->
-        <div class="flex-shrink-0 w-72 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="relative h-48">
-            <img
-              src="https://i.pinimg.com/736x/03/b5/ab/03b5ab446c1606ac6b337cac71d7a4e4.jpg"
-              alt="Sculpture Workshop"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-            />
-            <div class="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white py-1 px-3">
-              <p class="text-sm font-medium">Dec 1, 2024</p>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="text-lg font-semibold mb-2">Sculpture Workshop</h3>
-            <div class="flex items-center text-gray-600 text-sm mb-2">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Sculpture Arts Studio</span>
-            </div>
-            <div class="flex items-center text-gray-600 text-sm mb-4">
-              <span class="bg-gray-100 rounded-full px-3 py-1">Sculpture</span>
-            </div>
-            <a href="#" class="block text-center px-4 py-2 border border-black text-black font-medium rounded-md hover:bg-black hover:text-white transition-colors duration-200">
-              View Gallery
-            </a>
-          </div>
-        </div>
+        <% } %>
       </div>
       
       <div class="text-center mt-8">
@@ -453,7 +197,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Event Calendar Section -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
@@ -463,131 +207,53 @@
       </div>
       
       <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
-        <table class="w-full min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-800 text-white">
-            <tr>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Event Name</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Date</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Time</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Venue</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Category</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold">Mode</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200">
-            <!-- Event 1 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Sculpture Exhibition</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">January 15, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">10:00 AM - 4:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Downtown Art Center</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Sculpture</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
-              </td>
-            </tr>
-            
-            <!-- Event 2 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Painting Workshop</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">February 5, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 12:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Creative Arts Studio</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Painting</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
-              </td>
-            </tr>
-            
-            <!-- Event 3 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Photography Meetup</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">March 12, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">1:00 PM - 4:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Urban Gallery</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Photography</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
-              </td>
-            </tr>
-            
-            <!-- Event 4 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Nature Photography Workshop</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">April 18, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 5:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Riverside Park</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Photography</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
-              </td>
-            </tr>
-            
-            <!-- Event 5 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Street Art Tour</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">May 9, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">2:00 PM - 6:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Downtown District</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Street Art</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
-              </td>
-            </tr>
-            
-            <!-- Event 6 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Sculpture Exhibition (Online)</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">January 15, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">10:00 AM - 4:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Meet</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Sculpture</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded-full">Online</span>
-              </td>
-            </tr>
-            
-            <!-- Event 7 -->
-            <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="font-medium">Painting Workshop (Online)</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">February 5, 2025</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">9:00 AM - 12:00 PM</td>
-              <td class="px-6 py-4 whitespace-nowrap text-gray-600">Zoom</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full">Painting</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded-full">Online</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <% if (calendarEvents && calendarEvents.length > 0) { %>
+          <table class="w-full min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-800 text-white">
+              <tr>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Event Name</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Date</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Time</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Venue</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Category</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Mode</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <% calendarEvents.forEach(event => { %>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="font-medium"><%= event.name %></span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-600">
+                    <%= new Date(event.startTime).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}) %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-600">
+                    <%= new Date(event.startTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %> - 
+                    <%= new Date(event.endTime).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'}) %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-600">
+                    <%= event.type === 'Online' ? (event.platform || 'Online') : event.location %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded-full"><%= event.category %></span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <% if (event.type === 'Online') { %>
+                      <span class="bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded-full">Online</span>
+                    <% } else { %>
+                      <span class="bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded-full">Offline</span>
+                    <% } %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <div class="text-center py-8">
+            <p class="text-gray-500">No upcoming events scheduled.</p>
+          </div>
+        <% } %>
       </div>
     </div>
   </section>
