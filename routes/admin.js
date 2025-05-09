@@ -25,10 +25,28 @@ router.use(isAuthenticated, isAdmin);
 // Get dashboard data
 router.get('/dashboard', async (req, res) => {
   try {
+    // Get current counts
     const users = await User.countDocuments();
     const artworks = await Artwork.countDocuments();
     const events = await Event.countDocuments();
     const orders = await Order.countDocuments();
+    
+    // Get last month's counts for growth calculation
+    const lastMonth = new Date();
+    lastMonth.setMonth(lastMonth.getMonth() - 1);
+    lastMonth.setDate(1);
+    lastMonth.setHours(0, 0, 0, 0);
+    
+    const prevUsers = await User.countDocuments({ createdAt: { $lt: lastMonth } });
+    const prevArtworks = await Artwork.countDocuments({ createdAt: { $lt: lastMonth } });
+    const prevEvents = await Event.countDocuments({ createdAt: { $lt: lastMonth } });
+    const prevOrders = await Order.countDocuments({ orderDate: { $lt: lastMonth } });
+    
+    // Calculate growth percentages
+    const userGrowth = prevUsers > 0 ? Math.round(((users - prevUsers) / prevUsers) * 100) : 100;
+    const artworkGrowth = prevArtworks > 0 ? Math.round(((artworks - prevArtworks) / prevArtworks) * 100) : 100;
+    const eventGrowth = prevEvents > 0 ? Math.round(((events - prevEvents) / prevEvents) * 100) : 100;
+    const orderGrowth = prevOrders > 0 ? Math.round(((orders - prevOrders) / prevOrders) * 100) : 100;
     
     // Get recent activities
     const recentOrders = await Order.find()
@@ -44,13 +62,53 @@ router.get('/dashboard', async (req, res) => {
         profilePicture: order.user.profilePicture
       },
       action: 'Purchased',
-      resource: `Artwork${order.items.length > 1 ? 's' : ''}: ${order.items.map(item => item.title).join(', ')}`,
+      resource: `Artwork${order.items.length > 1 ? 's' : ''}: ${order.items.map(item => item.artwork.title).join(', ')}`,
       timestamp: order.orderDate
     }));
     
+    // Get recent artworks
+    const recentArtworks = await Artwork.find()
+      .sort({ createdAt: -1 })
+      .limit(3);
+      
+    recentArtworks.forEach(artwork => {
+      activities.push({
+        user: {
+          id: 'system',
+          name: 'System',
+          profilePicture: '/default.jpg'
+        },
+        action: 'Added',
+        resource: `New Artwork: ${artwork.title} by ${artwork.artist}`,
+        timestamp: artwork.createdAt
+      });
+    });
+    
+    // Get recent events
+    const recentEvents = await Event.find()
+      .sort({ createdAt: -1 })
+      .limit(3);
+      
+    recentEvents.forEach(event => {
+      activities.push({
+        user: {
+          id: 'system',
+          name: 'System',
+          profilePicture: '/default.jpg'
+        },
+        action: 'Created',
+        resource: `New Event: ${event.name}`,
+        timestamp: event.createdAt
+      });
+    });
+    
+    // Sort all activities by timestamp
+    activities.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    
     res.json({
       counts: { users, artworks, events, orders },
-      activities
+      growth: { users: userGrowth, artworks: artworkGrowth, events: eventGrowth, orders: orderGrowth },
+      activities: activities.slice(0, 10) // Limit to 10 activities
     });
   } catch (error) {
     console.error('Error fetching dashboard data:', error);
@@ -65,6 +123,50 @@ router.get('/users', async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/users', async (req, res) => {
+  try {
+    const { username, email, fullName, password, role } = req.body;
+    
+    // Check if username or email already exists
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return res.status(400).json({ 
+        message: existingUser.username === username 
+          ? 'Username is already taken' 
+          : 'Email is already registered' 
+      });
+    }
+    
+    // Create new user
+    const newUser = new User({
+      username,
+      email,
+      fullName,
+      password, // Will be hashed by the pre-save hook in the User model
+      role: role || 'user'
+    });
+    
+    const savedUser = await newUser.save();
+    
+    // Return user without password
+    res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: savedUser._id,
+        username: savedUser.username,
+        email: savedUser.email,
+        fullName: savedUser.fullName,
+        role: savedUser.role,
+        profilePicture: savedUser.profilePicture,
+        createdAt: savedUser.createdAt
+      }
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });

@@ -42,19 +42,15 @@ const {
 // Set View Engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.locals.rmWhitespace = true; // Remove whitespace
+app.locals.outputFunctionName = "echo"; // Custom output function name
 
 // Middleware Setup
 app.use(logger);
 app.use(cors());
 app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      "default-src": ["*"],
-      "img-src": ["'self'", "https: data:"],
-      "script-src": ["*", "'unsafe-inline'"],
-      "script-src-attr": ["*", "'unsafe-inline'"],
-    },
+  helmet({
+    contentSecurityPolicy: false, // Disable CSP initially to fix EJS rendering issues
   })
 );
 app.use(cookieParser());
@@ -63,6 +59,19 @@ app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-E
 
 // Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
+
+// Add middleware to set content type for HTML responses only
+app.use((req, res, next) => {
+  const originalSend = res.send;
+  res.send = function(body) {
+    // Only set content-type for HTML responses, not for static files
+    if (typeof body === 'string' && body.startsWith('<!DOCTYPE html>')) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    }
+    return originalSend.call(this, body);
+  };
+  next();
+});
 
 // API Routes
 const authRoutes = require("./routes/auth");
@@ -134,6 +143,36 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
   }
 });
 
+app.get("/admin-test", isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user.role !== "admin") {
+      return res.status(403).redirect('/error?message=Access denied. Admin privileges required.');
+    }
+    
+    // Get initial counts for dashboard
+    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all([
+      User.countDocuments(),
+      Artwork.countDocuments(),
+      Event.countDocuments(),
+      Order.countDocuments()
+    ]);
+    
+    res.render("admin-test.ejs", { 
+      user: user,
+      counts: {
+        users: userCount,
+        artworks: artworkCount,
+        events: eventCount,
+        orders: orderCount
+      }
+    });
+  } catch (err) {
+    console.error("Error accessing admin test page:", err);
+    res.status(500).redirect('/error?message=Server error');
+  }
+});
+
 app.get("/admin", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -149,7 +188,7 @@ app.get("/admin", isAuthenticated, async (req, res) => {
       Order.countDocuments()
     ]);
     
-    res.render("admin", { 
+    res.render("admin.ejs", { 
       user: user,
       counts: {
         users: userCount,
