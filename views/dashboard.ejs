@@ -99,6 +99,10 @@
                   
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
+                      <p class="text-sm text-gray-500">Username</p>
+                      <p><%= user.username %></p>
+                    </div>
+                    <div>
                       <p class="text-sm text-gray-500">Email</p>
                       <p><%= user.email %></p>
                     </div>
@@ -106,11 +110,54 @@
                       <p class="text-sm text-gray-500">Phone Number</p>
                       <p><%= user.phoneNumber || 'Not provided' %></p>
                     </div>
+                    <div>
+                      <p class="text-sm text-gray-500">Personal Website</p>
+                      <p>
+                        <% if (user.socialMedia && user.socialMedia.website) { %>
+                          <a href="<%= user.socialMedia.website %>" target="_blank" class="text-blue-600 hover:underline">
+                            <i class="fas fa-globe mr-1"></i><%= user.socialMedia.website %>
+                          </a>
+                        <% } else { %>
+                          Not provided
+                        <% } %>
+                      </p>
+                    </div>
                   </div>
                   
-                  <div class="mb-4">
-                    <p class="text-sm text-gray-500">Bio</p>
+                  <div class="mb-6">
+                    <p class="text-sm text-gray-500 mb-2">Bio</p>
                     <p class="text-gray-700"><%= user.bio || 'No bio information provided.' %></p>
+                  </div>
+                  
+                  <!-- Social Media Links -->
+                  <div>
+                    <p class="text-sm text-gray-500 mb-2">Social Media</p>
+                    <div class="flex flex-wrap gap-4">
+                      <% if (user.socialMedia && user.socialMedia.instagram) { %>
+                        <a href="https://instagram.com/<%= user.socialMedia.instagram %>" target="_blank" class="flex items-center text-gray-700 hover:text-pink-600">
+                          <i class="fab fa-instagram text-xl mr-1"></i>
+                          <span>@<%= user.socialMedia.instagram %></span>
+                        </a>
+                      <% } %>
+                      
+                      <% if (user.socialMedia && user.socialMedia.twitter) { %>
+                        <a href="https://twitter.com/<%= user.socialMedia.twitter %>" target="_blank" class="flex items-center text-gray-700 hover:text-blue-500">
+                          <i class="fab fa-twitter text-xl mr-1"></i>
+                          <span>@<%= user.socialMedia.twitter %></span>
+                        </a>
+                      <% } %>
+                      
+                      <% if (user.socialMedia && user.socialMedia.facebook) { %>
+                        <a href="<%= user.socialMedia.facebook.startsWith('http') ? user.socialMedia.facebook : 'https://facebook.com/' + user.socialMedia.facebook %>" target="_blank" class="flex items-center text-gray-700 hover:text-blue-700">
+                          <i class="fab fa-facebook text-xl mr-1"></i>
+                          <span><%= user.socialMedia.facebook %></span>
+                        </a>
+                      <% } %>
+                      
+                      <% if (!user.socialMedia || (!user.socialMedia.instagram && !user.socialMedia.twitter && !user.socialMedia.facebook)) { %>
+                        <span class="text-gray-500">No social media accounts provided.</span>
+                      <% } %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -282,6 +329,19 @@
           if (overviewProfilePic) {
             overviewProfilePic.src = user.profilePicture || '/uploads/profile/default.jpg';
           }
+          
+          // Log user data to console for debugging
+          console.log('User profile data:', {
+            username: user.username,
+            fullName: user.fullName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            bio: user.bio,
+            website: user.socialMedia && user.socialMedia.website,
+            instagram: user.socialMedia && user.socialMedia.instagram,
+            twitter: user.socialMedia && user.socialMedia.twitter,
+            facebook: user.socialMedia && user.socialMedia.facebook
+          });
           
           // Update activity summary
           updateActivitySummary();

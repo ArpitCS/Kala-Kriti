@@ -80,13 +80,6 @@
                       </button>
                     </div>
                   </div>
-                  
-                  <!-- Always visible favorite button -->
-                  <div class="absolute top-2 right-2 z-10">
-                    <button class="favorite-btn bg-white p-2 rounded-full shadow-sm" onclick="toggleFavorite('<%= artwork._id || artwork.id %>')">
-                      <i class="fa-regular fa-heart"></i>
-                    </button>
-                  </div>
                 </div>
                 <div class="p-4">
                   <h3 class="font-medium text-gray-900"><%= artwork.title %></h3>
@@ -117,23 +110,25 @@
                `/gallery/filter/${activeCategory}` : 
                '/gallery'; %>
                
-            <a href="<%= currentUrl %>&page=<%= Math.max(1, currentPage-1) %>" 
+            <% const pageParamPrefix = currentUrl.includes('?') ? '&' : '?'; %>
+               
+            <a href="<%= currentUrl %><%= pageParamPrefix %>page=<%= Math.max(1, currentPage-1) %>" 
                class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 <%= currentPage <= 1 ? 'opacity-50 pointer-events-none' : '' %>">
               <i class="fas fa-chevron-left"></i>
             </a>
             
             <% for(let i = 1; i <= Math.min(5, totalPages); i++) { %>
-              <a href="<%= currentUrl %>&page=<%= i %>" 
+              <a href="<%= currentUrl %><%= pageParamPrefix %>page=<%= i %>" 
                  class="px-4 py-2 border border-gray-300 rounded-md <%= currentPage === i ? 'text-gray-700 bg-gray-50 font-medium' : 'text-gray-500 hover:bg-gray-50' %>"><%= i %></a>
             <% } %>
             
             <% if (totalPages > 5) { %>
               <span class="px-2 text-gray-500">...</span>
-              <a href="<%= currentUrl %>&page=<%= totalPages %>" 
+              <a href="<%= currentUrl %><%= pageParamPrefix %>page=<%= totalPages %>" 
                  class="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50"><%= totalPages %></a>
             <% } %>
             
-            <a href="<%= currentUrl %>&page=<%= Math.min(totalPages, currentPage+1) %>" 
+            <a href="<%= currentUrl %><%= pageParamPrefix %>page=<%= Math.min(totalPages, currentPage+1) %>" 
                class="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 <%= currentPage >= totalPages ? 'opacity-50 pointer-events-none' : '' %>">
               <i class="fas fa-chevron-right"></i>
             </a>
