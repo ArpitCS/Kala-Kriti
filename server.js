@@ -20,12 +20,13 @@ const Order = require("./models/Orders");
 dotenv.config();
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kala-kriti', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/kala-kriti", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // App and Port Setup
 const app = express();
@@ -50,7 +51,21 @@ app.use(logger);
 app.use(cors());
 app.use(
   helmet({
-    contentSecurityPolicy: false, // Disable CSP initially to fix EJS rendering issues
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+    crossOriginResourcePolicy: false,
+    dnsPrefetchControl: false,
+    expectCt: false,
+    frameguard: false,
+    hidePoweredBy: false,
+    hsts: false,
+    ieNoOpen: false,
+    noSniff: false,
+    originAgentCluster: false,
+    permittedCrossDomainPolicies: false,
+    referrerPolicy: false,
+    xssFilter: false
   })
 );
 app.use(cookieParser());
@@ -63,10 +78,10 @@ app.use(express.static(path.join(__dirname, "public")));
 // Add middleware to set content type for HTML responses only
 app.use((req, res, next) => {
   const originalSend = res.send;
-  res.send = function(body) {
+  res.send = function (body) {
     // Only set content-type for HTML responses, not for static files
-    if (typeof body === 'string' && body.startsWith('<!DOCTYPE html>')) {
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    if (typeof body === "string" && body.startsWith("<!DOCTYPE html>")) {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
     }
     return originalSend.call(this, body);
   };
@@ -82,6 +97,7 @@ const cartRoutes = require("./routes/cart");
 const checkoutRoutes = require("./routes/checkout");
 const eventsRoutes = require("./routes/events");
 const adminRoutes = require("./routes/admin");
+const newsRoutes = require("./routes/news");
 
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
@@ -92,6 +108,7 @@ app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
 app.use("/events", eventsRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/news", newsRoutes);
 
 app.get("/data/artwork.json", (req, res) => {
   const filePath = path.join(__dirname, "data", "artwork.json");
@@ -107,11 +124,11 @@ app.get("/data/artwork.json", (req, res) => {
 // Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {
   const token = req.cookies.token;
-  
+
   if (token) {
-    res.redirect('/homepage');
+    res.redirect("/homepage");
   } else {
-    res.redirect('/login');
+    res.redirect("/login");
   }
 });
 
@@ -147,29 +164,33 @@ app.get("/admin-test", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (user.role !== "admin") {
-      return res.status(403).redirect('/error?message=Access denied. Admin privileges required.');
+      return res
+        .status(403)
+        .redirect("/error?message=Access denied. Admin privileges required.");
     }
-    
+
     // Get initial counts for dashboard
-    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all([
-      User.countDocuments(),
-      Artwork.countDocuments(),
-      Event.countDocuments(),
-      Order.countDocuments()
-    ]);
-    
-    res.render("admin-test.ejs", { 
+    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all(
+      [
+        User.countDocuments(),
+        Artwork.countDocuments(),
+        Event.countDocuments(),
+        Order.countDocuments(),
+      ]
+    );
+
+    res.render("admin-test.ejs", {
       user: user,
       counts: {
         users: userCount,
         artworks: artworkCount,
         events: eventCount,
-        orders: orderCount
-      }
+        orders: orderCount,
+      },
     });
   } catch (err) {
     console.error("Error accessing admin test page:", err);
-    res.status(500).redirect('/error?message=Server error');
+    res.status(500).redirect("/error?message=Server error");
   }
 });
 
@@ -177,36 +198,34 @@ app.get("/admin", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (user.role !== "admin") {
-      return res.status(403).redirect('/error?message=Access denied. Admin privileges required.');
+      return res
+        .status(403)
+        .redirect("/error?message=Access denied. Admin privileges required.");
     }
-    
+
     // Get initial counts for dashboard
-    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all([
-      User.countDocuments(),
-      Artwork.countDocuments(),
-      Event.countDocuments(),
-      Order.countDocuments()
-    ]);
-    
-    res.render("admin.ejs", { 
+    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all(
+      [
+        User.countDocuments(),
+        Artwork.countDocuments(),
+        Event.countDocuments(),
+        Order.countDocuments(),
+      ]
+    );
+
+    res.render("admin.ejs", {
       user: user,
       counts: {
         users: userCount,
         artworks: artworkCount,
         events: eventCount,
-        orders: orderCount
-      }
+        orders: orderCount,
+      },
     });
   } catch (err) {
     console.error("Error accessing admin page:", err);
-    res.status(500).redirect('/error?message=Server error');
+    res.status(500).redirect("/error?message=Server error");
   }
-});
-
-app.get("/news", (req, res) => {
-  res.render("news", {
-    newsApiKey: process.env.NEWS_API_KEY || "9d4d7f3138cc49faa95dde0b3f2ad6d7",
-  });
 });
 
 app.get("/artists", (req, res) => {
@@ -219,6 +238,10 @@ app.get("/buy", (req, res) => {
 
 app.get("/sell", isAuthenticated, (req, res) => {
   res.render("sell", { user: req.user });
+});
+
+app.get("/news", (req, res) => {
+  res.render("news.ejs");
 });
 
 app.get("/wishlist", isAuthenticated, (req, res) => {
