@@ -1,70 +1,56 @@
-# Dependencies
-/node_modules
-/.pnp
-.pnp.js
-/npm-debug.log*
-/yarn-debug.log*
-/yarn-error.log*
-/package-lock.json
-/yarn.lock
-
-# Build & distribution
-/dist
-/build
-/out
-/.next/
-/out/
-/.nuxt/
-/.output/
+# Node modules
+node_modules/
 
 # Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.development
+.env.test
+.env.production
 
-# IDE & editors
-/.vscode/
-/.idea/
-/.DS_Store
-/*.sublime-project
-/*.sublime-workspace
-*.swp
-*.swo
+# Build files
+/build
+/dist
+/.next
+/out
 
-# Testing
-/coverage
-/.nyc_output
-
-# Debug logs
+# Logs
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# System Files
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 .DS_Store
-Thumbs.db
-desktop.ini
 
-# Temporary files
-*.tmp
-*.temp
-.cache/
+# Dependency directories
+/.pnp
+.pnp.js
 
-# Media files (optional)
-# *.jpg
-# *.jpeg
-# *.png
-# *.gif
-# *.svg
+# Testing
+/coverage
 
-# Backup files
-*.bak
-*.backup
-*~
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Development Assets
-/development-assets
+# Local Netlify folder
+.netlify
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache

@@ -20,13 +20,8 @@ const Order = require("./models/Orders");
 dotenv.config();
 
 // MongoDB Connection
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/kala-kriti", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+const connectDB = require("./config/db");
+connectDB();
 
 // App and Port Setup
 const app = express();
@@ -269,7 +264,12 @@ app.get("*", (req, res) => {
 // Error Handler Middleware
 app.use(errorHandler);
 
-// Start the Server
-app.listen(port, () => {
-  console.log(`Kala-Kriti Live @ http://localhost:${port}`);
-});
+// For Vercel serverless deployment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Kala-Kriti Live @ http://localhost:${port}`);
+  });
+}
+
+// Export the Express app for Vercel
+module.exports = app;
