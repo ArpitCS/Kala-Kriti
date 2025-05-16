@@ -54,9 +54,8 @@ exports.redirectIfAuthenticated = (req, res, next) => {
   if (token) {
     try {
       jwt.verify(token, JWT_SECRET);
-      return res.redirect('/dashboard'); // Already logged in, redirect to dashboard
+      return res.redirect('/dashboard');
     } catch (error) {
-      // Token is invalid, clear it and continue
       res.clearCookie('token');
     }
   }

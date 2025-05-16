@@ -43,5 +43,5 @@ const artworkSchema = new mongoose.Schema({
   }
 });
 
-// Fix: Check if model exists before creating it
-module.exports = mongoose.models.Artwork || mongoose.model("Artwork", artworkSchema);
+const Artwork = mongoose.model("Artwork", artworkSchema);
+module.exports = Artwork;

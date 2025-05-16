@@ -64,24 +64,11 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(bodyParser.json()); // For JSON Payloads
-app.use(bodyParser.urlencoded({ extended: true })); // For Form Submission URL-Encoded Payloads
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve Static Files
 app.use(express.static(path.join(__dirname, "public")));
-
-// Add middleware to set content type for HTML responses only
-app.use((req, res, next) => {
-  const originalSend = res.send;
-  res.send = function (body) {
-    // Only set content-type for HTML responses, not for static files
-    if (typeof body === "string" && body.startsWith("<!DOCTYPE html>")) {
-      res.setHeader("Content-Type", "text/html; charset=utf-8");
-    }
-    return originalSend.call(this, body);
-  };
-  next();
-});
 
 // API Routes
 const authRoutes = require("./routes/auth");
@@ -105,17 +92,6 @@ app.use("/events", eventsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/news", newsRoutes);
 
-app.get("/data/artwork.json", (req, res) => {
-  const filePath = path.join(__dirname, "data", "artwork.json");
-  fs.readFile(filePath, "utf8", (err, fileContents) => {
-    if (err) {
-      res.status(404).send("File Not Found");
-      return;
-    }
-    res.status(200).json(JSON.parse(fileContents));
-  });
-});
-
 // Get Routes for rendering views or serving static HTML files
 app.get("/", (req, res) => {
   const token = req.cookies.token;
@@ -131,7 +107,7 @@ app.get("/contact", (req, res) => {
   res.render("contact.ejs");
 });
 
-// Public routes - add redirectIfAuthenticated to prevent authenticated users from accessing login/register
+// Public routes
 app.get("/login", redirectIfAuthenticated, (req, res) => {
   res.render("login.ejs", { error: req.query.error });
 });
@@ -152,40 +128,6 @@ app.get("/dashboard", isAuthenticated, async (req, res) => {
   } catch (err) {
     console.error("Error fetching user data:", err);
     res.status(500).send("Server error");
-  }
-});
-
-app.get("/admin-test", isAuthenticated, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    if (user.role !== "admin") {
-      return res
-        .status(403)
-        .redirect("/error?message=Access denied. Admin privileges required.");
-    }
-
-    // Get initial counts for dashboard
-    const [userCount, artworkCount, eventCount, orderCount] = await Promise.all(
-      [
-        User.countDocuments(),
-        Artwork.countDocuments(),
-        Event.countDocuments(),
-        Order.countDocuments(),
-      ]
-    );
-
-    res.render("admin-test.ejs", {
-      user: user,
-      counts: {
-        users: userCount,
-        artworks: artworkCount,
-        events: eventCount,
-        orders: orderCount,
-      },
-    });
-  } catch (err) {
-    console.error("Error accessing admin test page:", err);
-    res.status(500).redirect("/error?message=Server error");
   }
 });
 
@@ -271,5 +213,3 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Export the Express app for Vercel
-module.exports = app;
