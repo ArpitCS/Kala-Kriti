@@ -155,7 +155,7 @@ router.post('/', isAuthenticated, async (req, res) => {
       imageUrl: req.body.imageUrl,
       category: req.body.category,
       dimensions: req.body.dimensions,
-      artist: req.body.artist || req.user.username,
+      artist: req.body.artist || req.user.fullName,
       location: req.body.location
     });
     
