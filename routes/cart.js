@@ -20,12 +20,6 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// Get cart items as JSON (for AJAX requests)
-router.get('/json', isAuthenticated, async (req, res) => {
-  // Send empty response - cart data will be managed entirely on client side
-  return res.status(200).json({ cart: [] });
-});
-
 // Add item to cart - Now just returns success response, actual cart storage happens in client localStorage
 router.post('/add', isAuthenticated, async (req, res) => {
   try {

@@ -75,7 +75,6 @@ const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
 const galleryRoutes = require("./routes/gallery");
 const wishlistRoutes = require("./routes/wishlist");
-const cartRoutes = require("./routes/cart");
 const checkoutRoutes = require("./routes/checkout");
 const eventsRoutes = require("./routes/events");
 const adminRoutes = require("./routes/admin");
@@ -86,7 +85,6 @@ app.use("/profile", profileRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/artworks", artworksRoutes);
 app.use("/wishlist", wishlistRoutes);
-app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
 app.use("/events", eventsRoutes);
 app.use("/api/admin", adminRoutes);
@@ -165,11 +163,11 @@ app.get("/admin", isAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/artists", (req, res) => {
+app.get("/artists", isAuthenticated, (req, res) => {
   res.render("artists.ejs");
 });
 
-app.get("/buy", (req, res) => {
+app.get("/buy", isAuthenticated,(req, res) => {
   res.redirect("/artworks");
 });
 
@@ -177,7 +175,11 @@ app.get("/sell", isAuthenticated, (req, res) => {
   res.render("sell", { user: req.user });
 });
 
-app.get("/news", (req, res) => {
+app.get("/cart", isAuthenticated, (req, res) => {
+  res.render("cart.ejs");
+});
+
+app.get("/news", isAuthenticated,(req, res) => {
   res.render("news.ejs");
 });
 
